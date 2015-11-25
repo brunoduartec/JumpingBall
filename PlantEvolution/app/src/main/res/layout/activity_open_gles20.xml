@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <com.example.jumping_ball.MyGLSurfaceView
+        android:id="@+id/MyGlSurfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="375dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"></FrameLayout>
+
+    <ImageButton
+        android:layout_width="482dp"
+        android:layout_height="match_parent"
+        android:id="@+id/imageButton"
+        android:src="@drawable/boxcontext" />
+
+</LinearLayout>

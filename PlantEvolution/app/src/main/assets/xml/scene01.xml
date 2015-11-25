@@ -1,0 +1,86 @@
+<scene>
+	<object>
+		<id>cube01</id>
+		<collision type="box">
+			<position>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</position>
+			<scale>
+				<x>1.2</x>
+				<y>.1</y>
+				<z>1.2</z>
+			</scale>
+			<mass>0</mass>
+		</collision>
+		<material type = "SimpleMaterial">
+			<color>
+				<r>100</r>
+				<g>0</g>
+				<b>0</b>
+				<a>255</a>
+			</color>
+		</material>
+	</object>
+
+	<object>
+		<id>cube02</id>
+		<collision type="box">
+			<position>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</position>
+			<scale>
+				<x>.2</x>
+				<y>.2</y>
+				<z>.2</z>
+			</scale>
+			<mass>0</mass>
+		</collision>
+
+	</object>
+
+	<object>
+		<id>cube03</id>
+		<collision type="box">
+			<position>
+				<x>3</x>
+				<y>1</y>
+				<z>0</z>
+			</position>
+			<scale>
+				<x>.2</x>
+				<y>.2</y>
+				<z>.2</z>
+			</scale>
+			<mass>0</mass>
+		</collision>
+
+	</object>
+
+
+
+	<camera>
+		<id>cam01</id>
+		<position>
+			<x>2</x>
+			<y>2</y>
+			<z>-2</z>
+		</position>
+		<target>
+			<x>0</x>
+			<y>0</y>
+			<z>0</z>
+		</target>
+		<fov>30.0</fov>
+		<ratio>0.75</ratio>
+		<nearplane>1.0</nearplane>
+		<farplane>30</farplane>
+
+
+	</camera>
+
+	
+</scene>
