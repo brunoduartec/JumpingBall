@@ -61,6 +61,7 @@ public class Camera2D extends SimpleCamera {
 
     }
 
+
     @Override
     public void CalcProjectionMatrix()
     {
@@ -79,9 +80,9 @@ public class Camera2D extends SimpleCamera {
         final float near = 1.0f;
         final float far = 1000.0f;
 
-       Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
 
-       Matrix.translateM(mProjectionMatrix, 0, -1.0f, 1.0f/ratio, 0); // Multiply by translation to the position
+        Matrix.translateM(mProjectionMatrix, 0, -1.0f, 1.0f/ratio, 0); // Multiply by translation to the position
+        Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
         //	Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, getNearPlane(), getFarPlane());
 
 //		Matrix.orthoM(mProjectionMatrix, 0, 0, width,0, height, -10,100);

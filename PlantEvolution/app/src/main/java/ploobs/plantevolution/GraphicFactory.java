@@ -7,6 +7,8 @@ public class GraphicFactory {
 	
 	private GraphicFactory(){}
 
+	public float getRatio(){ return (float)width/(float)height;}
+
 	public int getWidth() {
 		return width;
 	}
