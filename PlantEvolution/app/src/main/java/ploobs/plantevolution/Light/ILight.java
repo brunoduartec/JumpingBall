@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Light;
 
-import ploobs.plantevolution.IObject;
+import ploobs.plantevolution.World.IObject;
 
 public abstract class ILight extends IObject
 {

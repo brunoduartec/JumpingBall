@@ -2,9 +2,9 @@ package ploobs.plantevolution.Gameplay;
 
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Model.IModel;
-import ploobs.plantevolution.SimpleObject;
-import ploobs.plantevolution.Vector2;
-import ploobs.plantevolution.Vector3;
+import ploobs.plantevolution.World.SimpleObject;
+import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 
 /**
  * Created by Bruno on 21/10/2015.

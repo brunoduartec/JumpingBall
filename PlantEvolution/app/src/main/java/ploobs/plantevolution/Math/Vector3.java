@@ -1,4 +1,4 @@
-package ploobs.plantevolution;
+package ploobs.plantevolution.Math;
 
 
 import static java.lang.StrictMath.sqrt;

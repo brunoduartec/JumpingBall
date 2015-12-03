@@ -23,8 +23,8 @@ public class Camera2D extends SimpleCamera {
         this.setFarPlane(farplane);
 
 
-        float[] pos =  {0.0f, 0.0f, 1.5f};
-        float[] target =  {0.0f, 0.0f, -5.0f};
+        float[] pos =  {0.0f, 0.0f, 1f};
+        float[] target =  {0.0f, 0.0f, 0.0f};
 
 
 
@@ -72,7 +72,7 @@ public class Camera2D extends SimpleCamera {
 
         // Create a new perspective projection matrix. The height will stay the same
         // while the width will vary as per aspect ratio.
-        final float ratio = (float) width / height;
+        final float ratio = GraphicFactory.getInstance().getRatio();
         final float left = -ratio;
         final float right = ratio;
         final float bottom = -1.0f;
@@ -81,8 +81,11 @@ public class Camera2D extends SimpleCamera {
         final float far = 1000.0f;
 
 
-        Matrix.translateM(mProjectionMatrix, 0, -1.0f, 1.0f/ratio, 0); // Multiply by translation to the position
+
         Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
+
+        Matrix.translateM(mProjectionMatrix, 0, -ratio, 1.0f, 0); // Multiply by translation to the position
+
         //	Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, getNearPlane(), getFarPlane());
 
 //		Matrix.orthoM(mProjectionMatrix, 0, 0, width,0, height, -10,100);

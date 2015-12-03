@@ -1,9 +1,11 @@
-package ploobs.plantevolution;
+package ploobs.plantevolution.World;
 
 import android.opengl.Matrix;
 
+import ploobs.plantevolution.ISerializable;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Model.IModel;
+import ploobs.plantevolution.World.IWorld;
 
 
 public abstract class IObject implements ISerializable

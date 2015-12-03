@@ -5,9 +5,9 @@ import android.content.Context;
 import ploobs.plantevolution.Camera.SimpleCamera;
 import ploobs.plantevolution.GraphicFactory;
 
-import ploobs.plantevolution.IObject;
+import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.Material.FaceShadedCubeMaterial;
-import ploobs.plantevolution.SimpleObject;
+import ploobs.plantevolution.World.SimpleObject;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

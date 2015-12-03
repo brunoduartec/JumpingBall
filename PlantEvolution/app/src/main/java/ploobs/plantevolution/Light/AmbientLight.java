@@ -1,9 +1,9 @@
 package ploobs.plantevolution.Light;
 
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.PointLightMaterial;
-import ploobs.plantevolution.Vector3;
+import ploobs.plantevolution.Math.Vector3;
 
 import org.w3c.dom.Node;
 

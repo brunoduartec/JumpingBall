@@ -1,8 +1,8 @@
 package ploobs.plantevolution.Material;
 
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.IObject;
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.MyGLRenderer;
 import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.Camera.ICamera;

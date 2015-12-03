@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Gameplay;
 
-import ploobs.plantevolution.Vector3;
+import ploobs.plantevolution.Math.Vector3;
 
 /**
  * Created by Bruno on 20/10/2015.

@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Scene;
 
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IWorld;
 
 public interface IScene {
 

@@ -1,4 +1,4 @@
-package ploobs.plantevolution;
+package ploobs.plantevolution.World;
 
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Model.Model3D.BoxModel;

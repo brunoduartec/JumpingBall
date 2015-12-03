@@ -1,4 +1,4 @@
-package ploobs.plantevolution;
+package ploobs.plantevolution.World;
 
 import java.util.HashMap;
 import java.util.LinkedList;

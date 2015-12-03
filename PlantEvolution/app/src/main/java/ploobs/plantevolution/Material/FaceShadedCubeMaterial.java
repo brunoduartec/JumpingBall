@@ -1,9 +1,8 @@
 package ploobs.plantevolution.Material;
 
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.IObject;
-import ploobs.plantevolution.IWorld;
-import ploobs.plantevolution.MyGLRenderer;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.RawResourceReader;
 import ploobs.plantevolution.Utils;

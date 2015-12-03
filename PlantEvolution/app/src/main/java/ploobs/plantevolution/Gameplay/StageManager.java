@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Gameplay;
 
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.MyGLRenderer;
 
 /**

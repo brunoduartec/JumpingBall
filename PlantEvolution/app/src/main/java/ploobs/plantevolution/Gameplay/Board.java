@@ -1,13 +1,13 @@
 package ploobs.plantevolution.Gameplay;
 
-import ploobs.plantevolution.IObject;
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
 import ploobs.plantevolution.MyGLRenderer;
 import ploobs.plantevolution.ObjectFactory;
-import ploobs.plantevolution.SimpleObject;
-import ploobs.plantevolution.Vector2;
-import ploobs.plantevolution.Vector3;
+import ploobs.plantevolution.World.SimpleObject;
+import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 
 import java.util.Collections;
 import java.util.LinkedList;

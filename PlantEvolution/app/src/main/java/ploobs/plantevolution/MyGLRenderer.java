@@ -23,14 +23,15 @@ import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
 import ploobs.plantevolution.Component.FpsCounterComponent;
 import ploobs.plantevolution.Component.TimerComponent;
-import ploobs.plantevolution.Gameplay.Board;
 import ploobs.plantevolution.Gameplay.GameConstants;
-import ploobs.plantevolution.Gameplay.NormalBlock;
 import ploobs.plantevolution.Gameplay.StageManager;
-import ploobs.plantevolution.Gameplay.StoneBlock;
 import ploobs.plantevolution.Light.AmbientLight;
+import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Scene.IScene;
 import ploobs.plantevolution.Scene.SimpleScene;
+import ploobs.plantevolution.World.IWorld;
+import ploobs.plantevolution.World.SimpleWorld;
 
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
@@ -154,7 +155,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world2d.getCameraManager().addCamera(cam2D);
         world2d.getCameraManager().setActualCamera("CAM2");
-        world2d.AddObject(ObjectFactory.getInstance().getSquareObject("button", 1.0f, new Vector2(0, 0)));
+      //  world2d.AddObject(ObjectFactory.getInstance().getSquareObject("button", 1.0f, new Vector2(0, 0)));
+        world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
+
 
 
         scene = new SimpleScene(world,world2d);

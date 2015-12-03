@@ -6,8 +6,8 @@ import android.opengl.Matrix;
 
 import ploobs.plantevolution.Camera.ICamera;
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.IObject;
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.RawResourceReader;
 import ploobs.plantevolution.Utils;

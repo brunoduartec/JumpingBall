@@ -1,13 +1,11 @@
 package ploobs.plantevolution.Model.Model3D;
 
 import ploobs.plantevolution.Model.IModel;
-import ploobs.plantevolution.Vector3;
+import ploobs.plantevolution.Math.Vector3;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Bruno on 28/10/2015.

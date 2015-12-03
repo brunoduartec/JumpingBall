@@ -5,10 +5,13 @@ import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.FaceShadedCubeMaterial;
 import ploobs.plantevolution.Material.SimpleSquareMaterial;
+import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Model.Model2D.RectangleModel;
 import ploobs.plantevolution.Model.Model2D.Square;
 import ploobs.plantevolution.Model.Model2D.SquareModel;
 import ploobs.plantevolution.Model.Model3D.BoxModel;
 import ploobs.plantevolution.Model.IModel;
+import ploobs.plantevolution.World.SimpleObject;
 
 public class ObjectFactory {
 	
@@ -109,6 +112,23 @@ public class ObjectFactory {
 		float ratio = GraphicFactory.getInstance().getRatio();
 
 		obj.setScale(new float[]{ratio, ratio, ratio});
+
+
+		return obj;
+	}
+
+	public SimpleObject getRectangleObject(String name, float width, float height, Vector2 pos)
+	{
+		Square sq;
+
+		SimpleObject obj;
+		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
+		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(R.drawable.tiledtemplate);////DiffuseMaterial();
+		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		obj = new SimpleObject(mat1,m1, name);
+
+		obj.setScale(new float[]{1, 1, 1});
+	//	obj.setScale(new float[]{ratio, ratio, ratio});
 
 
 		return obj;

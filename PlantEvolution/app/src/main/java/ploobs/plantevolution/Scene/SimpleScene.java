@@ -2,8 +2,8 @@ package ploobs.plantevolution.Scene;
 
 import android.opengl.GLES30;
 
-import ploobs.plantevolution.IObject;
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
 
 import java.util.Map;
 

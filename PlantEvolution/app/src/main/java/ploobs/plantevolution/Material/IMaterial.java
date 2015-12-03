@@ -1,8 +1,8 @@
 package ploobs.plantevolution.Material;
 
-import ploobs.plantevolution.IObject;
+import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.ISerializable;
-import ploobs.plantevolution.IWorld;
+import ploobs.plantevolution.World.IWorld;
 
 public abstract class IMaterial implements ISerializable
 {
