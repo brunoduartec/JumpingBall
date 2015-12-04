@@ -13,10 +13,10 @@ public class StageManager {
     int actualstage=0;
 IWorld _localworld;
     private float cameradistance;
-    MyGLRenderer.GAMECONTEXT _gamecontext;
+    GameConstants.GAMECONTEXT _gamecontext;
     int size;
 
-    public StageManager(IWorld w,MyGLRenderer.GAMECONTEXT gt)
+    public StageManager(IWorld w,GameConstants.GAMECONTEXT gt)
     {
         this._localworld = w;
         setBoard1(new Board(w));
@@ -66,7 +66,7 @@ IWorld _localworld;
     {
 
 
-        _gamecontext = MyGLRenderer.GAMECONTEXT.BLOCK;
+        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
 
        // _activityhandle.setContextImage(_gamecontext);
 
@@ -102,7 +102,7 @@ IWorld _localworld;
     }
     private void CreateStage2()
     {
-        _gamecontext = MyGLRenderer.GAMECONTEXT.BLOCK;
+        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
         //  _activityhandle.setContextImage(_gamecontext);
         GameConstants.size = 5;
         size = GameConstants.size;
@@ -137,7 +137,7 @@ IWorld _localworld;
 
     private void CreateStage3()
     {
-        _gamecontext = MyGLRenderer.GAMECONTEXT.BLOCK;
+        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
         //  _activityhandle.setContextImage(_gamecontext);
         GameConstants.size = 9;
         size = GameConstants.size;

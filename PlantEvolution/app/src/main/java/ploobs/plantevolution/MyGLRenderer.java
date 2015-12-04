@@ -23,8 +23,10 @@ import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
 import ploobs.plantevolution.Component.FpsCounterComponent;
 import ploobs.plantevolution.Component.TimerComponent;
+import ploobs.plantevolution.GameState.GameStateManager;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
+import ploobs.plantevolution.Gameplay.States.MainScreenState;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
@@ -58,17 +60,19 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this._activityhandle = _activityhandle;
     }
 
-    public enum GAMECONTEXT{PLAYER,BLOCK}
-
-    public enum PLAYERRACTION{JUMP,PUSH}
 
 
-    private GAMECONTEXT _gamecontext = GAMECONTEXT.PLAYER;
 
+
+private GameStateManager gsmanager = new GameStateManager();
 
     private OpenGLES30Activity _activityhandle;
-
     private static final String TAG = "MyGLRenderer";
+   /*
+    private GameConstants.GAMECONTEXT _gamecontext = GameConstants.GAMECONTEXT.PLAYER;
+
+
+
 
     private IWorld world;
     private IWorld world2d;
@@ -100,17 +104,18 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private int iter = 0;//used to made N moves
 
     StageManager stages;
-
+*/
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
 
 
-        this.scale = GameConstants.scale;
+      //  this.scale = GameConstants.scale;
 
         // set the background frame color
         GLES30.glClearColor(0.29f, 0.95f, 0.88f, 1.0f);
-// Use culling to remove back faces.
+
+        // Use culling to remove back faces.
         GLES30.glEnable(GLES30.GL_CULL_FACE);
 
         // Enable depth testing
@@ -119,7 +124,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES30.glEnable(GLES30.GL_BLEND);
         GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
+        gsmanager.Push( new MainScreenState());
 
+/*
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();
         width = metrics.widthPixels;
         height = metrics.heightPixels;
@@ -178,7 +185,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         //SceneXMLParser sceneparser = new SceneXMLParser();
 
         //sceneparser.DOMparseScene(R.xml.scene01,scene);
-
+*/
     }
 
 
@@ -201,7 +208,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
       //  }
 
-
+/*
         //Here in the Prototype 1 i will implement a simple scene management
         if (stages.getBoard1().TestEnd())
            stages.NextStage();
@@ -235,16 +242,18 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         scene.Draw();
-
-
+*/
+        gsmanager.Update();
+        gsmanager.Draw();
     }
-
+/*
     public void RestartStage()
     {
 
         stages.RestartStage();
     }
-
+*/
+    /*
     public GAMECONTEXT ChangeGameContext()
     {
         if (_gamecontext == GAMECONTEXT.BLOCK)
@@ -253,14 +262,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             _gamecontext = GAMECONTEXT.BLOCK;
     return _gamecontext;
     }
-
-
+*/
+/*
     public void setAction(PLAYERRACTION act)
     {
 
         stages.getBoard1().setPlayerAction(act);
     }
-
+*/
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
@@ -269,7 +278,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES30.glViewport(0, 0, width, height);
 
 
-        scene.getWorld().getCameraManager().getActualCamera().Update();
+      //  scene.getWorld().getCameraManager().getActualCamera().Update();
 
 
     }
@@ -300,13 +309,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      *
      * @return - A float representing the rotation angle.
      */
-    public float getAngle() {
+/*    public float getAngle() {
         return mAngle;
     }
-
+*/
     /**
      * Sets the rotation angle of the triangle shape (mTriangle).
      */
+    /*
     public void setAngle(float angle) {
         mAngle = angle;
     }
@@ -377,6 +387,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         }
     }
 
-
+*/
 
 }

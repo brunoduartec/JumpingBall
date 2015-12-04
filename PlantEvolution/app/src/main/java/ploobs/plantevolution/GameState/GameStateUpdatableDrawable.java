@@ -5,24 +5,16 @@ package ploobs.plantevolution.GameState;
  */
 public abstract class GameStateUpdatableDrawable implements IGameState {
     @Override
-    public void Entered() {
-
-    }
+    public abstract void Entered();
 
     @Override
-    public void Leaving() {
-
-    }
+    public abstract void Leaving();
 
     @Override
-    public void Obscuring() {
-
-    }
+    public abstract void Obscuring();
 
     @Override
-    public void Revealed() {
-
-    }
+    public abstract void Revealed();
 
     public abstract void Update();
     public abstract void Draw();

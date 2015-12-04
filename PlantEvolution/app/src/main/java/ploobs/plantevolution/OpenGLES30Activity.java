@@ -62,7 +62,7 @@ public void setContextImage(MyGLRenderer.GAMECONTEXT cc)
 
 		bjump.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				mGLView.getmRenderer().setAction(MyGLRenderer.PLAYERRACTION.JUMP);
+				//mGLView.getmRenderer().setAction(MyGLRenderer.PLAYERRACTION.JUMP);
 
 				// setContextImage(gt);
 
@@ -81,7 +81,7 @@ public void setContextImage(MyGLRenderer.GAMECONTEXT cc)
 
 		bpush.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				mGLView.getmRenderer().setAction(MyGLRenderer.PLAYERRACTION.PUSH);
+		//		mGLView.getmRenderer().setAction(MyGLRenderer.PLAYERRACTION.PUSH);
 
 
 			}

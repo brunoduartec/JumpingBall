@@ -15,7 +15,25 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
     }
 
 
+    @Override
+    public void Entered() {
 
+    }
+
+    @Override
+    public void Leaving() {
+
+    }
+
+    @Override
+    public void Obscuring() {
+
+    }
+
+    @Override
+    public void Revealed() {
+
+    }
 
     @Override
     public void Draw() {

@@ -310,7 +310,7 @@ public void MergeBlock(Block origin, Block destiny)
 
     }
 
-    public void setPlayerAction(MyGLRenderer.PLAYERRACTION act)
+    public void setPlayerAction(GameConstants.PLAYERRACTION act)
     {
 
         switch (act) {

@@ -43,12 +43,31 @@ public class GameStateManager {
 
     public void Update()
     {
+
+        if (actualState.getClass() == GameStateUpdatableDrawable.class)
+        {
+
+            GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
+            up.Update();
+        }
+
         if (actualState.getClass() == TimeBasedGameStateUpdatableDrawable.class)
         {
             TimeBasedGameStateUpdatableDrawable tt = (TimeBasedGameStateUpdatableDrawable)actualState;
             if (tt.isEnded())
                 Pop();
 
+        }
+
+
+    }
+
+    public void Draw()
+    {
+
+        if (actualState.getClass() == GameStateUpdatableDrawable.class) {
+            GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
+            up.Draw();
         }
 
 
