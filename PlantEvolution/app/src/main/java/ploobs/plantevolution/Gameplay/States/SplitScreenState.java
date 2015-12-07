@@ -39,4 +39,9 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
     public void Draw() {
 
     }
+
+    @Override
+    public void HandleEvent() {
+
+    }
 }

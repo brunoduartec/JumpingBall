@@ -1,6 +1,7 @@
 package ploobs.plantevolution.Gameplay.States;
 
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
@@ -11,6 +12,7 @@ import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Input.InputSystem;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
@@ -62,6 +64,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
     StageManager stages;
 
+    private boolean makeMovement = true;
+
     @Override
     public void Entered() {
         this.scale = GameConstants.scale;
@@ -95,7 +99,9 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world2d.getCameraManager().addCamera(cam2D);
         world2d.getCameraManager().setActualCamera("CAM2");
-        world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
+
+
+      //  world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
 
 
 
@@ -135,10 +141,6 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         if (stages.getBoard1().TestEnd())
             stages.NextStage();
 
-
-
-
-
         if (fps.Update()) {
             scene.Update();
 
@@ -156,10 +158,6 @@ public class MainScreenState extends GameStateUpdatableDrawable {
                 }
             }
 
-
-
-
-
         }
 
 
@@ -169,6 +167,59 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     @Override
     public void Draw() {
         scene.Draw();
+    }
+
+    @Override
+    public void HandleEvent() {
+
+        MotionEvent e = InputSystem.getInstance().get_inputEvent();
+        float mPreviousX = InputSystem.getInstance().getmPreviousX();
+        float mPreviousY = InputSystem.getInstance().getmPreviousY();
+
+
+
+
+        float x = e.getX();
+        float y = e.getY();
+
+        switch (e.getAction()) {
+
+
+            case MotionEvent.ACTION_DOWN:
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+                //  mRenderer.changeCamera();
+                makeMovement = true;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+
+                if(makeMovement) {
+                    float dx = x - mPreviousX;
+                    float dy = y - mPreviousY;
+
+                    Vector2 dir = new Vector2(dx, dy);//B-A
+
+
+                    makeMovement = false;
+                    StartMovement(dir);
+                }
+
+        }
+
+       InputSystem.getInstance().setmPreviousX(x);
+        InputSystem.getInstance().setmPreviousY(y);
+
+    }
+
+    public void StartMovement(Vector2 dir)
+    {
+        if (!startmove) {
+            direction = dir;
+            startmove = true;
+        }
     }
 
 

@@ -20,6 +20,7 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import ploobs.plantevolution.Input.InputSystem;
 import ploobs.plantevolution.Math.Vector2;
 
 /**
@@ -81,10 +82,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
     }
 
-    private final float TOUCH_SCALE_FACTOR = 0.02f;
-    private float mPreviousX;
-    private float mPreviousY;
-    private boolean makeMovement = true;
+
 
 
 
@@ -97,45 +95,12 @@ public class MyGLSurfaceView extends GLSurfaceView {
         // and other input controls. In this case, you are only
         // interested in events where the touch position changed.
 
-
-        float x = e.getX();
-        float y = e.getY();
-
-        switch (e.getAction()) {
+        InputSystem.getInstance().set_inputEvent(e);
 
 
-            case MotionEvent.ACTION_DOWN:
-
-                break;
-
-            case MotionEvent.ACTION_UP:
-                //  mRenderer.changeCamera();
-                makeMovement = true;
+        mRenderer.HandleEvent();
 
 
-
-                break;
-
-
-
-            case MotionEvent.ACTION_MOVE:
-
-                if(makeMovement) {
-                    float dx = x - mPreviousX;
-                    float dy = y - mPreviousY;
-
-                    Vector2 dir = new Vector2(dx, dy);//B-A
-
-
-                 makeMovement = false;
-                    getmRenderer().StartMovement(dir);
-                }
-
-                
-        }
-
-        mPreviousX = x;
-        mPreviousY = y;
         return true;
     }
 

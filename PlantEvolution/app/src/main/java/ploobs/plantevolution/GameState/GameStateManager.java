@@ -21,6 +21,7 @@ public class GameStateManager {
             currentStates.peek().Leaving();
             ret = currentStates.pop();
             currentStates.peek().Revealed();
+            actualState = currentStates.peek();
         }
             return ret;
     }
@@ -32,6 +33,7 @@ public class GameStateManager {
 
         currentStates.push(state);
         state.Entered();
+        actualState = currentStates.peek();
     }
 
     public IGameState Peek()
@@ -44,14 +46,14 @@ public class GameStateManager {
     public void Update()
     {
 
-        if (actualState.getClass() == GameStateUpdatableDrawable.class)
+        if (actualState instanceof GameStateUpdatableDrawable)
         {
 
             GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
             up.Update();
         }
 
-        if (actualState.getClass() == TimeBasedGameStateUpdatableDrawable.class)
+        if (actualState instanceof TimeBasedGameStateUpdatableDrawable)
         {
             TimeBasedGameStateUpdatableDrawable tt = (TimeBasedGameStateUpdatableDrawable)actualState;
             if (tt.isEnded())
@@ -65,11 +67,22 @@ public class GameStateManager {
     public void Draw()
     {
 
-        if (actualState.getClass() == GameStateUpdatableDrawable.class) {
+        if (actualState instanceof GameStateUpdatableDrawable) {
             GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
             up.Draw();
         }
 
+
+    }
+
+
+    public void HandleEvent()
+    {
+        if (actualState instanceof GameStateUpdatableDrawable) {
+            GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
+            up.HandleEvent();
+
+        }
 
     }
 

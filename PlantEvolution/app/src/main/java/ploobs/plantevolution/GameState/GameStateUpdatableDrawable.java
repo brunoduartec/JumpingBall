@@ -19,4 +19,6 @@ public abstract class GameStateUpdatableDrawable implements IGameState {
     public abstract void Update();
     public abstract void Draw();
 
+    public abstract void HandleEvent();
+
 }

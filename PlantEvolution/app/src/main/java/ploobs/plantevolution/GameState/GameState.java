@@ -9,4 +9,6 @@ interface IGameState {
     void Leaving();
     void Obscuring();
     void Revealed();
+
+
 }

@@ -335,7 +335,7 @@ public void MergeBlock(Block origin, Block destiny)
         float xtry = p1.getLocalPos().getX()+doubledir.x;
         float ytry = p1.getLocalPos().getZ()+doubledir.y;
 
-Block bprox = BlockExistAt(xtry,ytry);
+        Block bprox = BlockExistAt(xtry,ytry);
         if (bprox==null && testposintheBoard(new Vector2(xtry,ytry)) )
         {
             if (bb.canMove())

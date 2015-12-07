@@ -246,30 +246,7 @@ private GameStateManager gsmanager = new GameStateManager();
         gsmanager.Update();
         gsmanager.Draw();
     }
-/*
-    public void RestartStage()
-    {
 
-        stages.RestartStage();
-    }
-*/
-    /*
-    public GAMECONTEXT ChangeGameContext()
-    {
-        if (_gamecontext == GAMECONTEXT.BLOCK)
-            _gamecontext = GAMECONTEXT.PLAYER;
-        else
-            _gamecontext = GAMECONTEXT.BLOCK;
-    return _gamecontext;
-    }
-*/
-/*
-    public void setAction(PLAYERRACTION act)
-    {
-
-        stages.getBoard1().setPlayerAction(act);
-    }
-*/
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
@@ -304,89 +281,11 @@ private GameStateManager gsmanager = new GameStateManager();
         }
     }
 
-    /**
-     * Returns the rotation angle of the triangle shape (mTriangle).
-     *
-     * @return - A float representing the rotation angle.
-     */
-/*    public float getAngle() {
-        return mAngle;
-    }
-*/
-    /**
-     * Sets the rotation angle of the triangle shape (mTriangle).
-     */
-    /*
-    public void setAngle(float angle) {
-        mAngle = angle;
-    }
-
-
-    public void setPositionDelta(float dx, float dy) {
-        posx = dx;
-        posy = -dy;  // the y axys is inverted
-    }
-
-
-    public void changeCamera() {
-
-        String actualname = world.getCameraManager().getActualCamera().getName();
-        if (actualname.equals("CAM1"))
-            world.getCameraManager().setActualCamera("CAM2");
-        else
-            world.getCameraManager().setActualCamera("CAM1");
-
-
-    }
-
-    float changeVarX = 0.0f;
-    float changeVarY = 0.0f;
-
-    public void setVar(float dx, float dy) {
-        // TODO Auto-generated method stub
-
-        changeVarX += dx;
-        changeVarY += dy;
-
-        //float[] cpos = camera.getPosition();
-
-        //cpos[0]+=dy;
-        //cpos[1]+=dy;
-        //cpos[2]+=dy;
-
-        //camera.setPosition(cpos);
-
-
-    }
-
-    public void DirectionMade(Vector2 dir) {
-
-            if (dir.x > 0 && dir.y < 0)
-                normalizeddirection = new Vector3(0, 0, -1);
-               // board1.MoveBlocks(new Vector3(0, 0, -1));
-            else if (dir.x < 0 && dir.y > 0)
-                normalizeddirection = new Vector3(0, 0, 1);
-               // board1.MoveBlocks(new Vector3(0, 0, 1));
-            else if (dir.x > 0 && dir.y > 0)
-                normalizeddirection = new Vector3(1, 0, 0);
-               // board1.MoveBlocks(new Vector3(1, 0, 0));
-            else
-                normalizeddirection = new Vector3(-1, 0, 0);
-               // board1.MoveBlocks(new Vector3(-1, 0, 0));
-
-        //board1.PlaceRandonBlock();
-
-    }
-
-    public void StartMovement(Vector2 dir)
+    public void HandleEvent()
     {
-
-        if (!startmove) {
-            direction = dir;
-            startmove = true;
-        }
+        gsmanager.HandleEvent();
     }
 
-*/
+
 
 }
