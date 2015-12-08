@@ -49,7 +49,7 @@ public void setContextImage(MyGLRenderer.GAMECONTEXT cc)
 // specifying vertical orientation
 		ll.setOrientation(LinearLayout.HORIZONTAL);
 
-
+/*
 		bjump = new ImageButton(this);
 		bjump.setBackgroundColor(0);
 
@@ -119,6 +119,8 @@ public void setContextImage(MyGLRenderer.GAMECONTEXT cc)
 		});
 		this.addContentView(llr, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
 */
+
+
 	}
 	
 	

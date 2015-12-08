@@ -27,6 +27,7 @@ import ploobs.plantevolution.GameState.GameStateManager;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.Gameplay.States.MainScreenState;
+import ploobs.plantevolution.Gameplay.States.SplitScreenState;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
@@ -125,6 +126,7 @@ private GameStateManager gsmanager = new GameStateManager();
         GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
         gsmanager.Push( new MainScreenState());
+        gsmanager.Push(new SplitScreenState(2000));
 
 /*
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();

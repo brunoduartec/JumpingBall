@@ -30,7 +30,7 @@ private Vector2 _direction;
     private boolean isColiding;
 
 
-    private boolean jumping=true;
+    private boolean jumping;
 
 
     public Player(IMaterial mat, IModel mod, String nm)
