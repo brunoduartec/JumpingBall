@@ -24,7 +24,7 @@ public class Camera2D extends SimpleCamera {
 
 
         float[] pos =  {0.0f, 0.0f, 1f};
-        float[] target =  {0.0f, 0.0f, 0.0f};
+        float[] target =  {0.0f, 0.0f, -3.0f};
 
 
 

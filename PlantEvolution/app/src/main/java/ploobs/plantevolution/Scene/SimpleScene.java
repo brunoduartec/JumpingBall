@@ -49,6 +49,16 @@ public class SimpleScene implements IScene {
 		
 	}
 
+	public SimpleScene(IWorld w, boolean d2)
+	{
+		if (d2)
+			this.world2d = w;
+		else
+			this.world = w;
+
+	}
+
+
 	public SimpleScene(IWorld d3, IWorld w2)
 	{
 		this.world2d = w2;

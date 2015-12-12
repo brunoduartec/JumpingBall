@@ -10,5 +10,7 @@ interface IGameState {
     void Obscuring();
     void Revealed();
 
+    boolean isEnded();
+
 
 }

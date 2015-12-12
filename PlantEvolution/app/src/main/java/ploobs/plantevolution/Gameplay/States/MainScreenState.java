@@ -134,6 +134,11 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     }
 
     @Override
+    public boolean isEnded() {
+        return false;
+    }
+
+    @Override
     public void Update() {
         scene.getWorld().getCameraManager().getActualCamera().Update();
 

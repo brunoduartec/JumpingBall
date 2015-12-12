@@ -27,6 +27,7 @@ import ploobs.plantevolution.GameState.GameStateManager;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.Gameplay.States.MainScreenState;
+import ploobs.plantevolution.Gameplay.States.MenuScreenState;
 import ploobs.plantevolution.Gameplay.States.SplitScreenState;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
@@ -65,47 +66,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
 
-private GameStateManager gsmanager = new GameStateManager();
+    private GameStateManager gsmanager = new GameStateManager();
 
     private OpenGLES30Activity _activityhandle;
     private static final String TAG = "MyGLRenderer";
-   /*
-    private GameConstants.GAMECONTEXT _gamecontext = GameConstants.GAMECONTEXT.PLAYER;
 
-
-
-
-    private IWorld world;
-    private IWorld world2d;
-
-
-    private IScene scene;
-
-
-    private int width, height;
-
-
-    private float mAngle;
-    float scale;
-    float delta = 0.01f;
-
-    int size = 8;
-    float cameradistance = 3.0f;
-
-    Vector2 direction = new Vector2(0, -1);
-    Vector3 normalizeddirection = new Vector3(0,0,0);
-
-    private float posx;
-    private float posy;
-    FpsCounterComponent fps;
-    TimerComponent timer;
-    //	private SimpleCamera camera;
-   // Board board1;
-    private boolean startmove = false;
-    private int iter = 0;//used to made N moves
-
-    StageManager stages;
-*/
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -125,69 +90,11 @@ private GameStateManager gsmanager = new GameStateManager();
         GLES30.glEnable(GLES30.GL_BLEND);
         GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-        gsmanager.Push( new MainScreenState());
+        gsmanager.Push(new MainScreenState());
+        gsmanager.Push(new MenuScreenState());
         gsmanager.Push(new SplitScreenState(2000));
 
-/*
-        DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();
-        width = metrics.widthPixels;
-        height = metrics.heightPixels;
 
-
-        GraphicFactory.getInstance().setWidth(this.width);
-        GraphicFactory.getInstance().setHeight(this.height);
-
-        fps = new FpsCounterComponent(60);
-        timer = new TimerComponent(1000);
-
-
-        world = new SimpleWorld();
-        world2d = new SimpleWorld();
-
-
-        //	float[] pos =  {20.0f, 20.0f, 20.0f};
-        //	float[] target =  {0.0f, 0.0f, 0.0f};
-
-
-        float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
-        float[] target = {0.0f, 0.0f, 0.0f};
-        SimpleCamera camera = new SimpleCamera("CAM1", 60, 1, 10, pos, target);
-
-
-
-
-
-        world.getCameraManager().addCamera(camera);
-        world.getCameraManager().setActualCamera("CAM1");
-
-
-        Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
-        world2d.getCameraManager().addCamera(cam2D);
-        world2d.getCameraManager().setActualCamera("CAM2");
-      //  world2d.AddObject(ObjectFactory.getInstance().getSquareObject("button", 1.0f, new Vector2(0, 0)));
-        world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
-
-
-
-        scene = new SimpleScene(world,world2d);
-       // scene = new SimpleScene(world2d);
-
-        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),4.0f, new Vector3(0,2,0));
-
-        world.AddLight(light1);
-
-
-        stages = new StageManager(world,_gamecontext);
-
-        stages.NextStage();
-
-        //CreateStage1();
-
-
-        //SceneXMLParser sceneparser = new SceneXMLParser();
-
-        //sceneparser.DOMparseScene(R.xml.scene01,scene);
-*/
     }
 
 
@@ -202,49 +109,7 @@ private GameStateManager gsmanager = new GameStateManager();
         // set the camera position (View matrix)
 
 
-      //  if (timer.Update())
-      // {
 
-           // board1.PlaceRandonBlock();
-
-
-      //  }
-
-/*
-        //Here in the Prototype 1 i will implement a simple scene management
-        if (stages.getBoard1().TestEnd())
-           stages.NextStage();
-
-
-
-
-
-        if (fps.Update()) {
-            scene.Update();
-
-           if (startmove)
-           {
-               DirectionMade(direction);
-               startmove = false;
-
-                if (_gamecontext == GAMECONTEXT.PLAYER)
-                {
-
-                    Vector2 tdir = new Vector2(normalizeddirection.getX(), normalizeddirection.getZ());
-                    stages.getBoard1().MovePlayer(tdir);
-
-                }
-           }
-
-
-
-
-
-        }
-
-
-        scene.Draw();
-*/
         gsmanager.Update();
         gsmanager.Draw();
     }
@@ -257,7 +122,6 @@ private GameStateManager gsmanager = new GameStateManager();
         GLES30.glViewport(0, 0, width, height);
 
 
-      //  scene.getWorld().getCameraManager().getActualCamera().Update();
 
 
     }

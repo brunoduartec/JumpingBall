@@ -18,10 +18,7 @@ import ploobs.plantevolution.World.SimpleWorld;
  */
 public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
 
-    private int width;
-    private int height;
-    private IWorld world2d;
-    private SimpleScene scene;
+
 
     public SplitScreenState(int time)
     {
@@ -43,14 +40,14 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         GraphicFactory.getInstance().setWidth(this.width);
         GraphicFactory.getInstance().setHeight(this.height);
 
-        world2d = new SimpleWorld();
+        world = new SimpleWorld();
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
-        world2d.getCameraManager().addCamera(cam2D);
-        world2d.getCameraManager().setActualCamera("CAM2");
-        world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
+        world.getCameraManager().addCamera(cam2D);
+        world.getCameraManager().setActualCamera("CAM2");
+        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight()));
 
 
-        scene = new SimpleScene(world2d);
+        scene = new SimpleScene(world);
     }
 
     @Override

@@ -51,6 +51,9 @@ public class GameStateManager {
 
             GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
             up.Update();
+
+            if (up.isEnded())
+                Pop();
         }
 
         if (actualState instanceof TimeBasedGameStateUpdatableDrawable)

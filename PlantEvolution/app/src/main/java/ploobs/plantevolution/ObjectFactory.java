@@ -1,5 +1,7 @@
 package ploobs.plantevolution;
 
+import ploobs.plantevolution.GUI.Element;
+import ploobs.plantevolution.GUI.StartButton;
 import ploobs.plantevolution.Gameplay.Player;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
@@ -99,7 +101,7 @@ public class ObjectFactory {
 	}
 
 
-	public SimpleObject getSquareObject(String name, float size, Vector2 pos)
+	public SimpleObject getSquareObject(String name, float size)
 	{
 		Square sq;
 
@@ -117,7 +119,7 @@ public class ObjectFactory {
 		return obj;
 	}
 
-	public SimpleObject getRectangleObject(String name,final int resourceId, float width, float height, Vector2 pos)
+	public SimpleObject getRectangleObject(String name,final int resourceId, float width, float height)
 	{
 		Square sq;
 
@@ -133,6 +135,25 @@ public class ObjectFactory {
 
 		return obj;
 	}
+
+
+	public Element getStartButtonObject(String name,final int resourceId, float width, float height, Vector2 position)
+	{
+		Square sq;
+
+		Element obj;
+		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
+		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
+		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		obj = new StartButton(mat1,m1, name,position,width,height);
+
+		obj.setScale(new float[]{1, 1, 1});
+		//	obj.setScale(new float[]{ratio, ratio, ratio});
+
+
+		return obj;
+	}
+
 
 
 }
