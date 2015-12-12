@@ -29,12 +29,12 @@ public abstract class Element extends SimpleObject {
         float mposX = mousepos.getX();
         float mposY = mousepos.getY();
 
-        float posXconvert = getPosition()[0];
+        float posXconvert = getPosition()[0]*GraphicFactory.getInstance().getRatio();
         float posYconvert = -getPosition()[1]/2;
 
 
 
-        float widthconverted = width/GraphicFactory.getInstance().getWidth();
+        float widthconverted = GraphicFactory.getInstance().getRatio()*width/GraphicFactory.getInstance().getWidth();
         float heightconverted = height/GraphicFactory.getInstance().getHeight();
 
 
