@@ -8,6 +8,9 @@ import ploobs.plantevolution.Camera.SimpleCamera;
 import ploobs.plantevolution.Color;
 import ploobs.plantevolution.Component.FpsCounterComponent;
 import ploobs.plantevolution.Component.TimerComponent;
+import ploobs.plantevolution.GUI.Element;
+import ploobs.plantevolution.GUI.GuiManager;
+import ploobs.plantevolution.GUI.IEventHandler;
 import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
@@ -17,6 +20,7 @@ import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
+import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.IScene;
 import ploobs.plantevolution.Scene.SimpleScene;
 import ploobs.plantevolution.World.IWorld;
@@ -65,6 +69,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     StageManager stages;
 
     private boolean makeMovement = true;
+    private Element button;
+    GuiManager gm;
 
     @Override
     public void Entered() {
@@ -83,6 +89,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
         world = new SimpleWorld();
         world2d = new SimpleWorld();
+        gm = new GuiManager(world);
 
         float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
         float[] target = {0.0f, 0.0f, 0.0f};
@@ -116,6 +123,20 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         stages = new StageManager(world,_gamecontext);
 
         stages.NextStage();
+
+
+
+        button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.ball, 371, 108, new Vector3(0.2f, -1.5f,0.0f));
+        IEventHandler h1 = new IEventHandler() {
+            @Override
+            public void Execute() {
+                _gamecontext = GameConstants.GAMECONTEXT.PLAYER;
+            }
+        };
+        button.setOnClick(h1);
+        gm.AddElement(button);
+        
+        
     }
 
     @Override
@@ -140,6 +161,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
     @Override
     public void Update() {
+
+        gm.HandleElements();
         scene.getWorld().getCameraManager().getActualCamera().Update();
 
         //Here in the Prototype 1 i will implement a simple scene management

@@ -50,7 +50,7 @@ IWorld _localworld;
 
             for (Element e : _element) {
                 if (e.checkColision(new Vector2(mouseX,mouseY))) {
-                    e.onClick();
+                    e.getOnClick().Execute();
                 }
 
 

@@ -5,10 +5,12 @@ import android.util.DisplayMetrics;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.GUI.GuiManager;
+import ploobs.plantevolution.GUI.IEventHandler;
 import ploobs.plantevolution.GUI.StartButton;
 import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.SimpleScene;
@@ -21,7 +23,7 @@ import ploobs.plantevolution.World.SimpleWorld;
 public class MenuScreenState extends GameStateUpdatableDrawable {
 
     GuiManager gm;
-    StartButton button;
+    Element button;
     boolean end=false;
     @Override
     public void Entered() {
@@ -47,17 +49,17 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
         //IObject button = ObjectFactory.getInstance().getRectangleObject("button", R.drawable.startbutton, 371, 108);
 
-        button= (StartButton)ObjectFactory.getInstance().getStartButtonObject("button", R.drawable.startbutton, 371, 108, new Vector2(0.2f, -1.5f));
+        button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.startbutton, 371, 108, new Vector3(0.2f, -1.5f,0.0f));
+        IEventHandler h1 = new IEventHandler() {
+            @Override
+            public void Execute() {
+                end = true;
+            }
+        };
+        button.setOnClick(h1);
+
 
         gm.AddElement(button);
-
-        button.setPosition(new float[]{0.2f,-1.5f,0f});
-//button.setPosition(new float[]{0,0,0});
-
-        //world.AddObject(button);
-
-
-
 
 
         scene = new SimpleScene(world,true);
@@ -98,10 +100,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
     @Override
     public void HandleEvent() {
-        if (button.isClicked())
-        {
-            end = true;
-        }
+
 
     }
 }

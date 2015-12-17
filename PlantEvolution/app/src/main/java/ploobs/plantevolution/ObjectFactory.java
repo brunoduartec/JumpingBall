@@ -8,6 +8,7 @@ import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.FaceShadedCubeMaterial;
 import ploobs.plantevolution.Material.SimpleSquareMaterial;
 import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model2D.RectangleModel;
 import ploobs.plantevolution.Model.Model2D.Square;
 import ploobs.plantevolution.Model.Model2D.SquareModel;
@@ -137,7 +138,7 @@ public class ObjectFactory {
 	}
 
 
-	public Element getStartButtonObject(String name,final int resourceId, float width, float height, Vector2 position)
+	public Element getButtonObject(String name,final int resourceId, float width, float height, Vector3 position)
 	{
 		Square sq;
 
@@ -145,14 +146,15 @@ public class ObjectFactory {
 		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
-		obj = new StartButton(mat1,m1, name,position,width,height);
+		obj = new Element(mat1,m1, name,position,width,height);
 
 		obj.setScale(new float[]{1, 1, 1});
 		//	obj.setScale(new float[]{ratio, ratio, ratio});
-
+        obj.setPosition(position.get());
 
 		return obj;
 	}
+
 
 
 
