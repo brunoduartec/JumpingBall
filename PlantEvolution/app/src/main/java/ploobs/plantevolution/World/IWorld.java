@@ -8,7 +8,9 @@ import ploobs.plantevolution.Light.ILight;
 
 public interface IWorld {
 	
-	Map getObjectsList();
+	Map getObjectsMap();
+	List getObjectsList();
+
 	void Initialize();
 
 

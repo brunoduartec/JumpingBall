@@ -69,7 +69,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     StageManager stages;
 
     private boolean makeMovement = true;
-    private Element button;
+    private Element jumpbutton;
+    private Element pushbutton;
+
+
     GuiManager gm;
 
     @Override
@@ -89,7 +92,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
         world = new SimpleWorld();
         world2d = new SimpleWorld();
-        gm = new GuiManager(world);
+        gm = new GuiManager(world2d);
 
         float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
         float[] target = {0.0f, 0.0f, 0.0f};
@@ -108,7 +111,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         world2d.getCameraManager().setActualCamera("CAM2");
 
 
-      //  world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("button", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
+
+      //  world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("jumpbutton", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
 
 
 
@@ -125,19 +129,38 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         stages.NextStage();
 
 
+        CreateHUD();
 
-        button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.ball, 371, 108, new Vector3(0.2f, -1.5f,0.0f));
+        
+    }
+
+    private void CreateHUD()
+    {
+
+        float scale = 1.5f;
+        jumpbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.ball, 118*scale, 133*scale, new Vector3(0.2f, -1.6f,0.0f));
         IEventHandler h1 = new IEventHandler() {
             @Override
             public void Execute() {
-                _gamecontext = GameConstants.GAMECONTEXT.PLAYER;
+                stages.getBoard1().setPlayerAction(GameConstants.PLAYERRACTION.JUMP);
             }
         };
-        button.setOnClick(h1);
-        gm.AddElement(button);
-        
-        
+        jumpbutton.setOnClick(h1);
+        gm.AddElement(jumpbutton);
+
+
+        pushbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.box, 118*scale, 128*scale, new Vector3(0.6f, -1.6f,0.0f));
+        IEventHandler h2 = new IEventHandler() {
+            @Override
+            public void Execute() {
+                stages.getBoard1().setPlayerAction(GameConstants.PLAYERRACTION.PUSH);
+            }
+        };
+        pushbutton.setOnClick(h2);
+        gm.AddElement(pushbutton);
+
     }
+
 
     @Override
     public void Leaving() {
@@ -162,7 +185,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     @Override
     public void Update() {
 
-        gm.HandleElements();
+
         scene.getWorld().getCameraManager().getActualCamera().Update();
 
         //Here in the Prototype 1 i will implement a simple scene management
@@ -200,6 +223,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     @Override
     public void HandleEvent() {
 
+
+        gm.HandleElements();
         MotionEvent e = InputSystem.getInstance().get_inputEvent();
         float mPreviousX = InputSystem.getInstance().getmPreviousX();
         float mPreviousY = InputSystem.getInstance().getmPreviousY();

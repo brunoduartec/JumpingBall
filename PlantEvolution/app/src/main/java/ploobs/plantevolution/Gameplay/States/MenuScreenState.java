@@ -82,7 +82,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
     @Override
     public void Update() {
-        gm.HandleElements();
+
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     @Override
     public void HandleEvent() {
 
-
+        gm.HandleElements();
     }
 }
 

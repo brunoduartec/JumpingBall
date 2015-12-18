@@ -5,6 +5,8 @@ import android.opengl.GLES30;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -19,7 +21,8 @@ public class SimpleScene implements IScene {
 		// TODO Auto-generated method stub
 
 		if (world!=null) {
-			Map<Integer, IObject> ot = world.getObjectsList();
+			//Map<Integer, IObject> ot = world.getObjectsList();
+			List<IObject> ot = getWorld().getObjectsList();
 			for (int i = 0; i < ot.size(); i++) {
 				IObject o1 = (IObject) ot.get(i);
 				o1.Draw(world);
@@ -30,7 +33,10 @@ public class SimpleScene implements IScene {
 		GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		if (world2d !=null)
 		{
-			Map<Integer, IObject> ot = getWorld2d().getObjectsList();
+			List<IObject> ot =  getWorld2d().getObjectsList();
+
+
+
 			for (int i = 0; i < ot.size(); i++) {
 				IObject o1 = (IObject) ot.get(i);
 				o1.Draw(world2d);

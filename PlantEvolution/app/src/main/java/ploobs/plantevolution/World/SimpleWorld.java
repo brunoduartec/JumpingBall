@@ -1,5 +1,10 @@
 package ploobs.plantevolution.World;
 
+import java.io.IOError;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,18 +13,44 @@ import java.util.Map;
 import ploobs.plantevolution.Camera.SceneCameraManager;
 import ploobs.plantevolution.Light.ILight;
 
+
+class DepthComparator implements Comparator<IObject>
+{
+	@Override
+	public int compare(IObject lhs, IObject rhs) {
+
+		float Z1 = lhs.getPosition()[2]*10000;
+		float Z2 = rhs.getPosition()[2]*10000;
+		int ret = (int)(Z1-Z2);
+
+		return ret;
+	}
+}
 public class SimpleWorld implements IWorld {
 
-	
-	private SceneCameraManager camManager;
-	private Map<Integer,IObject> Objs = new HashMap<>();
-	private List<ILight> lights = new LinkedList<ILight>();
-	
 
-	
+	private SceneCameraManager camManager;
+	private Map<Integer, IObject> Objs = new HashMap<>();
+	private List<ILight> lights = new LinkedList<ILight>();
+
+
 	@Override
-	public Map<Integer,IObject> getObjectsList() {
+	//public Map<Integer,IObject> getObjectsList() {
+	public List<IObject> getObjectsList() {
 		// TODO Auto-generated method stub
+		Collection<IObject> a = Objs.values();
+		List<IObject> ret = new ArrayList<>();
+		ret.addAll(a);
+
+		Collections.sort(ret, new DepthComparator());
+
+		return ret;
+	}
+
+
+	@Override
+	public Map<Integer,IObject> getObjectsMap() {
+
 		return Objs;
 	}
 
@@ -86,9 +117,11 @@ public class SimpleWorld implements IWorld {
 	public void Update() {
 		// TODO Auto-generated method stub
 
+		List<IObject> ot =  getObjectsList();
 
-			for (int i = 0; i < Objs.size(); i++) {
-			IObject o = Objs.get(i);
+
+			for (int i = 0; i < ot.size(); i++) {
+			IObject o = ot.get(i);
 			o.Update();
 		}
 		
