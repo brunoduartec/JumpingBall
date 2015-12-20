@@ -224,7 +224,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     public void HandleEvent() {
 
 
-        gm.HandleElements();
+        if(gm.HandleElements())
+            return;
+
+
         MotionEvent e = InputSystem.getInstance().get_inputEvent();
         float mPreviousX = InputSystem.getInstance().getmPreviousX();
         float mPreviousY = InputSystem.getInstance().getmPreviousY();

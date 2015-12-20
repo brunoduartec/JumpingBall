@@ -36,12 +36,12 @@ IWorld _localworld;
 
 
 
-    public void HandleElements()
+    public boolean HandleElements()
     {
 
         MotionEvent ev = InputSystem.getInstance().get_inputEvent();
 
-
+        boolean handled = false;
 
         if (_element.size()>0 && ev !=null) {
 
@@ -51,12 +51,13 @@ IWorld _localworld;
             for (Element e : _element) {
                 if (e.checkColision(new Vector2(mouseX,mouseY))) {
                     e.getOnClick().Execute();
+                    handled = true;
                 }
 
 
             }
         }
-
+    return handled;
     }
 
 
