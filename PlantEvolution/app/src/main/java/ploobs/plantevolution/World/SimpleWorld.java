@@ -58,10 +58,9 @@ public class SimpleWorld implements IWorld {
 	public void Initialize() {
 		// TODO Auto-generated method stub
 		Objs.clear();
+		lights.clear();
 		IObject.ID=0;
 
-
-	//	lights.clear();
 	}
 
 	@Override
@@ -114,6 +113,13 @@ public class SimpleWorld implements IWorld {
 	}
 
 	@Override
+	public void CleanObjects() {
+		this.Objs.clear();
+		IObject.ID=0;
+	}
+
+
+	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
 
@@ -155,7 +161,12 @@ public class SimpleWorld implements IWorld {
 		return lights;
 	}
 
-	
+	@Override
+	public void CleanLights() {
+		this.lights.clear();
+	}
+
+
 	@Override
 	public SceneCameraManager getCameraManager() {
 		// TODO Auto-generated method stub

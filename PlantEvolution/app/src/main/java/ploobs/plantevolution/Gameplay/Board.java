@@ -1,18 +1,24 @@
 package ploobs.plantevolution.Gameplay;
 
+import ploobs.plantevolution.Color;
+import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
-import ploobs.plantevolution.MyGLRenderer;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.World.SimpleObject;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * Created by Bruno on 25/09/2015.
@@ -34,7 +40,14 @@ public class Board {
     Vector2 _playerpos;
 
 
-    private LinkedList<Block> bk;// = new LinkedList<Block>();
+    private ArrayList<Block> bk;// = new LinkedList<Block>();
+
+   // private LinkedList<Block> initialstage;// = new LinkedList<Block>();
+    private Map<Integer,Vector3> initialstage = new HashMap<Integer, Vector3>();
+
+
+    private Stack<BlockMovement> undomoves = new Stack<>(); // used to stack moves done to perform undo
+
 
     Block higherblock;
 
@@ -52,16 +65,67 @@ public class Board {
 
     public void Initialize()
     {
-        bk = new LinkedList<>();
 
-        List<ILight> ll = this.localWorld.getLights();
+
+
+        bk = new ArrayList<>();
         this.localWorld.Initialize();
-    //    this.localWorld.AddLightList(ll);
-       // this.p1 = null;
-      //  this.gema = null;
+
+
+        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),4.0f, new Vector3(0,2,0));
+
+        localWorld.AddLight(light1);
 
 
     }
+    public void Reset()
+    {
+
+//quando eu corrigir o problema do clone posso tirar isso
+
+        //this.localWorld.CleanObjects();
+
+        setBoardbyList();
+        SetPlayerPos(new Vector3(new float[]{size - 1, 1, size}));
+
+
+
+    }
+    private Block findBlockbyID(Integer id)
+    {
+    Block ret = null;
+
+        for (Block bb: bk ) {
+            if(bb.getObjectID() == id) {
+                ret = bb;
+                break;
+            }
+        }
+
+    return ret;
+
+    }
+
+
+    private void setBoardbyList( )
+    {
+
+        Iterator it = initialstage.entrySet().iterator();
+
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry)it.next();
+            Integer id = (Integer) pair.getKey();
+            Vector3 pos = (Vector3)pair.getValue();
+
+            Block btemp = findBlockbyID(id);
+            btemp.MoveTo(pos);
+            SyncPhysicObject(btemp);
+        }
+
+    }
+
+
 
     public boolean TestEnd()
     {
@@ -152,8 +216,35 @@ public class Board {
 
     }
 
+public void SetPlayerPos(Vector3 pos)
+{
+
+    Block btemp =BlockExistAt(pos.getX(), pos.getZ());
+
+
+
+    if (btemp == null)
+    {
+        p1.setPosition(convertLocalPosWorldPos(pos.get()));
+        p1.setLocalPos(pos);
+    }
+
+
+
+
+
+
+}
+
+
+
+    //Moving the player, using the action selected at the moment
     public void MovePlayer(Vector2 dir)
     {
+
+
+       // if (initialstage == null)
+        //    initialstage = bk;
 
         Vector3 playerpos = p1.getLocalPos();
 
@@ -181,7 +272,8 @@ public class Board {
 
 
 
-        if (p1.isJumping() ) {
+        if (p1.isJumping() )
+        {
 
             boolean validpos = true;
             if (btemp !=null)
@@ -189,7 +281,7 @@ public class Board {
                 validpos = btemp.canStack();
             }
             if (validpos)
-                p1.setDirection(dir, (h2) * getScale());
+                p1.setDirection(dir, (h2) * getScale());//walking to a valid position
 
         }
             else {
@@ -210,6 +302,7 @@ public void MergeBlock(Block origin, Block destiny)
 {
     destiny.StackBlock(origin);
 }
+
 
     public void MoveBlocks(Vector3 dir)
     {
@@ -280,7 +373,15 @@ public void MergeBlock(Block origin, Block destiny)
             bk.remove(b);
         }
 
-        for (Block b:bk ) {//updating the IObject instance
+        for (Block b:bk )
+        {
+            SyncPhysicObject(b);
+        }
+
+
+        /*
+        for (Block b:bk )
+        {//updating the IObject instance
 
             IObject ob = localWorld.getObjectbyID(b.getObjectID());
             float[] newpos = convertLocalPosWorldPos(b.getLocalposition().get());
@@ -296,6 +397,7 @@ public void MergeBlock(Block origin, Block destiny)
             }
 
         }
+        */
 
 
 
@@ -344,22 +446,27 @@ public void MergeBlock(Block origin, Block destiny)
 
                 //moving visualblock
                 bb.MoveTo(new Vector3(pv.getX() + dir.getX(), pv.getY(), pv.getZ() + dir.getY()));
+                //saving the
+                BlockMovement undo = new BlockMovement(BlockMovement.DIRECTION.BACK,bb.getObjectID());
+                SyncPhysicObject(bb);
 
+              /*
                 IObject ob = localWorld.getObjectbyID(bb.getObjectID());
                 float[] newpos = convertLocalPosWorldPos(bb.getLocalposition().get());
                 ob.setPosition(newpos);
 
-
                 Object[] children = bb.getChildreen();
 
-                for (Object aChildren : children) {
+                //physic block movement
+                for (Object aChildren : children)
+                {
                     Block bt = (Block) aChildren;
                     IObject ob1 = localWorld.getObjectbyID(bt.getObjectID());
                     float[] newpos1 = convertLocalPosWorldPos(bt.getLocalposition().get());
                     ob1.setPosition(newpos1);
                 }
 
-
+                */
                 p1.setDirection(dir, 0);
             }
 
@@ -368,6 +475,28 @@ public void MergeBlock(Block origin, Block destiny)
 
     }
 
+
+    //Sincronyze virtual and physic world
+    private void SyncPhysicObject(Block bb)
+    {
+
+        IObject ob = localWorld.getObjectbyID(bb.getObjectID());
+        float[] newpos = convertLocalPosWorldPos(bb.getLocalposition().get());
+        ob.setPosition(newpos);
+
+        Object[] children = bb.getChildreen();
+
+//physic block movement
+        for (Object aChildren : children) {
+            Block bt = (Block) aChildren;
+            IObject ob1 = localWorld.getObjectbyID(bt.getObjectID());
+            float[] newpos1 = convertLocalPosWorldPos(bt.getLocalposition().get());
+            ob1.setPosition(newpos1);
+        }
+
+
+
+    }
 
 
     public void CreateBoard(int size)
@@ -440,7 +569,10 @@ public void MergeBlock(Block origin, Block destiny)
 
         gema.setPosition(convertLocalPosWorldPos(new float[]{size / 2, getGemaheight(), size / 2}));
 
-        localWorld.getLights().get(0).setPosition(gema.getPosition());
+
+        List<ILight> ll = localWorld.getLights();
+        if (ll.size()>0)
+            localWorld.getLights().get(0).setPosition(gema.getPosition());
 
         localWorld.AddObject(gema);
 
@@ -455,7 +587,7 @@ public void MergeBlock(Block origin, Block destiny)
       //  mt1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
         p1.setPosition(convertLocalPosWorldPos(new float[]{size - 1, 1, size}));
-        p1.setLocalPos(new Vector3(size - 1, 3, size));
+        p1.setLocalPos(new Vector3(size - 1, 1, size));
 
         localWorld.AddObject(p1);
 
@@ -520,6 +652,10 @@ public void MergeBlock(Block origin, Block destiny)
                 b1 = getBlockbytype(t,id,new Vector3(localposition));
 
                 bk.add(b1);
+
+                initialstage.put(b1.getObjectID(),b1.getLocalposition());
+
+
             }
             else // stacking blocks
             {
@@ -554,7 +690,6 @@ public void MergeBlock(Block origin, Block destiny)
 
 public void HigherBlock()
 {
-
     for (Block b:bk) {
 
         if (higherblock == null)
@@ -563,9 +698,6 @@ public void HigherBlock()
             higherblock = b;
 
     }
-
-
-
 }
 
 
@@ -573,6 +705,11 @@ public void HigherBlock()
     public Block BlockExistAt(float x, float y)
     {
         Block i = null;
+
+        //if(bk == null)
+
+
+
         for (Block b:bk ) {
             if (b.getLocalposition().getX() == x && b.getLocalposition().getZ() == y)
                i=b;

@@ -71,9 +71,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     private boolean makeMovement = true;
     private Element jumpbutton;
     private Element pushbutton;
-
+    private Element restartbutton;
 
     GuiManager gm;
+
 
     @Override
     public void Entered() {
@@ -117,13 +118,6 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
         scene = new SimpleScene(world,world2d);
-
-
-        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),4.0f, new Vector3(0,2,0));
-
-        world.AddLight(light1);
-
-
         stages = new StageManager(world,_gamecontext);
 
         stages.NextStage();
@@ -158,6 +152,21 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         };
         pushbutton.setOnClick(h2);
         gm.AddElement(pushbutton);
+
+
+
+        restartbutton = ObjectFactory.getInstance().getButtonObject("restart", R.drawable.restart, 128*scale, 128*scale, new Vector3(0.75f, 0.0f,0.0f));
+        IEventHandler h3 = new IEventHandler() {
+            @Override
+            public void Execute() {
+                stages.RestartStage();
+            }
+        };
+        restartbutton.setOnClick(h3);
+        gm.AddElement(restartbutton);
+
+
+
 
     }
 
@@ -208,11 +217,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
                 }
             }
-
         }
-
-
-
     }
 
     @Override

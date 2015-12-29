@@ -27,27 +27,33 @@ IWorld _localworld;
     public void RestartStage()
     {
 
-        StartStage();
+        StartStage(true);
 
     }
 
-    private void StartStage()
+    private void StartStage(boolean restart)
     {
 
-        switch(actualstage)
-        {
-            case 1:
-                CreateStage1();
-                break;
-            case 2:
-                CreateStage2();
-                break;
-            case 3:
-                CreateStage3();
-                break;
+        if (restart)
+            getBoard1().Reset();
+        else {
+            getBoard1().Initialize();
 
+
+            switch (actualstage) {
+                case 1:
+
+                    CreateStage1();
+                    break;
+                case 2:
+                    CreateStage2();
+                    break;
+                case 3:
+                    CreateStage3();
+                    break;
+
+            }
         }
-
 
 
     }
@@ -55,7 +61,7 @@ IWorld _localworld;
     public void NextStage() {
         actualstage++;
 
-        StartStage();
+        StartStage(false);
 
     }
 
@@ -74,7 +80,7 @@ IWorld _localworld;
         size = GameConstants.size;
 
 
-        getBoard1().Initialize();
+       // getBoard1().Initialize();
 
         getBoard1().setGemaheight(4);
 
@@ -107,7 +113,7 @@ IWorld _localworld;
         GameConstants.size = 5;
         size = GameConstants.size;
 
-        getBoard1().Initialize();
+     //   getBoard1().Initialize();
 
 
         cameradistance = 2f;
@@ -142,7 +148,7 @@ IWorld _localworld;
         GameConstants.size = 9;
         size = GameConstants.size;
 
-        getBoard1().Initialize();
+    //    getBoard1().Initialize();
         getBoard1().setGemaheight(4);
 
         cameradistance = 3f;

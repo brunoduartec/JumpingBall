@@ -35,7 +35,7 @@ IWorld _localworld;
     }
 
 
-
+//Once the event was caught it cannot be caught again
     public boolean HandleElements()
     {
 
