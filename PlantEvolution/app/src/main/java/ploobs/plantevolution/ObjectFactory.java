@@ -145,6 +145,7 @@ public class ObjectFactory {
 		Element obj;
 		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
+
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		obj = new Element(mat1,m1, name,position,width,height);
 

@@ -3,6 +3,7 @@ package ploobs.plantevolution.Gameplay.States;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
+import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
 import ploobs.plantevolution.Color;
@@ -125,6 +126,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
         CreateHUD();
 
+        AudioPlayer.getInstance().changeVolume("theme", 100);
+
         
     }
 
@@ -137,6 +140,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
             @Override
             public void Execute() {
                 stages.getBoard1().setPlayerAction(GameConstants.PLAYERRACTION.JUMP);
+                AudioPlayer.getInstance().playAudio("switch_sound");
             }
         };
         jumpbutton.setOnClick(h1);
@@ -148,6 +152,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
             @Override
             public void Execute() {
                 stages.getBoard1().setPlayerAction(GameConstants.PLAYERRACTION.PUSH);
+                AudioPlayer.getInstance().playAudio("switch_sound");
             }
         };
         pushbutton.setOnClick(h2);
@@ -198,9 +203,11 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         scene.getWorld().getCameraManager().getActualCamera().Update();
 
         //Here in the Prototype 1 i will implement a simple scene management
-        if (stages.getBoard1().TestEnd())
-            stages.NextStage();
+        if (stages.getBoard1().TestEnd()) {
 
+            AudioPlayer.getInstance().playAudio("pickup_gem");
+            stages.NextStage();
+        }
         if (fps.Update()) {
             scene.Update();
 

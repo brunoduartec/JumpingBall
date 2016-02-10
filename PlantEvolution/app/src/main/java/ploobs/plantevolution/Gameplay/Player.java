@@ -1,5 +1,6 @@
 package ploobs.plantevolution.Gameplay;
 
+import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.World.SimpleObject;
@@ -128,6 +129,9 @@ private Vector2 _direction;
 
             float Vinit = (float)Math.sqrt(-2*g.getY()*1.3f*scale);
             velocity = new Vector3(0, Vinit, 0);
+            AudioPlayer.getInstance().playAudio("jump_sound");
+
+
         }
         this.setPosition(pp);
 

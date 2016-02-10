@@ -1,7 +1,9 @@
 package ploobs.plantevolution.Gameplay.States;
 
+import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 
+import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GameState.TimeBasedGameStateUpdatableDrawable;
 import ploobs.plantevolution.Gameplay.GameConstants;
@@ -44,10 +46,37 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world.getCameraManager().addCamera(cam2D);
         world.getCameraManager().setActualCamera("CAM2");
-        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight()));
+        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight()));
 
 
         scene = new SimpleScene(world);
+
+
+   //     MediaPlayer mediaPlayer = MediaPlayer.create(GraphicFactory.getInstance().getGraphicContext(), R.raw.hopeful_theme_music_1);
+    //    mediaPlayer.start(); // no need to call prepare(); create() does that for you
+
+        AudioPlayer.getInstance().addAudio("theme", R.raw.hopeful_theme_music_1);
+        AudioPlayer.getInstance().addAudio("button_click", R.raw.button_click);
+        AudioPlayer.getInstance().addAudio("switch_sound", R.raw.switch_sound);
+        AudioPlayer.getInstance().addAudio("pickup_gem", R.raw.pickup_gem_1);
+
+
+
+
+
+        AudioPlayer.getInstance().addAudio("jump_sound", R.raw.jump);
+        AudioPlayer.getInstance().changeVolume("jump_sound", 8);
+
+
+        AudioPlayer.getInstance().changeVolume("switch_sound", 20);
+
+
+        AudioPlayer.getInstance().changeVolume("theme", 10);
+       AudioPlayer.getInstance().playAudio("theme");
+
+
+
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package ploobs.plantevolution.Gameplay.States;
 
 import android.util.DisplayMetrics;
 
+import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.GUI.GuiManager;
@@ -9,6 +10,7 @@ import ploobs.plantevolution.GUI.IEventHandler;
 import ploobs.plantevolution.GUI.StartButton;
 import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Material.SimpleSquareMaterial;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
@@ -23,10 +25,15 @@ import ploobs.plantevolution.World.SimpleWorld;
 public class MenuScreenState extends GameStateUpdatableDrawable {
 
     GuiManager gm;
-    Element button;
+    private Element button;
     boolean end=false;
+    private Element soundbutton;
+
     @Override
     public void Entered() {
+
+
+        AudioPlayer.getInstance().changeVolume("theme", 20);
 
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();
         width = metrics.widthPixels;
@@ -47,19 +54,52 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
         screen.setPosition(new float[]{0, 0, -0.0001f});
         world.AddObject(screen);
 
-        //IObject button = ObjectFactory.getInstance().getRectangleObject("button", R.drawable.startbutton, 371, 108);
+
 
         button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.startbutton, 371, 108, new Vector3(0.2f, -1.5f,0.0f));
         IEventHandler h1 = new IEventHandler() {
             @Override
             public void Execute() {
                 end = true;
+                AudioPlayer.getInstance().playAudio("button_click");
             }
         };
         button.setOnClick(h1);
 
 
         gm.AddElement(button);
+
+
+        final int soundbuttonstate;
+        if(AudioPlayer.getInstance().getSoundState())
+        {
+            soundbuttonstate = R.drawable.sound;
+
+        }
+        else
+        {
+            soundbuttonstate = R.drawable.nosound;
+        }
+
+//Sound Button
+        soundbutton= ObjectFactory.getInstance().getButtonObject("soundbutton", soundbuttonstate, 64, 64, new Vector3(0.02f, -0.02f,0.0f));
+        IEventHandler h2 = new IEventHandler() {
+            @Override
+            public void Execute() {
+
+                AudioPlayer.getInstance().toogleSound();
+               // SimpleSquareMaterial stemp = (SimpleSquareMaterial)soundbutton.getMaterial();
+                //stemp.setTexture(soundbuttonstate);
+
+
+
+            }
+        };
+        soundbutton.setOnClick(h2);
+
+
+        gm.AddElement(soundbutton);
+
 
 
         scene = new SimpleScene(world,true);

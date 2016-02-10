@@ -20,6 +20,7 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Input.InputSystem;
 import ploobs.plantevolution.Math.Vector2;
 
@@ -107,4 +108,14 @@ public class MyGLSurfaceView extends GLSurfaceView {
     public MyGLRenderer getmRenderer() {
         return mRenderer;
     }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        AudioPlayer.getInstance().pausePlayer();
+
+    }
+
 }

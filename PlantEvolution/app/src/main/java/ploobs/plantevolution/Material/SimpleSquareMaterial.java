@@ -86,6 +86,15 @@ public class SimpleSquareMaterial extends IMaterial
     mTextureDataHandle = Utils.loadTexture(GraphicFactory.getInstance().getGraphicContext(), resourceId);
 
 }
+    public void setTexture(int resourceId)
+    {
+        // Load the texture
+        mTextureDataHandle = Utils.loadTexture(GraphicFactory.getInstance().getGraphicContext(), resourceId);
+
+
+    }
+
+
 	
 	public void setColor(float[] color)
     {
