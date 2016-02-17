@@ -33,7 +33,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     public void Entered() {
 
 
-        AudioPlayer.getInstance().changeVolume("theme", 20);
+        //AudioPlayer.getInstance().changeVolume("theme", 20);
 
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();
         width = metrics.widthPixels;
@@ -50,8 +50,8 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
         world.getCameraManager().addCamera(cam2D);
         world.getCameraManager().setActualCamera("CAM2");
 
-        IObject screen =ObjectFactory.getInstance().getRectangleObject("screen", R.drawable.menuscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight());
-        screen.setPosition(new float[]{0, 0, -0.0001f});
+        IObject screen =ObjectFactory.getInstance().getRectangleObject("screen", R.drawable.menuscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(),new Vector3(0, 0, -0.0001f));
+        //screen.setPosition(new float[]{0, 0, -0.0001f});
         world.AddObject(screen);
 
 

@@ -127,10 +127,12 @@ public class SimpleSquareMaterial extends IMaterial
     }
 
 
+    @Override
+    public TextureList getTextures() {
+        return null;
+    }
 
-
-
-	@Override
+    @Override
 	public void Draw(IObject obj, IWorld world) {
 		
 		// TODO Auto-generated method stub
@@ -213,7 +215,7 @@ public class SimpleSquareMaterial extends IMaterial
 
         // Draw the square
          
-    int verticescount = obj.getModel().getVertices().length/3;
+    int verticescount = obj.getModel().getVerticesCount()/3;
 
         GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
         

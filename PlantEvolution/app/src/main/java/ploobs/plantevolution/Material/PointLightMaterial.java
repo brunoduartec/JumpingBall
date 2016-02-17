@@ -68,13 +68,14 @@ public PointLightMaterial()
      
 
 }
-	
-	
-	
 
 
+    @Override
+    public TextureList getTextures() {
+        return null;
+    }
 
-	@Override
+    @Override
 	public void Draw(IObject obj, IWorld world) {
 		
 		// TODO Auto-generated method stub

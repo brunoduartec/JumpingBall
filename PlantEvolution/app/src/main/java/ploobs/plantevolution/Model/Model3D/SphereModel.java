@@ -14,11 +14,12 @@ public class SphereModel implements IModel {
 
    // List<float[]> vertices = new LinkedList<>();
 
+    protected FacesBufferList _faces;
     float[] vertices;
     private  float _radius;
     int _rows,_cols;
     private final FloatBuffer vertexBuffer;
-
+    protected Vertices _vertices;
 
 
 
@@ -43,9 +44,19 @@ public class SphereModel implements IModel {
     }
 
     @Override
-    public float[] getVertices() {
-        return vertices;
+    public Vertices getVertices() {
+        return _vertices;
 
+    }
+
+    @Override
+    public FacesBufferList getFaces() {
+        return _faces;
+    }
+
+    @Override
+    public int getVerticesCount() {
+        return vertices.length;
     }
 
     @Override

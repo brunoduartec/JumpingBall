@@ -151,6 +151,10 @@ public class DiffuseMaterial extends IMaterial {
 	}
 
 
+	@Override
+	public TextureList getTextures() {
+		return null;
+	}
 
 	@Override
 	public void Draw(IObject obj, IWorld world) {
@@ -244,7 +248,7 @@ public class DiffuseMaterial extends IMaterial {
            // Disable vertex array
        //  GLES30.glDisableVertexAttribArray(mPositionHandle);
 
-		int verticescount = obj.getModel().getVertices().length/3;
+		int verticescount = obj.getModel().getVerticesCount()/3;
 
 		GLES30.glDrawArrays(GLES30.GL_TRIANGLES,0,verticescount);
 

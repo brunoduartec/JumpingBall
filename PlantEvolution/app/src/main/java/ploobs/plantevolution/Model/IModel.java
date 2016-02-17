@@ -2,6 +2,9 @@ package ploobs.plantevolution.Model;
 
 import java.nio.FloatBuffer;
 
+import ploobs.plantevolution.Model.Model3D.FacesBufferList;
+import ploobs.plantevolution.Model.Model3D.Vertices;
+
 public interface IModel
 {
 
@@ -10,7 +13,13 @@ public interface IModel
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
 
-float[] getVertices();
+    Vertices getVertices();
+    FacesBufferList getFaces();
+
+    int getVerticesCount();
+
+
+
 float[] getNormals();
 
 FloatBuffer getVertexBuffer();

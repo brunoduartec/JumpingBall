@@ -13,6 +13,9 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import ploobs.plantevolution.Math.Vector3;
+import ploobs.plantevolution.World.IObject;
+
 public class Utils {
 	
     private static final String TAG = "SAMPLESTUDY";
@@ -160,6 +163,16 @@ public class Utils {
 			}
 		}
 	}
+
+	/**
+	 * Add two triangles to the Object3d's faces using the supplied indices
+	 */
+	public static void addQuad(IObject o, int upperLeft, int upperRight, int lowerRight, int lowerLeft)
+	{
+		o.getModel().getFaces().add((short) upperLeft, (short) lowerRight, (short) upperRight);
+		o.getModel().getFaces().add((short)upperLeft, (short)lowerLeft, (short)lowerRight);
+	}
+
 
 	public static int loadTexture(final Context context, final int resourceId)
 	{

@@ -11,6 +11,7 @@ import ploobs.plantevolution.World.IWorld;
 public abstract class IObject implements ISerializable
 {
 
+	private IObjectContainer parent;
 	
 	float[] localTransformation = new float[16];
 	float position[] = new float[3];
@@ -134,5 +135,11 @@ public IModel getModel()
 	public void setModel(IModel model){this.model = model;}
 
 
+	public IObjectContainer getParent() {
+		return parent;
+	}
 
+	public void setParent(IObjectContainer parent) {
+		this.parent = parent;
+	}
 }

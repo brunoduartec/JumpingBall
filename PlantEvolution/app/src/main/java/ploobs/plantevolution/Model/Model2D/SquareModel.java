@@ -1,6 +1,8 @@
 package ploobs.plantevolution.Model.Model2D;
 
 import ploobs.plantevolution.Model.IModel;
+import ploobs.plantevolution.Model.Model3D.FacesBufferList;
+import ploobs.plantevolution.Model.Model3D.Vertices;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -74,8 +76,18 @@ public class SquareModel implements IModel {
 
     }
     @Override
-    public float[] getVertices() {
-        return  squareCoords;
+    public Vertices getVertices() {
+        return  null;
+    }
+
+    @Override
+    public FacesBufferList getFaces() {
+        return null;
+    }
+
+    @Override
+    public int getVerticesCount() {
+        return 0;
     }
 
     @Override

@@ -25,6 +25,10 @@ private Vector2 _direction;
 
     private float mass;
 
+    private int energy;
+
+
+
     private float minimunY=0.7f;
     private float scale;
 
@@ -34,12 +38,14 @@ private Vector2 _direction;
     private boolean jumping;
 
 
-    public Player(IMaterial mat, IModel mod, String nm)
+    public Player(IMaterial mat, IModel mod, String nm,int energy)
     {
         //public SimpleObject(IMaterial mat, IModel mod, String nm)
 
         super(mat,mod,nm);
         this.scale = GameConstants.scale;
+        this.setEnergy(energy);
+
     }
 
 
@@ -155,5 +161,13 @@ private Vector2 _direction;
 
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 }

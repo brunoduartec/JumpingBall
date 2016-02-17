@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
-import ploobs.plantevolution.Color;
 import ploobs.plantevolution.Component.FpsCounterComponent;
 import ploobs.plantevolution.Component.TimerComponent;
 import ploobs.plantevolution.GUI.Element;
@@ -17,7 +16,6 @@ import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Input.InputSystem;
-import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
@@ -46,6 +44,9 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
     private int width, height;
+
+
+    private int actualplayerenergy;
 
 
     private float mAngle;
@@ -160,7 +161,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
 
-        restartbutton = ObjectFactory.getInstance().getButtonObject("restart", R.drawable.restart, 128*scale, 128*scale, new Vector3(0.75f, 0.0f,0.0f));
+        restartbutton = ObjectFactory.getInstance().getButtonObject("restart", R.drawable.restart, 64*scale, 64*scale, new Vector3(0.85f, 0.0f,0.0f));
         IEventHandler h3 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -170,6 +171,29 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         restartbutton.setOnClick(h3);
         gm.AddElement(restartbutton);
 
+
+
+        int energy = stages.getPlayer().getEnergy();
+        actualplayerenergy = energy;
+        //Add Energy bars
+
+        Vector3 initpos = new Vector3(0.1f,0f,0);
+        Vector3 delta =  new Vector3(0.2f,0,0);
+
+
+        Vector3 pp = initpos;
+        for (int i=0;i<energy;i++)
+        {
+            pp = initpos.add(delta.mul(i));
+            world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_1", R.drawable.sun, 64*scale, 64*scale, pp));
+
+
+        }
+
+
+        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_1", R.drawable.sun, 64*scale, 64*scale, initpos));
+        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_2", R.drawable.sun, 64*scale, 64*scale, initpos.add(delta)));
+        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_3", R.drawable.sun, 64*scale, 64*scale, initpos.add(delta.mul(2))));
 
 
 

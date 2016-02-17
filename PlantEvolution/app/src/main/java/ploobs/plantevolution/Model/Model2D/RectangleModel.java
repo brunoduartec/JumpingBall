@@ -6,6 +6,8 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 import ploobs.plantevolution.Model.IModel;
+import ploobs.plantevolution.Model.Model3D.FacesBufferList;
+import ploobs.plantevolution.Model.Model3D.Vertices;
 
 /**
  * Created by Bruno on 23/11/2015.
@@ -14,14 +16,14 @@ public class RectangleModel implements IModel {
 
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
-
+    protected Vertices _vertices;
 
     private float[] squareCoords;
     float size;
 
 
 
-    float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+    short color[] = {(short) 0.2, (short) 0.709803922, (short) 0.898039216, (short) 1.0};
 
 
 
@@ -29,18 +31,10 @@ public class RectangleModel implements IModel {
     private void calculateSquareCoords(float width, float height)
     {
 
-
-        float squareTemp[] = {
-                0.0f,  0.0f, 0.0f,   // top left
-                0.0f, -height, 0.0f,   // bottom left
-                width, -height, 0.0f,   // bottom right
-                width, 0.0f, 0.0f }; // top right
-
-        // Front face
-
-
-
-        squareCoords = squareTemp;
+        this.getVertices().addVertex(0.0f,0.0f,0.0f,0.0f,0.0f,0,0,0,color[0],color[1],color[2],color[3]);
+        this.getVertices().addVertex(0.0f, -height, 0.0f,0.0f,1.0f,0,0,0,color[0],color[1],color[2],color[3]);
+        this.getVertices().addVertex( width, -height, 0.0f, 1.0f,1.0f,0,0,0,color[0],color[1],color[2],color[3]);
+        this.getVertices().addVertex(width, 0.0f, 0.0f,1.0f,0.0f,0,0,0,color[0],color[1],color[2],color[3]);
 
     }
 
@@ -52,17 +46,22 @@ public class RectangleModel implements IModel {
         calculateSquareCoords(width,height);
 
 
-        vertexBuffer = ByteBuffer.allocateDirect(squareCoords.length * mBytesPerFloat)
-                .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        vertexBuffer.put(squareCoords).position(0);
-
-
 
 
     }
     @Override
-    public float[] getVertices() {
-        return  squareCoords;
+    public Vertices getVertices() {
+        return  this._vertices;
+    }
+
+    @Override
+    public FacesBufferList getFaces() {
+        return null;
+    }
+
+    @Override
+    public int getVerticesCount() {
+        return 0;
     }
 
     @Override
@@ -72,7 +71,8 @@ public class RectangleModel implements IModel {
 
     @Override
     public FloatBuffer getVertexBuffer() {
-        return vertexBuffer;
+       // return vertexBuffer;
+        return this.getVertices().points().buffer();
     }
 
     @Override

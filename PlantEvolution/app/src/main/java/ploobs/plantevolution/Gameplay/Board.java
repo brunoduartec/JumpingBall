@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Gameplay;
 
-import ploobs.plantevolution.Color;
+import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
@@ -578,9 +578,14 @@ public void MergeBlock(Block origin, Block destiny)
 
     }
 
+    public Player getPlayer()
+    {
+
+        return p1;
+    }
     private void CreatePlayer()
     {
-        p1 = ObjectFactory.getInstance().getPlayer("P1", getScale());
+        p1 = ObjectFactory.getInstance().getPlayer("P1", getScale(),3);
 
 
      //   FaceShadedCubeMaterial mt1 = (FaceShadedCubeMaterial)p1.getMaterial();

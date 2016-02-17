@@ -1,13 +1,12 @@
 package ploobs.plantevolution;
 
 import ploobs.plantevolution.GUI.Element;
-import ploobs.plantevolution.GUI.StartButton;
 import ploobs.plantevolution.Gameplay.Player;
+import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.FaceShadedCubeMaterial;
 import ploobs.plantevolution.Material.SimpleSquareMaterial;
-import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model2D.RectangleModel;
 import ploobs.plantevolution.Model.Model2D.Square;
@@ -33,7 +32,7 @@ public class ObjectFactory {
 		    return SingletonHolder.INSTANCE;
 		  }
 
-	public Player getPlayer(String name,float scale)
+	public Player getPlayer(String name,float scale,int energy)
 	{
 		Player obj;
 		IModel m1 = new BoxModel(scale);
@@ -44,7 +43,7 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
-		obj = new Player(mat1,m1, name);
+		obj = new Player(mat1,m1, name,energy);
 		obj.setScale(new float[]{scale, scale, scale});
 		return obj;
 
@@ -120,7 +119,7 @@ public class ObjectFactory {
 		return obj;
 	}
 
-	public SimpleObject getRectangleObject(String name,final int resourceId, float width, float height)
+	public SimpleObject getRectangleObject(String name,final int resourceId, float width, float height, Vector3 position)
 	{
 		Square sq;
 
@@ -131,7 +130,8 @@ public class ObjectFactory {
 		obj = new SimpleObject(mat1,m1, name);
 
 		obj.setScale(new float[]{1, 1, 1});
-	//	obj.setScale(new float[]{ratio, ratio, ratio});
+		obj.setPosition(position.get());
+
 
 
 		return obj;

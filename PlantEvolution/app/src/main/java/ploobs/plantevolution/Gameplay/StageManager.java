@@ -24,6 +24,11 @@ IWorld _localworld;
 
     }
 
+    public Player getPlayer()
+    {
+        return getBoard1().getPlayer();
+    }
+
     public void RestartStage()
     {
 

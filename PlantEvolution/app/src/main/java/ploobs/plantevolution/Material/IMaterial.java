@@ -21,6 +21,9 @@ public abstract class IMaterial implements ISerializable
 		// TODO Auto-generated method stub
 		return fragmentShaderHandle;
 	}
+
+	public abstract TextureList getTextures();
+
 public abstract void Draw(IObject obj, IWorld world);
 
 
