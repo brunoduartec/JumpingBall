@@ -16,9 +16,7 @@ public class BoxModel implements IModel
 	float[] squareCoords;
 
 	private Color[] _cols;
-
-
-float _scale;
+	float _scale;
 
 
 	@Override
@@ -34,11 +32,15 @@ float _scale;
 
 	@Override
 	public int getVerticesCount() {
-		return squareCoords.length;
+		return _vertices.size();//  squareCoords.length;
 	}
 
 	public BoxModel(float scale)
 	{
+		_vertices = new Vertices(4*6,false,false,false);
+		_faces = new FacesBufferList(2*6);
+
+
 		_scale = scale;
 		{
 			_cols = new Color[6];
@@ -53,20 +55,7 @@ float _scale;
 
 		make();
 		
-		//calculateSquareCoords(scale);
-		
 
-
-		/*
-        vertexBuffer = ByteBuffer.allocateDirect(squareCoords.length * mBytesPerFloat)
-		        .order(ByteOrder.nativeOrder()).asFloatBuffer();							
-        vertexBuffer.put(squareCoords).position(0);	
-
-        
-		mCubeNormals = ByteBuffer.allocateDirect(cubeNormalData.length * mBytesPerFloat)
-		        .order(ByteOrder.nativeOrder()).asFloatBuffer();							
-				mCubeNormals.put(cubeNormalData).position(0);
-		*/
 	}
 
 	private void make()
@@ -82,42 +71,42 @@ float _scale;
 		ur = _vertices.addVertex(+w, +h, +d, 1f, 0f, 0, 0, 1, (short) _cols[0].r, (short) _cols[0].g, (short)_cols[0].b,(short) _cols[0].a);
 		lr = _vertices.addVertex(+w, -h, +d, 1f, 1f, 0, 0, 1, (short) _cols[0].r, (short) _cols[0].g, (short)_cols[0].b,(short) _cols[0].a);
 		ll = _vertices.addVertex(-w, -h, +d, 0f, 1f, 0, 0, 1,(short) _cols[0].r, (short) _cols[0].g, (short)_cols[0].b,(short) _cols[0].a);
-		Utils.addQuad(this, ul,ur,lr,ll);
+		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// right
 		ul = _vertices.addVertex(+w, +h, +d, 0f, 0f, 1, 0, 0, (short) _cols[1].r, (short) _cols[1].g, (short)_cols[1].b,(short) _cols[1].a);
 		ur = _vertices.addVertex(+w, +h, -d, 1f, 0f, 1, 0, 0, (short) _cols[1].r, (short) _cols[1].g, (short)_cols[1].b,(short) _cols[1].a);
 		lr = _vertices.addVertex(+w, -h, -d, 1f, 1f, 1, 0, 0, (short) _cols[1].r, (short) _cols[1].g, (short)_cols[1].b,(short) _cols[1].a);
 		ll = _vertices.addVertex(+w, -h, +d, 0f, 1f, 1, 0, 0, (short) _cols[1].r, (short) _cols[1].g, (short)_cols[1].b,(short) _cols[1].a);
-		Utils.addQuad(this, ul,ur,lr,ll);
+		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// back
 		ul = _vertices.addVertex(+w, +h, -d, 0f, 0f, 0, 0, -1, (short) _cols[2].r, (short) _cols[2].g, (short)_cols[2].b,(short) _cols[2].a);
 		ur = _vertices.addVertex(-w, +h, -d, 1f, 0f, 0, 0, -1, (short) _cols[2].r, (short) _cols[2].g, (short)_cols[2].b,(short) _cols[2].a);
 		lr = _vertices.addVertex(-w, -h, -d, 1f, 1f, 0, 0, -1, (short) _cols[2].r, (short) _cols[2].g, (short)_cols[2].b,(short) _cols[2].a);
 		ll = _vertices.addVertex(+w, -h, -d, 0f, 1f, 0, 0, -1, (short) _cols[2].r, (short) _cols[2].g, (short)_cols[2].b,(short) _cols[2].a);
-		Utils.addQuad(this, ul,ur,lr,ll);
+		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// left
 		ul = _vertices.addVertex(-w, +h, -d, 0f, 0f, -1, 0, 0, (short) _cols[3].r, (short) _cols[3].g, (short)_cols[3].b,(short) _cols[3].a);
 		ur = _vertices.addVertex(-w, +h, +d, 1f, 0f, -1, 0, 0,(short) _cols[3].r, (short) _cols[3].g, (short)_cols[3].b,(short) _cols[3].a);
 		lr = _vertices.addVertex(-w, -h, +d, 1f, 1f, -1, 0, 0,(short) _cols[3].r, (short) _cols[3].g, (short)_cols[3].b,(short) _cols[3].a);
 		ll = _vertices.addVertex(-w, -h, -d, 0f, 1f, -1, 0, 0, (short) _cols[3].r, (short) _cols[3].g, (short)_cols[3].b,(short) _cols[3].a);
-		Utils.addQuad(this, ul,ur,lr,ll);
+		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// top
 		ul = _vertices.addVertex(-w, +h, -d, 0f, 0f, 0, 1, 0, (short) _cols[4].r, (short) _cols[4].g, (short)_cols[4].b,(short) _cols[4].a);
 		ur = _vertices.addVertex(+w, +h, -d, 1f, 0f, 0, 1, 0, (short) _cols[4].r, (short) _cols[4].g, (short)_cols[4].b,(short) _cols[4].a);
 		lr = _vertices.addVertex(+w, +h, +d, 1f, 1f, 0, 1, 0, (short) _cols[4].r, (short) _cols[4].g, (short)_cols[4].b,(short) _cols[4].a);
 		ll = _vertices.addVertex(-w, +h, +d, 0f, 1f, 0, 1, 0, (short) _cols[4].r, (short) _cols[4].g, (short)_cols[4].b,(short) _cols[4].a);
-		Utils.addQuad(this, ul,ur,lr,ll);
+		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// bottom
 		ul = _vertices.addVertex(-w, -h, +d, 0f, 0f, 0, -1, 0,(short) _cols[5].r, (short) _cols[5].g, (short)_cols[5].b,(short) _cols[5].a);
 		ur = _vertices.addVertex(+w, -h, +d, 1f, 0f, 0, -1, 0, (short) _cols[5].r, (short) _cols[5].g, (short)_cols[5].b,(short) _cols[5].a);
 		lr = _vertices.addVertex(+w, -h, -d, 1f, 1f, 0, -1, 0, (short) _cols[5].r, (short) _cols[5].g, (short)_cols[5].b,(short) _cols[5].a);
 		ll = _vertices.addVertex(-w, -h, -d, 0f, 1f, 0, -1, 0, (short) _cols[5].r, (short) _cols[5].g, (short)_cols[5].b,(short) _cols[5].a);
-		Utils.addQuad(this, ul, ur, lr, ll);
+		Utils.addQuad(_faces, ul, ur, lr, ll);
 	}
 	private void calculateSquareCoords(float size)
     {
@@ -188,19 +177,19 @@ float _scale;
 	@Override
 	public FloatBuffer getVertexBuffer() {
 		// TODO Auto-generated method stub
-		return vertexBuffer;
+		return _vertices.points().buffer();
 	}
 
 	@Override
 	public float[] getNormals() {
 		// TODO Auto-generated method stub
-		return cubeNormalData;
+		return null;
 	}
 
 	@Override
 	public FloatBuffer getNormalsBuffer() {
 		// TODO Auto-generated method stub
-		return mCubeNormals;
+		return _vertices.normals().buffer();
 	}
 
 	

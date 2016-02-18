@@ -215,7 +215,8 @@ public class SimpleSquareMaterial extends IMaterial
 
         // Draw the square
          
-    int verticescount = obj.getModel().getVerticesCount()/3;
+    //int verticescount = obj.getModel().getVerticesCount()/3;
+       int verticescount = obj.getModel().getVerticesCount();
 
         GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
         
