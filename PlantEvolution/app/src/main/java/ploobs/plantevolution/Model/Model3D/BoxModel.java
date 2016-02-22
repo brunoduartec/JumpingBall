@@ -37,7 +37,7 @@ public class BoxModel implements IModel
 
 	public BoxModel(float scale)
 	{
-		_vertices = new Vertices(4*6,false,false,false);
+		_vertices = new Vertices(4*6,true,true,true);
 		_faces = new FacesBufferList(2*6);
 
 

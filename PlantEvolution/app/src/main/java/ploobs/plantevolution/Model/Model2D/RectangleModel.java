@@ -36,14 +36,32 @@ public class RectangleModel implements IModel {
     {
 
         short ul, ur, lr, ll;
-
-        ul = this.getVertices().addVertex(0.0f,0.0f,0.0f,0.0f,0.0f,0,0,0,color[0],color[1],color[2],color[3]);
-        ur = this.getVertices().addVertex(0.0f, -height, 0.0f,0.0f,1.0f,0,0,0,color[0],color[1],color[2],color[3]);
-        lr = this.getVertices().addVertex( width, -height, 0.0f, 1.0f,1.0f,0,0,0,color[0],color[1],color[2],color[3]);
-        ll = this.getVertices().addVertex(width, 0.0f, 0.0f,1.0f,0.0f,0,0,0,color[0],color[1],color[2],color[3]);
+                            //      x   y   z               u   v       n       r       g       b           a
+        ul = _vertices.addVertex(0.0f,0.0f,0.0f,           0.0f,0.0f,  0,0,0,  color[0],color[1],color[2],color[3]);
+        ll = _vertices.addVertex(0.0f, -height,0.0f,       0.0f,1.0f,  0,0,0,  color[0],color[1],color[2],color[3]);
+        lr = _vertices.addVertex( width, -height,0.0f,     1.0f,1.0f,  0,0,0,  color[0],color[1],color[2],color[3]);
+        ur = _vertices.addVertex(width, 0.0f, 0.0f,        1.0f,0.0f,  0,0,0,  color[0],color[1],color[2],color[3]);
 
         Utils.addQuad(_faces, ul, ur, lr, ll);
 
+
+    }
+
+    private void calculateSquareCoordsOld(float width, float height)
+    {
+
+
+        float squareTemp[] = {
+                0.0f,  0.0f, 0.0f,   // top left
+                0.0f, -height, 0.0f,   // bottom left
+                width, -height, 0.0f,   // bottom right
+                width, 0.0f, 0.0f }; // top right
+
+        // Front face
+
+
+
+        squareCoords = squareTemp;
 
     }
 
@@ -55,8 +73,12 @@ public class RectangleModel implements IModel {
         _faces = new FacesBufferList(2);
 
         calculateSquareCoords(width,height);
+        calculateSquareCoordsOld(width, height);
 
-
+        vertexBuffer = ByteBuffer.allocateDirect(squareCoords.length * mBytesPerFloat)
+                .order(ByteOrder.nativeOrder()).asFloatBuffer();
+        vertexBuffer.put(squareCoords).position(0);
+     //   vertexBuffer.put(squareCoords);
 
 
     }
@@ -72,7 +94,11 @@ public class RectangleModel implements IModel {
 
     @Override
     public int getVerticesCount() {
+
+        int a = _vertices.size();
+        int b = squareCoords.length;
         return _vertices.size();
+       // return squareCoords.length;
     }
 
     @Override
@@ -82,7 +108,7 @@ public class RectangleModel implements IModel {
 
     @Override
     public FloatBuffer getVertexBuffer() {
-       // return vertexBuffer;
+     //   return vertexBuffer;
         return _vertices.points().buffer();
     }
 

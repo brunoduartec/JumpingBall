@@ -188,7 +188,7 @@ public class DiffuseMaterial extends IMaterial {
 		GLES30.glVertexAttribPointer(
 				mPositionHandle, COORDS_PER_VERTEX,
 				GLES30.GL_FLOAT, false,
-				vertexStride, obj.getModel().getVertexBuffer());
+				vertexStride, obj.getModel().getVertexBuffer().position(0));
 
 
 		// set color for drawing the triangle
@@ -210,7 +210,7 @@ public class DiffuseMaterial extends IMaterial {
 		GLES30.glVertexAttribPointer(
 					mNormalHandle, COORDS_PER_VERTEX,
 					GLES30.GL_FLOAT, false,
-					vertexStride, obj.getModel().getNormalsBuffer());
+					vertexStride, obj.getModel().getNormalsBuffer().position(0));
 
 
 
@@ -248,9 +248,10 @@ public class DiffuseMaterial extends IMaterial {
            // Disable vertex array
        //  GLES30.glDisableVertexAttribArray(mPositionHandle);
 
-		int verticescount = obj.getModel().getVerticesCount()/3;
+		//int verticescount = obj.getModel().getVerticesCount()/3;
+		int verticescount = obj.getModel().getVerticesCount();
 
-		GLES30.glDrawArrays(GLES30.GL_TRIANGLES,0,verticescount);
+		GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
 
 
 		// Disable vertex array

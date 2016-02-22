@@ -180,7 +180,7 @@ public class SimpleSquareMaterial extends IMaterial
         GLES30.glVertexAttribPointer(
                 mPositionHandle, COORDS_PER_VERTEX,
                 GLES30.GL_FLOAT, false,
-                vertexStride,obj.getModel().getVertexBuffer());
+                vertexStride,obj.getModel().getVertexBuffer().position(0));
 
 
 
@@ -199,11 +199,11 @@ public class SimpleSquareMaterial extends IMaterial
         
      // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
         // (which currently contains model * view).
-        Matrix.multiplyMM(mMVPMatrix, 0,cam.getViewMatrix() , 0,obj.getLocalTransformation(), 0);
+        Matrix.multiplyMM(mMVPMatrix, 0, cam.getViewMatrix(), 0, obj.getLocalTransformation(), 0);
         
         // This multiplies the modelview matrix by the projection matrix, and stores the result in the MVP matrix
         // (which now contains model * view * projection).
-        Matrix.multiplyMM(mMVPMatrix, 0,cam.getProjectionMatrix() , 0, mMVPMatrix, 0);
+        Matrix.multiplyMM(mMVPMatrix, 0, cam.getProjectionMatrix(), 0, mMVPMatrix, 0);
         
         
         // Apply the projection and view transformation
@@ -215,10 +215,13 @@ public class SimpleSquareMaterial extends IMaterial
 
         // Draw the square
          
-    //int verticescount = obj.getModel().getVerticesCount()/3;
-       int verticescount = obj.getModel().getVerticesCount();
+   // int verticescount = obj.getModel().getVerticesCount()/3;
+        int verticescount = obj.getModel().getVerticesCount();
 
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
+//int verticescount = obj.getModel().getVerticesCount()/2;
+
+       GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
+      //  GLES30.glDrawArrays ( GLES30.GL_TRIANGLES, 0, verticescount );
         
         
         // Disable vertex array
