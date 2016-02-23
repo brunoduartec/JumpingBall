@@ -18,6 +18,8 @@ import org.w3c.dom.Node;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
+import ploobs.plantevolution.Model.Model3D.Vertices;
 
 public class DiffuseMaterial extends IMaterial {
 
@@ -25,13 +27,13 @@ public class DiffuseMaterial extends IMaterial {
 	 
 	private int mPositionHandle;
 	private int mColorHandle;
-	private float[] color = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
-
+	//private float[] color = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+private Color color = new Color(51,180,229,255);
 
 	// R, G, B, A
 	float[] cubeColorData;
-	private final FloatBuffer mCubeColors;
-
+	private FloatBuffer mCubeColors;
+	//private final ShortBuffer mCubeColors;
 
 	private int mMVPMatrixHandle;
     // number of coordinates per vertex in this array
@@ -75,75 +77,80 @@ public class DiffuseMaterial extends IMaterial {
 
 		
 	}
-	public void setColor(float[] color)
+	public void setColor(Color color)
 	{
 
-		this.color = color;
+		this.color = color;//new Color(color);
 		this.cubeColorData = setColorCubeData(color);
 		mCubeColors.put(cubeColorData).position(0);
+		//mCubeColors = color.toFloatBuffer();
 
 	}
 
-	private float[] setColorCubeData(float[] cc)
+	private float[] setColorCubeData(Color cc)
 	{
 
-		float frontfactor = -0.2f;
-		float topfactor = 0.3f;
-		float leftfactor = 0.4f;
+		float frontfactor = -51/255.0f;
+		float topfactor = 76/255.0f;
+		float leftfactor = 100/255.0f;
+		
+		
+		float[] cc1 = cc.getColorf();
 
 		float[] cubeColor =
 				{
 						// Front face (color)
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-						cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-
-
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
 
 						// Right face (green)
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
 
 						// Back face (blue)
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
 
 						// Left face (yellow)
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-						cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
+
+
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+
 
 
 						// Top face (cyan)
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-						cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
 
 
 						// Bottom face (magenta)
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f,
-						cc[0], cc[1], cc[2], 1.0f
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc1[0], cc1[1], cc1[2], cc1[3]
 				};
 		return cubeColor;
 
@@ -185,10 +192,11 @@ public class DiffuseMaterial extends IMaterial {
 
 			GLES30.glEnableVertexAttribArray(mPositionHandle);
 		// Prepare the triangle coordinate data
+		obj.getModel().getVertexBuffer().position(0);
 		GLES30.glVertexAttribPointer(
 				mPositionHandle, COORDS_PER_VERTEX,
 				GLES30.GL_FLOAT, false,
-				vertexStride, obj.getModel().getVertexBuffer().position(0));
+				vertexStride, obj.getModel().getVertexBuffer());
 
 
 		// set color for drawing the triangle
@@ -197,20 +205,26 @@ public class DiffuseMaterial extends IMaterial {
 
 	      //  GLES30.glUniform4f(mColorHandle, color[0],color[1],color[2],color[3]);
 		//GLES30.glEnableVertexAttribArray(mColorHandle);
+		GLES30.glEnableVertexAttribArray(mColorHandle);
 // Pass in the color information
+
+
+
+
 		mCubeColors.position(0);
 		GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_FLOAT, false,
-				0, mCubeColors);
+				//	0, mCubeColors);
+				0, obj.getModel().getVertices().colors().buffer());
 
-		GLES30.glEnableVertexAttribArray(mColorHandle);
 
-
-		GLES30.glEnableVertexAttribArray(mNormalHandle);
+						GLES30.glEnableVertexAttribArray(mNormalHandle);
 	        // Prepare the triangle coordinate data
+
+		obj.getModel().getNormalsBuffer().position(0);
 		GLES30.glVertexAttribPointer(
 					mNormalHandle, COORDS_PER_VERTEX,
 					GLES30.GL_FLOAT, false,
-					vertexStride, obj.getModel().getNormalsBuffer().position(0));
+					vertexStride, obj.getModel().getNormalsBuffer());
 
 
 
@@ -251,7 +265,11 @@ public class DiffuseMaterial extends IMaterial {
 		//int verticescount = obj.getModel().getVerticesCount()/3;
 		int verticescount = obj.getModel().getVerticesCount();
 
-		GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
+		//GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
+		//GLES30.glDrawElements(GLES30.GL_TRIANGLES,0,verticescount);
+		obj.getModel().getFaces().buffer().position(0);
+
+		GLES30.glDrawElements ( GLES30.GL_TRIANGLES, obj.getModel().getFaces().size()*3, GLES30.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
 
 
 		// Disable vertex array
@@ -264,7 +282,7 @@ public class DiffuseMaterial extends IMaterial {
 		return null;
 	}
 
-	public float[] getColor() {
+	public Color getColor() {
 		return color;
 	}
 
