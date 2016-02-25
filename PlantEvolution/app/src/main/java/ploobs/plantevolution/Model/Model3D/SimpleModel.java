@@ -22,6 +22,11 @@ public class SimpleModel implements IModel
 	}
 
 	@Override
+	public void setFaceBufferList(FacesBufferList faces) {
+
+	}
+
+	@Override
 	public int getVerticesCount() {
 		return 0;
 	}
@@ -30,6 +35,16 @@ public class SimpleModel implements IModel
 	public FloatBuffer getVertexBuffer() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setVertices(Vertices vertices) {
+
+	}
+
+
+	public void setVertexBuffer(FloatBuffer vertex) {
+
 	}
 
 	@Override
@@ -43,5 +58,10 @@ public class SimpleModel implements IModel
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public void setNormalBuffer(FloatBuffer normals) {
+
+	}
+
 }

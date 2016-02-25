@@ -13,6 +13,7 @@ import ploobs.plantevolution.Model.Model2D.Square;
 import ploobs.plantevolution.Model.Model2D.SquareModel;
 import ploobs.plantevolution.Model.Model3D.BoxModel;
 import ploobs.plantevolution.Model.IModel;
+import ploobs.plantevolution.Model.Model3D.SphereModel;
 import ploobs.plantevolution.World.SimpleObject;
 
 public class ObjectFactory {
@@ -35,16 +36,16 @@ public class ObjectFactory {
 	public Player getPlayer(String name,float scale,int energy)
 	{
 		Player obj;
-		IModel m1 = new BoxModel(scale);
+	//	IModel m1 = new BoxModel(scale);
 		//
-		//IModel m1 = new SphereModel(scale,4,4);
+		IModel m1 = new SphereModel(scale,16,16);
 
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
 		obj = new Player(mat1,m1, name,energy);
-		obj.setScale(new float[]{scale, scale, scale});
+		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 
 	}
@@ -57,9 +58,9 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 
 
-		mat1.setColor(new float[]{0.2695f, 0.921875f, 0.109375f, 1.0f});
+		mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new float[]{scale, scale, scale});
+		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 	}
 
@@ -69,9 +70,9 @@ public class ObjectFactory {
 		IModel m1 = new BoxModel(scale);
 		DiffuseMaterial mat1 = new DiffuseMaterial();////DiffuseMaterial();
 
-		mat1.setColor(new float[]{.1f, .1f, .1f, 1.0f});
+		mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new float[]{scale, scale, scale});
+		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 	}
 
@@ -83,7 +84,7 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new float[]{scale, scale, scale});
+		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 	}
 
@@ -95,7 +96,7 @@ public class ObjectFactory {
 		IModel m1 = new BoxModel(scale);
 		IMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new float[]{scale, scale, scale});
+		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 		
 	}
@@ -113,7 +114,7 @@ public class ObjectFactory {
 
 		float ratio = GraphicFactory.getInstance().getRatio();
 
-		obj.setScale(new float[]{ratio, ratio, ratio});
+		obj.setScale(new Vector3(ratio, ratio, ratio));
 
 
 		return obj;
@@ -129,8 +130,8 @@ public class ObjectFactory {
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
 
-		obj.setScale(new float[]{1, 1, 1});
-		obj.setPosition(position.get());
+		obj.setScale(new Vector3(1, 1, 1));
+		obj.setPosition(position);
 
 
 
@@ -149,9 +150,9 @@ public class ObjectFactory {
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		obj = new Element(mat1,m1, name,position,width,height);
 
-		obj.setScale(new float[]{1, 1, 1});
-		//	obj.setScale(new float[]{ratio, ratio, ratio});
-        obj.setPosition(position.get());
+		obj.setScale(new Vector3(1, 1, 1));
+		//	obj.setScale(new Vector3ratio, ratio, ratio)):
+        obj.setPosition(position);
 
 		return obj;
 	}

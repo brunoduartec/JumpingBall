@@ -1,6 +1,10 @@
 package ploobs.plantevolution;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Random;
 
 import android.content.Context;
@@ -13,6 +17,7 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
 import ploobs.plantevolution.World.IObject;
@@ -20,6 +25,10 @@ import ploobs.plantevolution.World.IObject;
 public class Utils {
 	
     private static final String TAG = "SAMPLESTUDY";
+
+	public static final float DEG = (float)(Math.PI / 180f);
+
+	private static final int BYTES_PER_FLOAT = 4;
 
 	/**
      * Utility method for compiling a OpenGL shader.
@@ -32,11 +41,11 @@ public class Utils {
      * @return - Returns an id for the shader.
      */
 	
-	public static float[] RandColor()
+	public static Color RandColor()
 	{
 		Random rnd = new Random();
-		float color[] = { rnd.nextFloat(), rnd.nextFloat(),rnd.nextFloat(), rnd.nextFloat() };
-		return color;
+		int color[] = { rnd.nextInt(), rnd.nextInt(),rnd.nextInt(), rnd.nextInt() };
+		return new Color(color[0],color[1],color[2],color[3]);
 	
 		
 	}
@@ -210,7 +219,81 @@ public class Utils {
 
 		return textureHandle[0];
 	}
+	public static FloatBuffer makeFloatBuffer3(float $a, float $b, float $c)
+	{
+		ByteBuffer b = ByteBuffer.allocateDirect(3 * BYTES_PER_FLOAT);
+		b.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = b.asFloatBuffer();
+		buffer.put($a);
+		buffer.put($b);
+		buffer.put($c);
+		buffer.position(0);
+		return buffer;
+	}
+	public static FloatBuffer makeFloatBuffer4(float $a, float $b, float $c, float $d)
+	{
+		ByteBuffer b = ByteBuffer.allocateDirect(4 * BYTES_PER_FLOAT);
+		b.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = b.asFloatBuffer();
+		buffer.put($a);
+		buffer.put($b);
+		buffer.put($c);
+		buffer.put($d);
+		buffer.position(0);
+		return buffer;
+	}
 
+	/**
+	 * Convenience method to create a Bitmap given a Context's drawable resource ID.
+	 */
+	public static Bitmap makeBitmapFromResourceId(Context $context, int $id)
+	{
+		InputStream is = $context.getResources().openRawResource($id);
 
+		Bitmap bitmap;
+		try {
+			bitmap = BitmapFactory.decodeStream(is);
+		} finally {
+			try {
+				is.close();
+			} catch(IOException e) {
+				// Ignore.
+			}
+		}
+
+		return bitmap;
+	}
+
+	/**
+	 * Convenience method to create a Bitmap given a drawable resource ID from the application Context.
+	 */
+	public static Bitmap makeBitmapFromResourceId(int $id)
+	{
+		return makeBitmapFromResourceId(GraphicFactory.getInstance().getGraphicContext(), $id);
+	}
+
+	/**
+	 * Used by TextureManager
+	 */
+	public static int uploadTextureAndReturnId(Bitmap $bitmap, boolean $generateMipMap) /*package-private*/
+	{
+		int glTextureId;
+
+		int[] a = new int[1];
+		GLES30.glGenTextures(1, a, 0); // create a 'texture name' and put it in array element 0
+		glTextureId = a[0];
+		GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, glTextureId);
+
+		if($generateMipMap) {
+			GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,GLES30.GL_GENERATE_MIPMAP_HINT, GLES30.GL_TRUE);
+		} else {
+			GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_GENERATE_MIPMAP_HINT, GLES30.GL_FALSE);
+		}
+
+		// 'upload' to gpu
+		GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, $bitmap, 0);
+
+		return glTextureId;
+	}
 
 }

@@ -29,7 +29,7 @@ public class Element extends SimpleObject {
     public Element(IMaterial mat, IModel mod, String nm, Vector3 position, float width, float height) {
         super(mat,mod,nm);
 
-        this.setPosition(position.get());
+        this.setPosition(position);
         this.setWidth(width);
         this.setHeight(height);
     }
@@ -44,8 +44,8 @@ public class Element extends SimpleObject {
         float mposX = mousepos.getX();
         float mposY = mousepos.getY();
 
-        float posXconvert = getPosition()[0]*GraphicFactory.getInstance().getRatio();
-        float posYconvert = -getPosition()[1]/2;
+        float posXconvert = getPosition().getX()*GraphicFactory.getInstance().getRatio();
+        float posYconvert = -getPosition().getY()/2;
 
 
 

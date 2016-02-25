@@ -64,11 +64,13 @@ private Vector2 _direction;
        this._direction = dir;
 
 
-        if (getPosition()[1]>= after)
+        if (getPosition().getY()>= after)
         {
-            float[] oldpos = getPosition();
-            oldpos[0] += (dir.getX()*scale);
-            oldpos[2] += (dir.getY()*scale);
+            Vector3 oldpos = getPosition();
+
+            Vector3 delta = new Vector3(dir.getX()*scale,0,dir.getY()*scale);
+            oldpos = oldpos.add(delta);
+
             this.minimunY = after+scale;
 
             setPosition(oldpos);
@@ -92,8 +94,8 @@ private Vector2 _direction;
             Jump();
         else
         {
-            float[] pp = this.getPosition();
-            pp[1] = minimunY;
+            Vector3 pp = this.getPosition();
+            pp.setY( minimunY);
             this.setPosition(pp);
 
         }
@@ -120,16 +122,15 @@ private Vector2 _direction;
         Vector3 dx = velocity.mul(dt).add(g.mul(0.5f * dt * dt));
         velocity = Vft;
 
-        float[] pp = this.getPosition();
-
-        pp[0] += dx.getX();
-        pp[1] += dx.getY();
-        pp[2] += dx.getZ();
+        Vector3 pp = this.getPosition();
 
 
-        if ( pp[1]<=minimunY) {
+       pp =  pp.add(dx);
 
-            pp[1] = minimunY;
+
+        if ( pp.getY()<=minimunY) {
+
+            pp.setY(minimunY);
 
 
 

@@ -1,7 +1,12 @@
 package ploobs.plantevolution.Material;
 
+import java.nio.FloatBuffer;
+
+import ploobs.plantevolution.Utils;
+
 public class Color {
-	
+
+
 	public enum COLORNAME
 	{
 		BLACK,
@@ -18,7 +23,18 @@ public class Color {
 	public float b=0;
 	public float a=1;
 
-public Color(float r,float g, float b, float a)
+
+	public Color (float[] color)
+	{
+
+		this.r = color[0];
+		this.g = color[1];
+		this.b = color[2];
+		this.a =color[3];
+
+	}
+
+public Color(float r, float g, float b, float a)
 {
 	this.r = r;
 	this.g = g;
@@ -29,13 +45,13 @@ public Color(float r,float g, float b, float a)
 
 
 
-	public static float[] enumtoColor(COLORNAME cc)
+	public static Color enumtoColor(COLORNAME cc)
 	{
-		float[] color =  {10.0f, 10.0f, 10.0f,1.0f};
+		float[] color =  {0.1f, 0.1f, 0.1f,1.0f};
 		
 		switch (cc) {
 		case BLACK:
-			color = new float[]{0.0f,0.0f,0.0f,1.0f};
+			color = new float[]{0,0,0,1.0f};
 		break;
 
 		case WHITE:
@@ -43,7 +59,7 @@ public Color(float r,float g, float b, float a)
 		break;
 
 			case YELLOW:
-				color = new float[]{1.0f,1.0f,0.0f,1.0f};
+				color = new float[]{1.0f,1.0f,0,1.0f};
 				break;
 
 
@@ -51,7 +67,7 @@ public Color(float r,float g, float b, float a)
 			break;
 		}
 		
-		return color;
+		return new Color(color[0],color[1],color[2],color[3]);
 		
 	}
 	
@@ -68,7 +84,12 @@ public Color(float r,float g, float b, float a)
 
 		return color;
 	}
-	
+
+
+	public FloatBuffer toFloatBuffer()
+	{
+		return Utils.makeFloatBuffer4(r, g, b, a);
+	}
 	
 
 }

@@ -15,6 +15,7 @@ public interface IModel
 
     Vertices getVertices();
     FacesBufferList getFaces();
+    void setFaceBufferList(FacesBufferList faces);
 
     int getVerticesCount();
 
@@ -23,6 +24,8 @@ public interface IModel
 float[] getNormals();
 
 FloatBuffer getVertexBuffer();
+    void setVertices(Vertices vertices);
 FloatBuffer getNormalsBuffer();
+    void setNormalBuffer(FloatBuffer normals);
 
 }

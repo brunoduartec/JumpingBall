@@ -3,6 +3,7 @@ package ploobs.plantevolution.Camera;
 import android.opengl.Matrix;
 
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Math.Vector3;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -15,8 +16,10 @@ public class SimpleCamera implements ICamera {
 	private float fov;
 	private float nearPlane;
 	private float farPlane;
-	private float[] position;
-	private float[] target;
+
+
+	private Vector3 position;
+	private Vector3 target;
 	private float[] mViewMatrix = new float[16];
 	protected float[] mProjectionMatrix = new float[16];
 	private float[] mViewProjectionMatrix = new float[16];
@@ -33,7 +36,7 @@ public class SimpleCamera implements ICamera {
 
 
 
-	public SimpleCamera(String name,float FOV,float NearPlane, float FarPlane, float[] position, float[] target)
+	public SimpleCamera(String name,float FOV,float NearPlane, float FarPlane, Vector3 position, Vector3 target)
 	{
 		this.name=name;
 		this.fov=FOV;
@@ -60,7 +63,7 @@ public class SimpleCamera implements ICamera {
 	
 	public void CalcViewMatrix()
 	{
-		 Matrix.setLookAtM(mViewMatrix, 0 ,position[0], position[1], position[2], target[0],target[1],target[2], 0f, 1.0f, 0.0f);
+		 Matrix.setLookAtM(mViewMatrix, 0 ,position.getX(), position.getY(), position.getZ(), target.getX(),target.getY(),target.getZ(), 0f, 1.0f, 0.0f);
 		
 	}
 	public void CalcProjectionMatrix()
@@ -125,13 +128,13 @@ public class SimpleCamera implements ICamera {
 	}
 
 	@Override
-	public float[] getPosition() {
+	public Vector3 getPosition() {
 		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
-	public float[] getTarget() {
+	public Vector3 getTarget() {
 		// TODO Auto-generated method stub
 		return target;
 	}
@@ -165,7 +168,7 @@ public class SimpleCamera implements ICamera {
 	}
 
 	@Override
-	public void setPosition(float[] p) {
+	public void setPosition(Vector3 p) {
 		// TODO Auto-generated method stub
 		this.position = p;
 	
@@ -173,7 +176,7 @@ public class SimpleCamera implements ICamera {
 	}
 
 	@Override
-	public void setTarget(float[] t) {
+	public void setTarget(Vector3 t) {
 		// TODO Auto-generated method stub
 		this.target = t;
 	
@@ -237,7 +240,7 @@ public class SimpleCamera implements ICamera {
 				case "position": {
 					// Node positionnode = collisionchildnode.getChildNodes().item(1);
 					NodeList posnodes = collisionchildnode.getChildNodes();
-					float pp[] = new float[3];
+					Vector3 pp = new Vector3();
 
 					for (int k = 0; k < posnodes.getLength(); k++) {
 
@@ -245,13 +248,13 @@ public class SimpleCamera implements ICamera {
 
 							switch (posnodes.item(k).getNodeName()) {
 								case "x":
-									pp[0] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setX(Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 								case "y":
-									pp[1] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setY(Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 								case "z":
-									pp[2] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setZ( Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 
 							}
@@ -263,7 +266,7 @@ public class SimpleCamera implements ICamera {
 				case "target": {
 					// Node positionnode = collisionchildnode.getChildNodes().item(1);
 					NodeList posnodes = collisionchildnode.getChildNodes();
-					float pp[] = new float[3];
+					Vector3 pp = new Vector3();
 
 					for (int k = 0; k < posnodes.getLength(); k++) {
 
@@ -271,13 +274,13 @@ public class SimpleCamera implements ICamera {
 
 							switch (posnodes.item(k).getNodeName()) {
 								case "x":
-									pp[0] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setX( Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 								case "y":
-									pp[1] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setY( Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 								case "z":
-									pp[2] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+									pp.setZ( Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
 									break;
 
 							}

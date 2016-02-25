@@ -1,5 +1,6 @@
 package ploobs.plantevolution.Light;
 
+import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.PointLightMaterial;
@@ -16,12 +17,12 @@ public class AmbientLight extends ILight
 	
 
    
-   public AmbientLight(float[] color, float intens, Vector3 position)
+   public AmbientLight(Color color, float intens, Vector3 position)
    {
 	   
 	   this.setColor(color);
 	   this.setIntensity(intens);
-	   this.setPosition(position.get());
+	   this.setPosition(position);
 	   
    }
 	

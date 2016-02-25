@@ -86,6 +86,11 @@ public class SquareModel implements IModel {
     }
 
     @Override
+    public void setFaceBufferList(FacesBufferList faces) {
+
+    }
+
+    @Override
     public int getVerticesCount() {
         return 0;
     }
@@ -101,8 +106,18 @@ public class SquareModel implements IModel {
     }
 
     @Override
+    public void setVertices(Vertices vertices) {
+
+    }
+
+    @Override
     public FloatBuffer getNormalsBuffer() {
         return null;
+    }
+
+    @Override
+    public void setNormalBuffer(FloatBuffer normals) {
+
     }
 
 

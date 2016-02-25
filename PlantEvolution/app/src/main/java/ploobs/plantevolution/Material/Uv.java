@@ -18,6 +18,10 @@ public class Uv {
         this.v = v;
 
     }
+    public Uv clone()
+    {
+        return new Uv(u, v);
+    }
 
 
 }

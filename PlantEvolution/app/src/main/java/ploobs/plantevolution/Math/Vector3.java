@@ -20,11 +20,11 @@ public class Vector3
 
 	public Vector3(){}
 
-	public Vector3(float[] p)
+	public Vector3(Vector3 p)
 	{
-		this.setX(p[0]);
-		this.setY(p[1]);
-		this.setZ(p[2]);
+		this.setX(p.getX());
+		this.setY(p.getY());
+		this.setZ(p.getZ());
 		normalized = new float[3];
 	}
 
@@ -45,21 +45,7 @@ public class Vector3
 		this.setZ(z);
 		return this;
 	}
-	
-	public float[] get()
-	{
-		float[] ret = new float[3];
-		
-		ret[0] = getX();
-		ret[1] = getY();
-		ret[2] = getZ();
-		
-		return ret;
-	
-	
-	
-	}
-	
+
 	public float getMagnitude()
 	{
 		magnitude = (float) sqrt(getX() * getX() + getY() * getY() + getZ() * getZ());

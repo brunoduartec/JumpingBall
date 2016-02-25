@@ -18,7 +18,7 @@ public class PointLightMaterial extends IMaterial
 
 	private int mPositionHandle;
 	private int mColorHandle;
-	private float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+
 	private int mMVPMatrixHandle;
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
@@ -49,8 +49,8 @@ public class PointLightMaterial extends IMaterial
 public PointLightMaterial()
 {
 
-	
-	color = Utils.RandColor();
+
+    color = Color.enumtoColor(Color.COLORNAME.WHITE);
 	
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	
@@ -73,6 +73,11 @@ public PointLightMaterial()
     @Override
     public TextureList getTextures() {
         return null;
+    }
+
+    @Override
+    public Color getDiffuseColor() {
+        return this.color;
     }
 
     @Override
@@ -106,7 +111,7 @@ public PointLightMaterial()
 
 
         // set color for drawing the triangle
-        GLES30.glUniform4fv(mColorHandle, 1, color, 0);
+        GLES30.glUniform4fv(mColorHandle, 1, color.getColor(), 0);
 
 ICamera cam = world.getCameraManager().getActualCamera();
 

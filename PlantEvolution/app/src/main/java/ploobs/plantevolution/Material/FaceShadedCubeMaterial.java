@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
 public class FaceShadedCubeMaterial extends IMaterial
 {
@@ -26,7 +27,7 @@ public class FaceShadedCubeMaterial extends IMaterial
 	 private final int mProgram;
 	private int mPositionHandle;
 	private int mColorHandle;
-	private float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+
 
    private float[] cubeColorData;
 
@@ -61,7 +62,7 @@ public FaceShadedCubeMaterial()
 
 }
 	
-	public void setColor(float[] color)
+	public void setColor(Color color)
     {
 
         this.color = color;
@@ -71,66 +72,67 @@ public FaceShadedCubeMaterial()
     }
 
 
-    private float[] setColorCubeData(float[] cc)
+    private float[] setColorCubeData(Color cc)
     {
 
-        float frontfactor = -0.2f;
-        float topfactor = 0.3f;
-        float leftfactor = 0.4f;
+        short frontfactor = -51;
+        short topfactor = 76;
+        short leftfactor = 100;
 
         float[] cubeColor =
                 {
                         // Front face (color)
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-                        cc[0]+frontfactor, cc[1]+frontfactor, cc[2]+frontfactor, 1.0f,
-
-
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
+                        (short) (cc.r+frontfactor), (short) (cc.g+frontfactor), (short) (cc.b+frontfactor), cc.a,
 
                         // Right face (green)
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
 
                         // Back face (blue)
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
 
                         // Left face (yellow)
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
-                        cc[0]+leftfactor, cc[1]+leftfactor, cc[2]+leftfactor, 1.0f,
+
+
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+                        (short) (cc.r+leftfactor), (short) (cc.g+leftfactor), (short) (cc.b+leftfactor), cc.a,
+
 
 
                         // Top face (cyan)
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
-                        cc[0]+topfactor, cc[1]+topfactor, cc[2]+topfactor, 1.0f,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
+                        (short) (cc.r+topfactor), (short) (cc.g+topfactor), (short) (cc.b+topfactor), cc.a,
 
 
                         // Bottom face (magenta)
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a
                 };
         return cubeColor;
 
@@ -141,6 +143,11 @@ public FaceShadedCubeMaterial()
     @Override
     public TextureList getTextures() {
         return null;
+    }
+
+    @Override
+    public Color getDiffuseColor() {
+        return this.color;
     }
 
     @Override
@@ -235,7 +242,7 @@ public FaceShadedCubeMaterial()
                                     case "color": {
                                        // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList colornodes = collisionchildnode.getChildNodes();
-                                        float pp[] = new float[4];
+                                        float[] pp = new float[4];
 
                                         for (int k = 0; k < colornodes.getLength(); k++) {
 
@@ -260,7 +267,7 @@ public FaceShadedCubeMaterial()
                                                 }
                                             }
                                         }
-                                        this.setColor(pp);
+                                        this.setColor(new Color(pp));
                                     }
                                     break;
 

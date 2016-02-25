@@ -37,17 +37,11 @@ public class Vector2
 
 	}
 	
-	public float[] get()
+	public Vector2 get()
 	{
-		float[] ret = new float[2];
+		return new Vector2(x,y);
 		
-		ret[0] = x;
-		ret[1] = y;
 
-		
-		return ret;
-	
-	
 	
 	}
 	

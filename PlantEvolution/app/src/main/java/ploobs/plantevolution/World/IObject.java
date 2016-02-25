@@ -4,6 +4,7 @@ import android.opengl.Matrix;
 
 import ploobs.plantevolution.ISerializable;
 import ploobs.plantevolution.Material.IMaterial;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.World.IWorld;
 
@@ -14,9 +15,12 @@ public abstract class IObject implements ISerializable
 	private IObjectContainer parent;
 	
 	float[] localTransformation = new float[16];
-	float position[] = new float[3];
-	float rotation[] = new float[3];
-	float scale[] = new float[3];
+
+
+
+	Vector3 position = new Vector3();
+	Vector3 rotation = new Vector3();
+	Vector3 scale = new Vector3();
 	private IMaterial material;
 	private IModel model;
 	boolean Enabled=true;
@@ -26,37 +30,37 @@ public abstract class IObject implements ISerializable
 	int localID=-1;
 
 	
-public float[] getPosition()
+public Vector3 getPosition()
 {
 	return position;
 }
 
-public  void setPosition(float[] pos)
+public  void setPosition(Vector3 pos)
 {
 	 this.position = pos;
 }
  
 
-public float[] getRotation()
+public Vector3 getRotation()
 {
 	return this.rotation;
 }
 
 
 
-public void setRotation(float[] rot)
+public void setRotation(Vector3 rot)
 {
 	this.rotation=rot;	
 }
 
-public float[] getScale()
+public Vector3 getScale()
 {
 	return this.scale;	
 }
 
 
 
-public void setScale(float[] scale)
+public void setScale(Vector3 scale)
 {
 	this.scale = scale;	
 }
@@ -67,15 +71,15 @@ public float[] getLocalTransformation()
 {
 	
 	 float[] localTransformation= new float[16];
-	 float[] position = getPosition();
+	 Vector3 position = getPosition();
 	 
 	Matrix.setIdentityM(localTransformation, 0); // initialize to identity matrix
 
 
-	Matrix.scaleM(localTransformation, 0, scale[0], scale[1], scale[2]);
+	Matrix.scaleM(localTransformation, 0, scale.getX(), scale.getY(), scale.getZ());
 
 
-	 Matrix.translateM(localTransformation, 0, position[0], position[1], position[2]); // Multiply by translation to the position
+	 Matrix.translateM(localTransformation, 0, position.getX(), position.getY(), position.getZ()); // Multiply by translation to the position
 
 
 	return localTransformation;

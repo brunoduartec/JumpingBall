@@ -3,6 +3,7 @@ package ploobs.plantevolution.Camera;
 import android.opengl.Matrix;
 
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Math.Vector3;
 
 /**
  * Created by Bruno on 28/09/2015.
@@ -23,8 +24,8 @@ public class Camera2D extends SimpleCamera {
         this.setFarPlane(farplane);
 
 
-        float[] pos =  {0.0f, 0.0f, 1f};
-        float[] target =  {0.0f, 0.0f, -3.0f};
+        Vector3 pos =  new Vector3(0.0f, 0.0f, 1f);
+        Vector3 target = new Vector3(0.0f, 0.0f, -3.0f);
 
 
 
@@ -48,8 +49,8 @@ public class Camera2D extends SimpleCamera {
     @Override
     public void CalcViewMatrix()
     {
-        float[] position = this.getPosition();
-        float[] target = this.getTarget();
+        Vector3 position = this.getPosition();
+        Vector3 target = this.getTarget();
 
 
 
@@ -57,7 +58,7 @@ public class Camera2D extends SimpleCamera {
 
 
 
-        Matrix.setLookAtM(this.getViewMatrix(), 0, position[0], position[1], position[2], target[0], target[1], target[2], 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(this.getViewMatrix(), 0, position.getX(), position.getY(), position.getZ(), target.getX(), target.getY(), target.getZ(), 0f, 1.0f, 0.0f);
 
     }
 

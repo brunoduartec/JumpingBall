@@ -86,7 +86,7 @@ public class Board {
         //this.localWorld.CleanObjects();
 
         setBoardbyList();
-        SetPlayerPos(new Vector3(new float[]{size - 1, 1, size}));
+        SetPlayerPos(new Vector3(size - 1, 1, size));
 
 
 
@@ -180,14 +180,14 @@ public class Board {
 
 
 
-    private float[] convertLocalPosWorldPos(float[] localpos)
+    private Vector3 convertLocalPosWorldPos(Vector3 localpos)
     {
 
-        float x = localpos[0]* getScale() - (this.size/2)* getScale();
-        float y = localpos[1]* getScale();
-        float z = localpos[2]* getScale() - (this.size/2)* getScale();
+        float x = localpos.getX()* getScale() - (this.size/2)* getScale();
+        float y = localpos.getY()* getScale();
+        float z = localpos.getZ()* getScale() - (this.size/2)* getScale();
 
-        return new float[]{x,y,z,1};
+        return new Vector3(x,y,z);
 
 
 
@@ -225,7 +225,7 @@ public void SetPlayerPos(Vector3 pos)
 
     if (btemp == null)
     {
-        p1.setPosition(convertLocalPosWorldPos(pos.get()));
+        p1.setPosition(convertLocalPosWorldPos(pos));
         p1.setLocalPos(pos);
     }
 
@@ -251,7 +251,7 @@ public void SetPlayerPos(Vector3 pos)
 
         int h1,h2;
 
-        float[] actualpos = p1.getPosition();
+        Vector3 actualpos = p1.getPosition();
 
         float x,y;
 
@@ -481,7 +481,7 @@ public void MergeBlock(Block origin, Block destiny)
     {
 
         IObject ob = localWorld.getObjectbyID(bb.getObjectID());
-        float[] newpos = convertLocalPosWorldPos(bb.getLocalposition().get());
+        Vector3 newpos = convertLocalPosWorldPos(bb.getLocalposition());
         ob.setPosition(newpos);
 
         Object[] children = bb.getChildreen();
@@ -490,7 +490,7 @@ public void MergeBlock(Block origin, Block destiny)
         for (Object aChildren : children) {
             Block bt = (Block) aChildren;
             IObject ob1 = localWorld.getObjectbyID(bt.getObjectID());
-            float[] newpos1 = convertLocalPosWorldPos(bt.getLocalposition().get());
+            Vector3 newpos1 = convertLocalPosWorldPos(bt.getLocalposition());
             ob1.setPosition(newpos1);
         }
 
@@ -511,8 +511,8 @@ public void MergeBlock(Block origin, Block destiny)
 
 
         SimpleObject bbd = ObjectFactory.getInstance().getNormalBoxObject("board", getScale());
-        bbd.setScale(scale.get());
-        bbd.setPosition( new Vector3(0,0,0).get() );
+        bbd.setScale(scale);
+        bbd.setPosition( new Vector3(0,0,0) );
 
         localWorld.AddObject(bbd);
 /*
@@ -551,7 +551,7 @@ public void MergeBlock(Block origin, Block destiny)
 
 
 
-        b1.setPosition(convertLocalPosWorldPos(new float[]{size - 1, 0, size}));
+        b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));
 
         localWorld.AddObject(b1);
 
@@ -567,7 +567,7 @@ public void MergeBlock(Block origin, Block destiny)
         gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
 
 
-        gema.setPosition(convertLocalPosWorldPos(new float[]{size / 2, getGemaheight(), size / 2}));
+        gema.setPosition(convertLocalPosWorldPos(new Vector3(size / 2, getGemaheight(), size / 2)));
 
 
         List<ILight> ll = localWorld.getLights();
@@ -591,7 +591,7 @@ public void MergeBlock(Block origin, Block destiny)
      //   FaceShadedCubeMaterial mt1 = (FaceShadedCubeMaterial)p1.getMaterial();
       //  mt1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
-        p1.setPosition(convertLocalPosWorldPos(new float[]{size - 1, 1, size}));
+        p1.setPosition(convertLocalPosWorldPos(new Vector3(size - 1, 1, size)));
         p1.setLocalPos(new Vector3(size - 1, 1, size));
 
         localWorld.AddObject(p1);
@@ -630,10 +630,8 @@ public void MergeBlock(Block origin, Block destiny)
             String obname = Integer.toString(count);
 
 
-            float[] localposition = new float[3];
-            localposition[0] = x;
-            localposition[1] = i+1;
-            localposition[2] = y;
+            Vector3 localposition = new Vector3(x,i+1,y);
+
 
             IObject ob1 = null;
             if (t == NormalBlock.class)
@@ -643,7 +641,7 @@ public void MergeBlock(Block origin, Block destiny)
 
 
 
-            float[] position;
+            Vector3 position;
 
             position = convertLocalPosWorldPos(localposition);
 
@@ -729,16 +727,13 @@ public void Place0x0Block()
 
 
 
-    float[] localposition = new float[3];
-    localposition[0] =0 ;
-    localposition[1] = 0+1;
-    localposition[2] = 0;
+    Vector3 localposition = new Vector3(0,0+1,0);
 
 
     String obname = Integer.toString(count);
     IObject ob1 = ObjectFactory.getInstance().getNormalBoxObject(obname, getScale());
 
-    float[] position;
+    Vector3 position;
 
     position = convertLocalPosWorldPos(localposition);
     ob1.setPosition(position);

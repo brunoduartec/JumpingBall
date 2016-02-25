@@ -1,7 +1,9 @@
 package ploobs.plantevolution.Model.Model3D;
 
+import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.Math.Vector3;
+import ploobs.plantevolution.Utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -12,34 +14,29 @@ import java.nio.FloatBuffer;
  */
 public class SphereModel implements IModel {
 
-   // List<float[]> vertices = new LinkedList<>();
 
+   protected Vertices _vertices;
     protected FacesBufferList _faces;
-    float[] vertices;
+
     private  float _radius;
     int _rows,_cols;
-    private final FloatBuffer vertexBuffer;
-    protected Vertices _vertices;
+
+    Color defaultColor;
 
 
 
     public SphereModel(float radius, int columns, int rows)
     {
+        defaultColor =  Color.enumtoColor(Color.COLORNAME.WHITE);
 
-        this._radius = radius;
+        this._radius = radius/2;
         this._cols = columns;
         this._rows = rows;
 
+        _vertices = new Vertices((columns+1)*(rows+1),true,true,true);
+        _faces = new FacesBufferList(columns*rows*2);
+
         calculateSphereCoords();
-
-        vertexBuffer = ByteBuffer.allocateDirect(vertices.length * mBytesPerFloat)
-                .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        vertexBuffer.put(vertices).position(0);
-
-
-       // mCubeNormals = ByteBuffer.allocateDirect(cubeNormalData.length * mBytesPerFloat)
-        //        .order(ByteOrder.nativeOrder()).asFloatBuffer();
-       // mCubeNormals.put(cubeNormalData).position(0);
 
     }
 
@@ -55,8 +52,14 @@ public class SphereModel implements IModel {
     }
 
     @Override
+    public void setFaceBufferList(FacesBufferList faces) {
+        this._faces = faces;
+    }
+
+
+    @Override
     public int getVerticesCount() {
-        return vertices.length;
+        return _vertices.size();
     }
 
     @Override
@@ -66,13 +69,26 @@ public class SphereModel implements IModel {
 
     @Override
     public FloatBuffer getVertexBuffer() {
-        return vertexBuffer;
+        // TODO Auto-generated method stub
+        return _vertices.points().buffer();
+    }
+
+    @Override
+    public void setVertices(Vertices vertices) {
+this._vertices = vertices;
     }
 
     @Override
     public FloatBuffer getNormalsBuffer() {
-        return null;
+        // TODO Auto-generated method stub
+        return _vertices.normals().buffer();
     }
+
+    @Override
+    public void setNormalBuffer(FloatBuffer normals) {
+        this._vertices.overwriteNormals(normals.array());
+    }
+
 
     private void calculateSphereCoords()
     {
@@ -83,11 +99,12 @@ public class SphereModel implements IModel {
         Vector3 pos = new Vector3();
         Vector3 posFull = new Vector3();
 
-        vertices = new float[(_rows+1)*(_cols+1)*3];
 
-        //if( defaultColor() == null ) defaultColor(new Color4());
+        if( defaultColor == null )
+            defaultColor = Color.enumtoColor(Color.COLORNAME.WHITE);
+
         // Build vertices
-int count = -1;
+
         for (r = 0; r <= _rows; r++)
         {
             float v = (float)r / (float)_rows; // [0,1]
@@ -108,15 +125,25 @@ int count = -1;
                 posFull = pos;
                 posFull = posFull.mul(_radius);
 
-                count++;
-                vertices[count] = posFull.getX();
-                count++;
-                vertices[count] = posFull.getY();
-                count++;
-                vertices[count] = posFull.getZ();
+               _vertices.addVertex(posFull.getX(), posFull.getY(), posFull.getZ(), u, v, pos.getX(), pos.getY(), pos.getZ(), defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a);
+            }
+        }
+        // Add faces
 
+        int colLength = _cols + 1;
 
-                //this.vertices().addVertex(posFull.x,posFull.y,posFull.z,  u,v,  pos.x,pos.y,pos.z,  defaultColor().r,defaultColor().g,defaultColor().b,defaultColor().a);
+        for (r = 0; r < _rows; r++)
+        {
+            int offset = r * colLength;
+
+            for (c = 0; c < _cols; c++)
+            {
+                int ul = offset  +  c;
+                int ur = offset  +  c+1;
+                int br = offset  +  (int)(c + 1 + colLength);
+                int bl = offset  +  (int)(c + 0 + colLength);
+
+                Utils.addQuad(_faces, ul, ur, br, bl);
             }
         }
 

@@ -97,7 +97,7 @@ public class ColorBufferList {
         _numElements++;
     }
 
-    public void add(short r, short g, short b, short a)
+    public void add(float r, float g, float b, float a)
     {
         set(_numElements, r, g, b, a);
         _numElements++;
@@ -114,7 +114,7 @@ public class ColorBufferList {
         // Rem, OpenGL takes in color in this order: r,g,b,a -- _not_ a,r,g,b
     }
 
-    public void set(int index, short r, short g, short b, short a)
+    public void set(int index, float r, float g, float b, float a)
     {
         _b.position(index * PROPERTIES_PER_ELEMENT);
         _b.put((byte)r);

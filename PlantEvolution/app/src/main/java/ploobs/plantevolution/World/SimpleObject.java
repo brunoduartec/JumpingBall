@@ -1,6 +1,7 @@
 package ploobs.plantevolution.World;
 
 import ploobs.plantevolution.Material.IMaterial;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model3D.BoxModel;
 import ploobs.plantevolution.Model.IModel;
 
@@ -47,7 +48,7 @@ public class SimpleObject extends IObject
 	}
 
 	@Override
-	public float[] getPosition() {
+	public Vector3 getPosition() {
 		// TODO Auto-generated method stub
 		return position;
 	}
@@ -92,31 +93,31 @@ public class SimpleObject extends IObject
 	}
 
 	@Override
-	public void setPosition(float[] pos) {
+	public void setPosition(Vector3 pos) {
 		// TODO Auto-generated method stub
 	this.position = pos;	
 	}
 
 	@Override
-	public float[] getRotation() {
+	public Vector3 getRotation() {
 		// TODO Auto-generated method stub
 		return rotation;
 	}
 
 	@Override
-	public void setRotation(float[] rot) {
+	public void setRotation(Vector3 rot) {
 		// TODO Auto-generated method stub
 		rotation = rot;
 	}
 
 	@Override
-	public float[] getScale() {
+	public Vector3 getScale() {
 		// TODO Auto-generated method stub
 		return scale;
 	}
 
 	@Override
-	public void setScale(float[] scale) {
+	public void setScale(Vector3 scale) {
 		// TODO Auto-generated method stub
 		this.scale = scale;
 	}
@@ -140,7 +141,7 @@ public class SimpleObject extends IObject
                                     case "position": {
                                        // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList posnodes = collisionchildnode.getChildNodes();
-                                        float pp[] = new float[3];
+                                        Vector3 pp = new Vector3();
 
                                         for (int k = 0; k < posnodes.getLength(); k++) {
 
@@ -150,13 +151,13 @@ public class SimpleObject extends IObject
                                                     case "x":
 
 
-                                                        pp[0] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setX(Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
                                                     case "y":
-                                                        pp[1] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setY(Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
                                                     case "z":
-                                                        pp[2] = Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setZ(Float.parseFloat(posnodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
 
                                                 }
@@ -169,7 +170,7 @@ public class SimpleObject extends IObject
                                     case "scale": {
                                         // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList scalenodes = collisionchildnode.getChildNodes();
-                                        float pp[] = new float[3];
+                                        Vector3 pp = new Vector3();
 
                                         for (int k = 0; k < scalenodes.getLength(); k++) {
 
@@ -177,13 +178,13 @@ public class SimpleObject extends IObject
 
                                                 switch (scalenodes.item(k).getNodeName()) {
                                                     case "x":
-                                                        pp[0] = Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setX(Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
                                                     case "y":
-                                                        pp[1] = Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setY(Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
                                                     case "z":
-                                                        pp[2] = Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp.setZ(Float.parseFloat(scalenodes.item(k).getLastChild().getTextContent().trim()));
                                                         break;
 
                                                 }

@@ -19,8 +19,8 @@ class DepthComparator implements Comparator<IObject>
 	@Override
 	public int compare(IObject lhs, IObject rhs) {
 
-		float Z1 = lhs.getPosition()[2]*10000;
-		float Z2 = rhs.getPosition()[2]*10000;
+		float Z1 = lhs.getPosition().getZ()*10000;
+		float Z2 = rhs.getPosition().getZ()*10000;
 		int ret = (int)(Z1-Z2);
 
 		return ret;

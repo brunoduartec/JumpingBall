@@ -1,5 +1,6 @@
 package ploobs.plantevolution.Gameplay;
 
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.MyGLRenderer;
 
@@ -91,7 +92,7 @@ IWorld _localworld;
 
         cameradistance = 2f;
 
-        float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
+        Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
 
         _localworld.getCameraManager().getActualCamera().setPosition(pos);
 
@@ -124,7 +125,7 @@ IWorld _localworld;
         cameradistance = 2f;
         getBoard1().setGemaheight(4);
 
-        float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
+        Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
 
         _localworld.getCameraManager().getActualCamera().setPosition(pos);
 
@@ -158,7 +159,7 @@ IWorld _localworld;
 
         cameradistance = 3f;
 
-        float[] pos = {cameradistance, cameradistance * 1.5f, cameradistance};
+        Vector3 pos =new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
 
         _localworld.getCameraManager().getActualCamera().setPosition(pos);
 

@@ -30,12 +30,12 @@ public class SimpleSquareMaterial extends IMaterial
     private int mTextureCoordinateHandle;
     private int mTextureUniformHandle;
 
-    private float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+
 
    private float[] squareColorData;
 
 
-    private final FloatBuffer mSquareColors;
+    private FloatBuffer mSquareColors;
 
 	private int mMVPMatrixHandle;
     // number of coordinates per vertex in this array
@@ -51,8 +51,8 @@ public class SimpleSquareMaterial extends IMaterial
                     0.0f, 1.0f,
                     1.0f, 1.0f,
                     1.0f, 0.0f
-                   // 1.0f, 1.0f,
-                   // 1.0f, 0.0f
+                   // cc.a, cc.a,
+                   // cc.a, 0.0f
             };
     /** This is a handle to our texture data. */
     private int mTextureDataHandle;
@@ -61,8 +61,8 @@ public class SimpleSquareMaterial extends IMaterial
 
     public SimpleSquareMaterial(final int resourceId)
 {
-	
-	color = Utils.RandColor();
+
+    color = new Color(0.2f,0.706f,0.898f,1.0f);
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragment_tex);
 	String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertex);
@@ -96,29 +96,30 @@ public class SimpleSquareMaterial extends IMaterial
 
 
 	
-	public void setColor(float[] color)
+	public void setColor(Color color)
     {
 
         this.color = color;
         this.squareColorData = setSquareColorData(color);
         mSquareColors.put(squareColorData).position(0);
+      //  mSquareColors = color.toFloatBuffer();
 
     }
 
 
-    private float[] setSquareColorData(float[] cc)
+    private float[] setSquareColorData(Color cc)
     {
 
 
         float[] cubeColor =
                 {
                         // Front face (color)
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f,
-                        cc[0], cc[1], cc[2], 1.0f
-                       // cc[0], cc[1], cc[2], 1.0f,
-                      //  cc[0], cc[1], cc[2], 1.0f
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a,
+                        cc.r, cc.g, cc.b, cc.a
+                       // cc.r, cc.g, cc.b, cc.a,
+                      //  cc.r, cc.g, cc.b, cc.a
 
                 };
         return cubeColor;
@@ -130,6 +131,11 @@ public class SimpleSquareMaterial extends IMaterial
     @Override
     public TextureList getTextures() {
         return null;
+    }
+
+    @Override
+    public Color getDiffuseColor() {
+        return this.color;
     }
 
     @Override
@@ -246,7 +252,7 @@ public class SimpleSquareMaterial extends IMaterial
                                     case "color": {
                                        // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList colornodes = collisionchildnode.getChildNodes();
-                                        float pp[] = new float[4];
+                                        float[] pp = new float[4];
 
                                         for (int k = 0; k < colornodes.getLength(); k++) {
 
@@ -271,7 +277,7 @@ public class SimpleSquareMaterial extends IMaterial
                                                 }
                                             }
                                         }
-                                        this.setColor(pp);
+                                        this.setColor( new Color(pp));
                                     }
                                     break;
 

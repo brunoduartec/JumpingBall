@@ -111,7 +111,7 @@ public class Vertices
             float pointX, float pointY, float pointZ,
             float textureU, float textureV,
             float normalX, float normalY, float normalZ,
-            short colorR, short colorG, short colorB, short colorA)
+            float colorR, float colorG, float colorB, float colorA)
     {
         _points.add(pointX, pointY, pointZ);
 
@@ -176,7 +176,7 @@ public class Vertices
     /**
      * List of color values
      */
-    ColorBufferList colors() /*package-private*/
+    public ColorBufferList colors() /*package-private*/
     {
         return _colors;
     }

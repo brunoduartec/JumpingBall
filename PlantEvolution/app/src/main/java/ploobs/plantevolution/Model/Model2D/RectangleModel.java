@@ -93,6 +93,11 @@ public class RectangleModel implements IModel {
     }
 
     @Override
+    public void setFaceBufferList(FacesBufferList faces) {
+
+    }
+
+    @Override
     public int getVerticesCount() {
 
         int a = _vertices.size();
@@ -113,9 +118,19 @@ public class RectangleModel implements IModel {
     }
 
     @Override
+    public void setVertices(Vertices vertices) {
+
+    }
+
+    @Override
     public FloatBuffer getNormalsBuffer() {
         // TODO Auto-generated method stub
         return null;//_vertices.normals().buffer();
+    }
+
+    @Override
+    public void setNormalBuffer(FloatBuffer normals) {
+
     }
 
 

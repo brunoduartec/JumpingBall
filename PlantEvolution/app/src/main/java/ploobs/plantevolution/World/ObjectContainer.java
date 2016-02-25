@@ -112,18 +112,18 @@ public class ObjectContainer extends IObject implements IObjectContainer
 
 
 
-        clone.getPosition()[0] =getPosition()[0];
-        clone.getPosition()[1] =getPosition()[1];
-        clone.getPosition()[2] =getPosition()[2];
+        clone.getPosition().setX(getPosition().getX());
+        clone.getPosition().setY(getPosition().getY());
+        clone.getPosition().setZ(getPosition().getZ());
 
 
-        clone.getRotation()[0] = getRotation()[0];
-        clone.getRotation()[1] = getRotation()[1];
-        clone.getRotation()[2] = getRotation()[2];
+        clone.getRotation().setX( getRotation().getX());
+        clone.getRotation().setY( getRotation().getY());
+        clone.getRotation().setZ( getRotation().getZ());
 
-        clone.getScale()[0] = getScale()[0];
-        clone.getScale()[1] = getScale()[1];
-        clone.getScale()[2] = getScale()[2];
+        clone.getScale().setX( getScale().getX());
+        clone.getScale().setY( getScale().getY());
+        clone.getScale().setZ( getScale().getZ());
 
 
 

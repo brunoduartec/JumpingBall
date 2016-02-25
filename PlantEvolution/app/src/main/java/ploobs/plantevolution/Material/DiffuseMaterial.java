@@ -5,6 +5,7 @@ import android.opengl.GLES30;
 import android.opengl.Matrix;
 
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Model.Model3D.FacesBufferList;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
@@ -23,12 +24,13 @@ import ploobs.plantevolution.Model.Model3D.Vertices;
 
 public class DiffuseMaterial extends IMaterial {
 
-	
+
+	private String name;
 	 
 	private int mPositionHandle;
 	private int mColorHandle;
 	//private float[] color = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
-private Color color = new Color(51,180,229,255);
+
 
 	// R, G, B, A
 	float[] cubeColorData;
@@ -52,6 +54,28 @@ private Color color = new Color(51,180,229,255);
 	private int mLightColorHandle;
 
 	private float[] mLightPosInEyeSpace = new float[16];
+
+
+	public DiffuseMaterial(String name)
+	{
+
+		this.name = name;
+		color = Utils.RandColor();
+		//setColor(Utils.RandColor());
+		Context localContext = GraphicFactory.getInstance().getGraphicContext();
+		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
+		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
+
+		int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
+		int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, frag);
+
+		mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
+				new String[]{"a_Position", "a_Color", "a_Normal"});
+
+
+		mCubeColors = ByteBuffer.allocateDirect(144 * 4)
+				.order(ByteOrder.nativeOrder()).asFloatBuffer();
+	}
 
 
 
@@ -90,67 +114,67 @@ private Color color = new Color(51,180,229,255);
 	private float[] setColorCubeData(Color cc)
 	{
 
-		float frontfactor = -51/255.0f;
-		float topfactor = 76/255.0f;
-		float leftfactor = 100/255.0f;
+		float frontfactor = -0.2f;
+		float topfactor = 0.3f;
+		float leftfactor = 0.39f;
 		
 		
-		float[] cc1 = cc.getColorf();
+		
 
 		float[] cubeColor =
 				{
 						// Front face (color)
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
-						 (cc1[0]+frontfactor),  (cc1[1]+frontfactor),  (cc1[2]+frontfactor), cc1[3],
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
+						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
 
 						// Right face (green)
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
 
 						// Back face (blue)
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
 
 						// Left face (yellow)
 
 
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
-						 (cc1[0]+leftfactor),  (cc1[1]+leftfactor),  (cc1[2]+leftfactor), cc1[3],
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
 
 
 
 						// Top face (cyan)
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
-						 (cc1[0]+topfactor),  (cc1[1]+topfactor),  (cc1[2]+topfactor), cc1[3],
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
+						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
 
 
 						// Bottom face (magenta)
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3],
-						cc1[0], cc1[1], cc1[2], cc1[3]
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a,
+						cc.r, cc.g, cc.b, cc.a
 				};
 		return cubeColor;
 
@@ -161,6 +185,11 @@ private Color color = new Color(51,180,229,255);
 	@Override
 	public TextureList getTextures() {
 		return null;
+	}
+
+	@Override
+	public Color getDiffuseColor() {
+		return this.color;
 	}
 
 	@Override
@@ -196,7 +225,7 @@ private Color color = new Color(51,180,229,255);
 		GLES30.glVertexAttribPointer(
 				mPositionHandle, COORDS_PER_VERTEX,
 				GLES30.GL_FLOAT, false,
-				vertexStride, obj.getModel().getVertexBuffer());
+				0, obj.getModel().getVertexBuffer());
 
 
 		// set color for drawing the triangle
@@ -212,12 +241,13 @@ private Color color = new Color(51,180,229,255);
 
 
 		mCubeColors.position(0);
-		GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_FLOAT, false,
+		obj.getModel().getVertices().colors().buffer().position(0);
+		GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_BYTE, false,
 				//	0, mCubeColors);
 				0, obj.getModel().getVertices().colors().buffer());
 
 
-						GLES30.glEnableVertexAttribArray(mNormalHandle);
+		GLES30.glEnableVertexAttribArray(mNormalHandle);
 	        // Prepare the triangle coordinate data
 
 		obj.getModel().getNormalsBuffer().position(0);
@@ -269,7 +299,7 @@ private Color color = new Color(51,180,229,255);
 		//GLES30.glDrawElements(GLES30.GL_TRIANGLES,0,verticescount);
 		obj.getModel().getFaces().buffer().position(0);
 
-		GLES30.glDrawElements ( GLES30.GL_TRIANGLES, obj.getModel().getFaces().size()*3, GLES30.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
+		GLES30.glDrawElements ( GLES30.GL_TRIANGLES, obj.getModel().getFaces().size()* FacesBufferList.PROPERTIES_PER_ELEMENT, GLES30.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
 
 
 		// Disable vertex array
@@ -287,8 +317,11 @@ private Color color = new Color(51,180,229,255);
 	}
 
 
+	public String getName() {
+		return name;
+	}
 
-
-
-
+	public void setName(String name) {
+		this.name = name;
+	}
 }
