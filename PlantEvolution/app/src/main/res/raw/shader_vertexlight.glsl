@@ -5,8 +5,6 @@
 
 uniform mat4 u_MVPMatrix;      		// A constant representing the combined model/view/projection matrix.
 uniform mat4 u_MVMatrix;       		// A constant representing the combined model/view matrix.	
-uniform vec3 u_LightPos;       	    // The position of the light in eye space.
-uniform float u_LightIntensity;
 
 
 in vec4 a_Position;     		// Per-vertex position information we will pass in.
@@ -14,30 +12,27 @@ in vec4 a_Color;        		// Per-vertex color information we will pass in.
 in vec3 a_Normal;       		// Per-vertex normal information we will pass in.
 		  
 
+out vec3 v_Position;              // This will be passed into the fragment shader.
 out vec4 v_Color;                // This will be passed into the fragment shader.
+out vec3 v_Normal;                // This will be passed into the fragment shader.
+
 
 void main()                     	// The entry point for our vertex shader.
 {                              		
 
+   //Transform the vertex into eye space
+   v_Position = vec3(u_MVMatrix * a_Position);
 
-	// Transform the vertex into eye space.
-   vec3 modelViewVertex = vec3(u_MVMatrix * a_Position);
-   //Transform the normal orientation into eye space
-   vec3 modelViewNormal = vec3(u_MVMatrix * vec4(a_Normal,0.0));
-//will be used for attenuation
-   float distance = length(u_LightPos - modelViewVertex);
-//Get a lightining direction vector from the light to the vertex
-   vec3 lightVector = normalize(u_LightPos - modelViewVertex);
-//Calculate the dot product of the light vector and vertex normal.
-//If the normal and light vector are pointing in the same
-// direction then it will get max illumination
-   float diffuse = max(dot(modelViewNormal,lightVector),0.1);
-   diffuse = diffuse * (1.0/(1.0+(0.25*distance*distance)));
+   // Pass through the color
+   v_Color = a_Color;
 
-   v_Color = a_Color * diffuse * u_LightIntensity;
+   //Transform the normal's orientation into eye space
+   v_Normal = vec3(u_MVMatrix * vec4(a_Normal,0.0));
+
+   // Transform to screen coordinates
    gl_Position = u_MVPMatrix * a_Position;
 
- 
+
 
 
 }    
