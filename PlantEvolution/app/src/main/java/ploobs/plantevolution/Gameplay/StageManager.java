@@ -1,5 +1,10 @@
 package ploobs.plantevolution.Gameplay;
 
+import android.content.Context;
+
+import java.io.IOException;
+
+import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.MyGLRenderer;
@@ -33,12 +38,15 @@ IWorld _localworld;
     public void RestartStage()
     {
 
-        StartStage(true);
+        try {
+            StartStage(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void StartStage(boolean restart)
-    {
+    private void StartStage(boolean restart) throws IOException {
 
         if (restart)
             getBoard1().Reset();
@@ -48,8 +56,12 @@ IWorld _localworld;
 
             switch (actualstage) {
                 case 1:
-
-                    CreateStage1();
+                    try {
+                        CreateStageFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //CreateStage1();
                     break;
                 case 2:
                     CreateStage2();
@@ -64,13 +76,23 @@ IWorld _localworld;
 
     }
 
-    public void NextStage() {
+    public void NextStage() throws IOException {
         actualstage++;
 
-        StartStage(false);
+        try {
+            StartStage(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
+
+private void CreateStageFile() throws IOException {
+
+    getBoard1().Load("stages/stage0.txt");
+
+}
 
 
 

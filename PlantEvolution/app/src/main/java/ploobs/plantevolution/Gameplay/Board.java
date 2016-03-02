@@ -1,5 +1,11 @@
 package ploobs.plantevolution.Gameplay;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import org.xml.sax.InputSource;
+
+import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.World.IObject;
@@ -10,6 +16,10 @@ import ploobs.plantevolution.World.SimpleObject;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -782,7 +792,7 @@ public void Place0x0Block()
 
         }while(!canplace);
 
-        PlaceBlocksat(NormalBlock.class,1,x, y);
+        PlaceBlocksat(NormalBlock.class, 1, x, y);
 
 
 
@@ -848,4 +858,31 @@ public void Place0x0Block()
     public void setGemaheight(int gemaheight) {
         this.gemaheight = gemaheight;
     }
+
+
+    public void Load(String idfile) throws IOException {
+        InputStream is;
+        Context localContext = GraphicFactory.getInstance().getGraphicContext();
+        AssetManager am = localContext.getAssets();
+
+            is = am.open(idfile);
+
+
+
+
+        InputStreamReader inputreader = new InputStreamReader(is);
+        BufferedReader buffreader = new BufferedReader(inputreader);
+        String line,line1 = "";
+        try
+        {
+            while ((line = buffreader.readLine()) != null)
+                line1+=line;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

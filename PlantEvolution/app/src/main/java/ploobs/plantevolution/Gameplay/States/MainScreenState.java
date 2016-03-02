@@ -3,6 +3,8 @@ package ploobs.plantevolution.Gameplay.States;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
+import java.io.IOException;
+
 import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.Camera.SimpleCamera;
@@ -122,7 +124,11 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         scene = new SimpleScene(world,world2d);
         stages = new StageManager(world,_gamecontext);
 
-        stages.NextStage();
+        try {
+            stages.NextStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         CreateHUD();
@@ -230,7 +236,11 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         if (stages.getBoard1().TestEnd()) {
 
             AudioPlayer.getInstance().playAudio("pickup_gem");
-            stages.NextStage();
+            try {
+                stages.NextStage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (fps.Update()) {
             scene.Update();
