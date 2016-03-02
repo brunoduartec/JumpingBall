@@ -19,12 +19,11 @@ import org.w3c.dom.Node;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-import ploobs.plantevolution.Model.Model3D.Vertices;
 
 public class DiffuseMaterial extends IMaterial {
 
 
+	boolean colorseted = false;
 	private String name;
 	 
 	private int mPositionHandle;
@@ -44,6 +43,7 @@ public class DiffuseMaterial extends IMaterial {
 	private float[] mMVPMatrix =new float[16];
 	private float[] mMVMatrix = new float[16];
 
+
 	private int mMVMatrixHandle;
 
 	private int mNormalHandle;
@@ -51,9 +51,18 @@ public class DiffuseMaterial extends IMaterial {
 
 	private int mLightIntensityHandle;
 	private int mLightPosHandle;
+	private int mCameraPosHandle;
+
 	private int mLightColorHandle;
 
 	private float[] mLightPosInEyeSpace = new float[16];
+	private int mAmbientColorHandle;
+	private int mDiffuseColorHandle;
+	private int mSpecularColorHandle;
+	private int mu_MatNormHandle;
+
+	private int mAmbientIntensityHandle;
+	private int mSpecularIntensityHandle;
 
 
 	public DiffuseMaterial(String name)
@@ -66,6 +75,10 @@ public class DiffuseMaterial extends IMaterial {
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
 		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
 
+
+	//	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);
+		//String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_vertex);
+
 		int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
 		int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, frag);
 
@@ -73,8 +86,8 @@ public class DiffuseMaterial extends IMaterial {
 				new String[]{"a_Position", "a_Color", "a_Normal"});
 
 
-		mCubeColors = ByteBuffer.allocateDirect(144 * 4)
-				.order(ByteOrder.nativeOrder()).asFloatBuffer();
+	//	mCubeColors = ByteBuffer.allocateDirect(144 * 4)
+		//		.order(ByteOrder.nativeOrder()).asFloatBuffer();
 	}
 
 
@@ -84,102 +97,67 @@ public class DiffuseMaterial extends IMaterial {
 		color = Utils.RandColor();
 		//setColor(Utils.RandColor());
 		Context localContext = GraphicFactory.getInstance().getGraphicContext();
+		//String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);
+		//String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_vertex);
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
 		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
 
 		 int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
-		 int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, frag);
+		 int fragmentShaderHandle = Utils.loadShader(GLES30.GL_FRAGMENT_SHADER, frag);
 			
 			mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
 					new String[]{"a_Position", "a_Color", "a_Normal"});
 
 
-		mCubeColors = ByteBuffer.allocateDirect(144 * 4)
-				.order(ByteOrder.nativeOrder()).asFloatBuffer();
 
-		//mCubeColors.put(cubeColorData).position(0);
 
 		
 	}
-	public void setColor(Color color)
+	public void setColor(Color color,IObject obj)
 	{
+		if (colorseted)
+			return;
+
+		colorseted=true;
 
 		this.color = color;//new Color(color);
-		this.cubeColorData = setColorCubeData(color);
+
+		this.cubeColorData = TintMaterial(obj);
 		mCubeColors.put(cubeColorData).position(0);
-		//mCubeColors = color.toFloatBuffer();
+
+
 
 	}
+	//Uses the vertex information to obtain the color buffer size ant tint it in the diffuse color
+	public float[] TintMaterial(IObject obj)
+	{float[] cubeColor;
 
-	private float[] setColorCubeData(Color cc)
-	{
+		int colorsize =  obj.getModel().getVertices().colors().size();
 
-		float frontfactor = -0.2f;
-		float topfactor = 0.3f;
-		float leftfactor = 0.39f;
-		
-		
-		
-
-		float[] cubeColor =
-				{
-						// Front face (color)
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-						 (cc.r+frontfactor),  (cc.g+frontfactor),  (cc.b+frontfactor), cc.a,
-
-						// Right face (green)
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-
-						// Back face (blue)
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-
-						// Left face (yellow)
+		mCubeColors = ByteBuffer.allocateDirect(colorsize*4 * 4)
+				.order(ByteOrder.nativeOrder()).asFloatBuffer();
 
 
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
-						 (cc.r+leftfactor),  (cc.g+leftfactor),  (cc.b+leftfactor), cc.a,
+		cubeColor = new float[colorsize*4];
+
+		ColorBufferList cc = obj.getModel().getVertices().colors();
+
+		for (int i=0;i<colorsize;i++)
+		{
+
+			cubeColor[i*4] 	  = (float)(getDiffuseColor().r )/255.0f;
+			cubeColor[i*4 +1] = (float)(getDiffuseColor().g )/255.0f;
+			cubeColor[i*4 +2] = (float)(getDiffuseColor().b )/255.0f;
+			cubeColor[i*4 +3] = (float)(getDiffuseColor().a )/255.0f;
+
+
+		}
 
 
 
-						// Top face (cyan)
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-						 (cc.r+topfactor),  (cc.g+topfactor),  (cc.b+topfactor), cc.a,
-
-
-						// Bottom face (magenta)
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a,
-						cc.r, cc.g, cc.b, cc.a
-				};
 		return cubeColor;
-
-
 	}
+
 
 
 	@Override
@@ -205,17 +183,37 @@ public class DiffuseMaterial extends IMaterial {
 		 
 		// set program handles for cube drawing.
 	        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "u_MVPMatrix");
-	        mMVMatrixHandle = GLES30.glGetUniformLocation(mProgram, "u_MVMatrix"); 
-	        
-	        mLightPosHandle = GLES30.glGetUniformLocation(mProgram, "u_LightPos");
-		mLightIntensityHandle = GLES30.glGetUniformLocation(mProgram, "u_LightIntensity");
+	        mMVMatrixHandle = GLES30.glGetUniformLocation(mProgram, "u_MVMatrix");
 
-	        
+
+	        mLightPosHandle = GLES30.glGetUniformLocation(mProgram, "u_LightPos");
+			mCameraPosHandle  = GLES30.glGetUniformLocation(mProgram, "v_CameraPosition");
+
+		    mLightIntensityHandle = GLES30.glGetUniformLocation(mProgram, "u_LightIntensity");
+
+
+		mAmbientIntensityHandle = GLES30.glGetUniformLocation(mProgram, "u_AmbientLightIntensity");
+		mSpecularIntensityHandle= GLES30.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
+	//	mDiffuseColorHandle = GLES30.glGetUniformLocation(mProgram, "u_DiffuseColor");
+	//	mSpecularColorHandle = GLES30.glGetUniformLocation(mProgram, "u_SpecColor");
+
+
+		float[] colortemp = getDiffuseColor().getColor();
+
+	//	GLES30.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+	//	GLES30.glUniform4f(mDiffuseColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+	//	GLES30.glUniform4f(mSpecularColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+
+		//uniform vec3 u_AmbientColor;// = vec3(0.1, 0.0, 0.0);
+		//uniform vec3 u_DiffuseColor;// = vec3(0.5, 0.0, 0.0);
+		//uniform vec3 u_SpecColor;// = vec3(1.0, 1.0, 1.0);
+		
+		
 	        mPositionHandle = GLES30.glGetAttribLocation(mProgram, "a_Position");
 	        mColorHandle = GLES30.glGetAttribLocation(mProgram, "a_Color");
-	        mNormalHandle = GLES30.glGetAttribLocation(mProgram, "a_Normal"); 
-	
-	       
+	        mNormalHandle = GLES30.glGetAttribLocation(mProgram, "a_Normal");
+
+
 	        
 	        // Enable a handle to the triangle vertices
 
@@ -240,11 +238,22 @@ public class DiffuseMaterial extends IMaterial {
 
 
 
-		mCubeColors.position(0);
-		obj.getModel().getVertices().colors().buffer().position(0);
-		GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_BYTE, false,
-				//	0, mCubeColors);
-				0, obj.getModel().getVertices().colors().buffer());
+
+/*
+		if (mCubeColors == null)
+		{
+			obj.getModel().getVertices().colors().buffer().position(0);
+			GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_BYTE, false,
+			0, obj.getModel().getVertices().colors().buffer());
+		}
+		else*/
+		setColor(getDiffuseColor(), obj);
+		{
+			obj.getModel().getVertices().colors().buffer().position(0);
+			GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_FLOAT, false,
+					0, mCubeColors);
+			//	0, obj.getModel().getVertices().colors().buffer());
+		}
 
 
 		GLES30.glEnableVertexAttribArray(mNormalHandle);
@@ -252,9 +261,9 @@ public class DiffuseMaterial extends IMaterial {
 
 		obj.getModel().getNormalsBuffer().position(0);
 		GLES30.glVertexAttribPointer(
-					mNormalHandle, COORDS_PER_VERTEX,
-					GLES30.GL_FLOAT, false,
-					vertexStride, obj.getModel().getNormalsBuffer());
+				mNormalHandle, COORDS_PER_VERTEX,
+				GLES30.GL_FLOAT, false,
+				vertexStride, obj.getModel().getNormalsBuffer());
 
 
 
@@ -263,13 +272,26 @@ public class DiffuseMaterial extends IMaterial {
 
 
 		ICamera cam = world.getCameraManager().getActualCamera();
+
+
+
+		GLES30.glUniform3f(mCameraPosHandle,cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ());
+
 		
 		//Multiply the ViewMatrix by the Object local position to obtain position in worldspace
 		Matrix.multiplyMM(mMVMatrix, 0, cam.getViewMatrix(), 0, obj.getLocalTransformation(), 0);
         // Apply the projection and view transformation
-        GLES30.glUniformMatrix4fv(mMVMatrixHandle, 1, false,mMVMatrix, 0);
-		
-		
+        GLES30.glUniformMatrix4fv(mMVMatrixHandle, 1, false, mMVMatrix, 0);
+
+//Mat Norm
+
+	//	Matrix.invertM(matNormMatrix, 0, mMVMatrix, 0);
+	//	Matrix.transposeM(matNormMatrix,0,matNormMatrix,0);
+
+	//	GLES30.glUniformMatrix4fv(mNormalHandle, 1, false, matNormMatrix, 0);
+
+
+
 		//Multiply the worldspace position by the projection matrix and obtain the screen position
 		Matrix.multiplyMM(mMVPMatrix, 0, cam.getProjectionMatrix(), 0, mMVMatrix, 0);
         // Apply the projection and view transformation
@@ -277,15 +299,36 @@ public class DiffuseMaterial extends IMaterial {
 		
 
         ILight l1 = world.getLights().get(0);
-        
+
+
+		GLES30.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
+
+		GLES30.glUniform1f(mAmbientIntensityHandle, l1.getAmbientIntensity());
+
+		GLES30.glUniform1f(mSpecularIntensityHandle, l1.getSpecularIntensity());
+
+
+
+
         Matrix.multiplyMV(mLightPosInEyeSpace, 0, cam.getViewMatrix(), 0, l1.getLocalTransformation(), 0);
 
 
-		GLES30.glUniform1f(mLightIntensityHandle,l1.getIntensity());
+	//	Matrix.multiplyMV(mLightPosInEyeSpace, 0,l1.getLocalTransformation(),0, cam.getViewMatrix(), 0);
+
+
+		//GLES30.glUniform1f(mLightIntensityHandle,l1.getDiffuseIntensity());
         // Apply the projection and view transformation
-        GLES30.glUniformMatrix4fv(mLightPosHandle, 1, false,mLightPosInEyeSpace, 0);
-	
-                
+
+    //    GLES30.glUniformMatrix3fv(mLightPosHandle, 1, false,mLightPosInEyeSpace, 0);
+		//GLES30.glUniform3fv(mLightPosHandle,1,mLightPosInEyeSpace);
+		// Pass in the light position in eye space.
+
+
+
+		//GLES30.glUniform3f(mLightPosHandle, mLightPosInEyeSpace[0],mLightPosInEyeSpace[1],mLightPosInEyeSpace[2]);
+		GLES30.glUniform3f(mLightPosHandle, l1.getPosition().getX(),l1.getPosition().getY(),l1.getPosition().getZ());
+
+
         // Draw the cube.
       //  GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP, 0, 24);
            

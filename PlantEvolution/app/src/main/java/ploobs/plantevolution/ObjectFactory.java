@@ -36,14 +36,14 @@ public class ObjectFactory {
 	public Player getPlayer(String name,float scale,int energy)
 	{
 		Player obj;
-	//	IModel m1 = new BoxModel(scale);
+		//IModel m1 = new BoxModel(scale);
 		//
 		IModel m1 = new SphereModel(scale,16,16);
 
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		DiffuseMaterial mat1 = new DiffuseMaterial();
-		mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
-
+		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 		obj = new Player(mat1,m1, name,energy);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -58,7 +58,9 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 
 
-		mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
+		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
+		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.PURPLE));
+
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -70,7 +72,9 @@ public class ObjectFactory {
 		IModel m1 = new BoxModel(scale);
 		DiffuseMaterial mat1 = new DiffuseMaterial();////DiffuseMaterial();
 
-		mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
+		//mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
+		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.GRAY));
+
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -82,7 +86,8 @@ public class ObjectFactory {
 		IModel m1 = new BoxModel(scale);
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		DiffuseMaterial mat1 = new DiffuseMaterial();
-		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;

@@ -242,7 +242,7 @@ public FaceShadedCubeMaterial()
                                     case "color": {
                                        // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList colornodes = collisionchildnode.getChildNodes();
-                                        float[] pp = new float[4];
+                                        short[] pp = new short[4];
 
                                         for (int k = 0; k < colornodes.getLength(); k++) {
 
@@ -252,16 +252,16 @@ public FaceShadedCubeMaterial()
                                                     case "r":
 
 
-                                                        pp[0] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[0] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "g":
-                                                        pp[1] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[1] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "b":
-                                                        pp[2] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[2] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "a":
-                                                        pp[3] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[3] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
 
                                                 }

@@ -72,7 +72,7 @@ public class Board {
         this.localWorld.Initialize();
 
 
-        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),4.0f, new Vector3(0,2,0));
+        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),0.5f,0.5f,1.0f, new Vector3(0,1,0));
 
         localWorld.AddLight(light1);
 
@@ -570,9 +570,9 @@ public void MergeBlock(Block origin, Block destiny)
         gema.setPosition(convertLocalPosWorldPos(new Vector3(size / 2, getGemaheight(), size / 2)));
 
 
-        List<ILight> ll = localWorld.getLights();
-        if (ll.size()>0)
-            localWorld.getLights().get(0).setPosition(gema.getPosition());
+     //   List<ILight> ll = localWorld.getLights();
+      //  if (ll.size()>0)
+      //      localWorld.getLights().get(0).setPosition(gema.getPosition());
 
         localWorld.AddObject(gema);
 

@@ -6,10 +6,12 @@ import ploobs.plantevolution.World.IObject;
 public abstract class ILight extends IObject implements Cloneable
 {
 	
-	private float Intensity;
+	private float diffuseIntensity;
 	private Color color = Color.enumtoColor(Color.COLORNAME.WHITE);
 
 
+	private float ambientIntensity;
+	private float specularIntensity;
 
 
 	public Color getColor()
@@ -28,18 +30,29 @@ public abstract class ILight extends IObject implements Cloneable
 	
 	
 	
-	public float getIntensity()
+	public float getDiffuseIntensity()
 	{
-		return this.Intensity;
+		return this.diffuseIntensity;
 	}
-	public void setIntensity(float intens)
+	public void setDiffuseIntensity(float intens)
 	{
-		this.Intensity = intens;
+		this.diffuseIntensity = intens;
 	}
-	
 
 
+	public float getAmbientIntensity() {
+		return ambientIntensity;
+	}
 
+	public void setAmbientIntensity(float ambientIntensity) {
+		this.ambientIntensity = ambientIntensity;
+	}
 
+	public float getSpecularIntensity() {
+		return specularIntensity;
+	}
 
+	public void setSpecularIntensity(float specularIntensity) {
+		this.specularIntensity = specularIntensity;
+	}
 }

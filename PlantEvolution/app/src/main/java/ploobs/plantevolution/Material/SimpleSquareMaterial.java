@@ -62,7 +62,9 @@ public class SimpleSquareMaterial extends IMaterial
     public SimpleSquareMaterial(final int resourceId)
 {
 
-    color = new Color(0.2f,0.706f,0.898f,1.0f);
+    color = Color.enumtoColor(Color.COLORNAME.GRAY);
+
+
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragment_tex);
 	String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertex);
@@ -252,7 +254,7 @@ public class SimpleSquareMaterial extends IMaterial
                                     case "color": {
                                        // Node positionnode = collisionchildnode.getChildNodes().item(1);
                                         NodeList colornodes = collisionchildnode.getChildNodes();
-                                        float[] pp = new float[4];
+                                        short[] pp = new short[4];
 
                                         for (int k = 0; k < colornodes.getLength(); k++) {
 
@@ -262,16 +264,16 @@ public class SimpleSquareMaterial extends IMaterial
                                                     case "r":
 
 
-                                                        pp[0] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[0] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "g":
-                                                        pp[1] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[1] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "b":
-                                                        pp[2] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[2] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
                                                     case "a":
-                                                        pp[3] = Float.parseFloat(colornodes.item(k).getLastChild().getTextContent().trim());
+                                                        pp[3] = Short.parseShort(colornodes.item(k).getLastChild().getTextContent().trim());
                                                         break;
 
                                                 }

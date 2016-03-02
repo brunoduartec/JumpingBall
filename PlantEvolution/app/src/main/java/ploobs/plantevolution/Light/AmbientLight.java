@@ -17,11 +17,14 @@ public class AmbientLight extends ILight
 	
 
    
-   public AmbientLight(Color color, float intens, Vector3 position)
+   public AmbientLight(Color color, float diffuseIntensity, float ambientIntensity, float specularIntensity, Vector3 position)
    {
 	   
 	   this.setColor(color);
-	   this.setIntensity(intens);
+	   this.setDiffuseIntensity(diffuseIntensity);
+	   this.setAmbientIntensity(ambientIntensity);
+	   this.setSpecularIntensity(specularIntensity);
+
 	   this.setPosition(position);
 	   
    }

@@ -14,17 +14,19 @@ public class Color {
 		RED,
 		BLUE,
 		GREEN,
-		YELLOW
+		YELLOW,
+		PURPLE,
+		GRAY
 	};
 
 
-	public float r=0;
-	public float g=0;
-	public float b=0;
-	public float a=1;
+	public short r=0;
+	public short g=0;
+	public short b=0;
+	public short a=1;
 
 
-	public Color (float[] color)
+	public Color (short[] color)
 	{
 
 		this.r = color[0];
@@ -34,7 +36,7 @@ public class Color {
 
 	}
 
-public Color(float r, float g, float b, float a)
+public Color(short r, short g, short b, short a)
 {
 	this.r = r;
 	this.g = g;
@@ -44,22 +46,39 @@ public Color(float r, float g, float b, float a)
 }
 
 
+	public Color(int r, int g, int b, int a)
+	{
+		this.r = (short)r;
+		this.g = (short)g;
+		this.b = (short)b;
+		this.a =(short)a;
+
+	}
+
 
 	public static Color enumtoColor(COLORNAME cc)
 	{
-		float[] color =  {0.1f, 0.1f, 0.1f,1.0f};
+		short[] color =  {255, 255, 255,255};
 		
 		switch (cc) {
 		case BLACK:
-			color = new float[]{0,0,0,1.0f};
+			color = new short[]{0,0,0,255};
 		break;
 
 		case WHITE:
-			color = new float[]{1.0f,1.0f,1.0f,1.0f};
+			color = new short[]{255,255,255,255};
 		break;
 
-			case YELLOW:
-				color = new float[]{1.0f,1.0f,0,1.0f};
+		case YELLOW:
+				color = new short[]{255,255,0,255};
+		break;
+
+		case PURPLE:
+				color = new short[]{128,0,128,255};
+		break;
+
+			case GRAY:
+				color = new short[]{112,128,144,255};
 				break;
 
 
@@ -76,10 +95,10 @@ public Color(float r, float g, float b, float a)
 	float[] getColor()
 	{
 		float[] color = new float[4];
-		color[0] = r;
-		color[1] = g;
-		color[2] = b;
-		color[3] = a;
+		color[0] = (float)r/255.0f;
+		color[1] = (float)g/255.0f;
+		color[2] = (float)b/255.0f;
+		color[3] = (float)a/255.0f;
 
 
 		return color;
