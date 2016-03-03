@@ -571,6 +571,18 @@ public void MergeBlock(Block origin, Block destiny)
 
     }
 
+    private void CreateGemaat(Vector3 position)
+    {
+
+        gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
+
+        gema.setPosition(convertLocalPosWorldPos(position.mul(size)));
+
+
+        localWorld.AddObject(gema);
+
+    }
+
     private void CreateGema()
     {
 
@@ -585,6 +597,7 @@ public void MergeBlock(Block origin, Block destiny)
       //      localWorld.getLights().get(0).setPosition(gema.getPosition());
 
         localWorld.AddObject(gema);
+
 
     }
 
@@ -875,8 +888,77 @@ public void Place0x0Block()
         String line,line1 = "";
         try
         {
+
+            int cX=0,cY=0;
+
+
             while ((line = buffreader.readLine()) != null)
-                line1+=line;
+            {
+                line1 += line;
+
+
+                String[] obj = line.split("=");
+
+
+                switch (obj[0])
+                {
+                    case "S":
+
+                        GameConstants.size = Integer.parseInt(obj[1]);
+                        CreateBoard(GameConstants.size);
+
+                        break;
+
+
+                    case "G":
+
+                        String[] pos = obj[1].split(",");
+
+                        Vector3 position = new Vector3(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]), Float.parseFloat(pos[2]));
+                       // CreateGemaat(position);
+
+                        gema.setPosition(convertLocalPosWorldPos(position));
+                        setGemaheight(GameConstants.size);
+
+                        break;
+                    case "M":
+
+                        do {
+
+
+                            String[] bb = obj[1].split(" ");
+                            cX = 0;
+                            for (String b : bb) {
+
+                                if (!b.contains("0")) {
+                                    String[] objecttoplace = b.split("_");
+                                    switch (objecttoplace[0]) {
+
+                                        case "S":
+                                            PlaceBlocksat(StoneBlock.class, Integer.parseInt(objecttoplace[1]), cX, cY);
+                                            break;
+
+                                        case "B":
+                                            PlaceBlocksat(NormalBlock.class, Integer.parseInt(objecttoplace[1]), cX, cY);
+                                            break;
+
+
+                                    }
+
+                                }
+                                cX++;
+                            }
+                            cY++;
+                            obj[1] = buffreader.readLine();
+                        }while(cY < GameConstants.size);
+
+                        break;
+
+
+                }
+
+            }
+
         }catch (Exception e)
         {
             e.printStackTrace();

@@ -53,28 +53,28 @@ IWorld _localworld;
         else {
             getBoard1().Initialize();
 
+            try {
+                switch (actualstage) {
+                    case 1:
 
-            switch (actualstage) {
-                case 1:
-                    try {
-                        CreateStageFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //CreateStage1();
-                    break;
-                case 2:
-                    CreateStage2();
-                    break;
-                case 3:
-                    CreateStage3();
-                    break;
+                        CreateStageFile("stages/stage0.txt");
+                        break;
+                    case 2:
+                        CreateStageFile("stages/stage1.txt");
+                        break;
+                    case 3:
+                        CreateStage3();
+                        break;
 
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-
-
     }
+
+
+
 
     public void NextStage() throws IOException {
         actualstage++;
@@ -88,9 +88,19 @@ IWorld _localworld;
     }
 
 
-private void CreateStageFile() throws IOException {
+private void CreateStageFile(String name) throws IOException {
 
-    getBoard1().Load("stages/stage0.txt");
+    _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
+    GameConstants.size =5;
+    size = GameConstants.size;
+
+    cameradistance = 2f;
+
+    Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
+
+    _localworld.getCameraManager().getActualCamera().setPosition(pos);
+
+    getBoard1().Load(name);
 
 }
 
@@ -102,13 +112,11 @@ private void CreateStageFile() throws IOException {
 
         _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
 
-       // _activityhandle.setContextImage(_gamecontext);
 
         GameConstants.size =5;
         size = GameConstants.size;
 
 
-       // getBoard1().Initialize();
 
         getBoard1().setGemaheight(4);
 
