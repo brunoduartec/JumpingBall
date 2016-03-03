@@ -878,6 +878,8 @@ public void Place0x0Block()
         Context localContext = GraphicFactory.getInstance().getGraphicContext();
         AssetManager am = localContext.getAssets();
 
+
+
             is = am.open(idfile);
 
 

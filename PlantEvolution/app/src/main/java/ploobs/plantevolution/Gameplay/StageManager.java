@@ -1,13 +1,9 @@
 package ploobs.plantevolution.Gameplay;
 
-import android.content.Context;
-
 import java.io.IOException;
 
-import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.World.IWorld;
-import ploobs.plantevolution.MyGLRenderer;
 
 /**
  * Created by Bruno on 11/11/2015.
@@ -63,7 +59,7 @@ IWorld _localworld;
                         CreateStageFile("stages/stage1.txt");
                         break;
                     case 3:
-                        CreateStage3();
+                        CreateStageFile("stages/stage4.txt");
                         break;
 
                 }
@@ -90,124 +86,26 @@ IWorld _localworld;
 
 private void CreateStageFile(String name) throws IOException {
 
-    _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
-    GameConstants.size =5;
-    size = GameConstants.size;
 
-    cameradistance = 2f;
+    getBoard1().Load(name);
+
+    _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
+
+
+   // cameradistance = 2f;
+
+    cameradistance = Math.round((GameConstants.size*GameConstants.scale/2));
+
+
 
     Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
 
     _localworld.getCameraManager().getActualCamera().setPosition(pos);
 
-    getBoard1().Load(name);
+
 
 }
 
-
-
-    private void CreateStage1()
-    {
-
-
-        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
-
-
-        GameConstants.size =5;
-        size = GameConstants.size;
-
-
-
-        getBoard1().setGemaheight(4);
-
-        cameradistance = 2f;
-
-        Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
-
-        _localworld.getCameraManager().getActualCamera().setPosition(pos);
-
-
-
-
-        getBoard1().CreateBoard(GameConstants.size);
-
-
-
-        getBoard1().PlaceBlocksat(NormalBlock.class, 1, size - 2, size - 2);
-        getBoard1().PlaceBlocksat(NormalBlock.class, 2, 1, 1);
-
-        //   board1.PlaceBlocksat(StoneBlock.class, 1, 3, 0);
-
-
-
-
-    }
-    private void CreateStage2()
-    {
-        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
-        //  _activityhandle.setContextImage(_gamecontext);
-        GameConstants.size = 5;
-        size = GameConstants.size;
-
-     //   getBoard1().Initialize();
-
-
-        cameradistance = 2f;
-        getBoard1().setGemaheight(4);
-
-        Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
-
-        _localworld.getCameraManager().getActualCamera().setPosition(pos);
-
-
-
-        getBoard1().CreateBoard(GameConstants.size);
-
-
-
-      //  getBoard1().PlaceRandonBlock();
-        getBoard1().PlaceBlocksat(StoneBlock.class, 1, 3, 0);
-
-        getBoard1().PlaceBlocksat(StoneBlock.class, 1, 2, 1);
-
-
-        getBoard1().PlaceBlocksat(NormalBlock.class, 1, size - 2, size - 2);
-        getBoard1().PlaceBlocksat(NormalBlock.class, 2, 1, 1);
-
-    }
-
-
-    private void CreateStage3()
-    {
-        _gamecontext = GameConstants.GAMECONTEXT.BLOCK;
-        //  _activityhandle.setContextImage(_gamecontext);
-        GameConstants.size = 9;
-        size = GameConstants.size;
-
-    //    getBoard1().Initialize();
-        getBoard1().setGemaheight(4);
-
-        cameradistance = 3f;
-
-        Vector3 pos =new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
-
-        _localworld.getCameraManager().getActualCamera().setPosition(pos);
-
-
-
-        getBoard1().CreateBoard(GameConstants.size);
-
-
-
-        //getBoard1().PlaceRandonBlock();
-        getBoard1().PlaceBlocksat(StoneBlock.class, 1, 3, 0);
-        //getBoard1().PlaceBlocksat(StoneBlock.class, 2, 3, 1);
-        getBoard1().PlaceBlocksat(StoneBlock.class, 2, 2, 2);
-
-        getBoard1().PlaceBlocksat(NormalBlock.class, 1, size - 1, size - 2);
-        getBoard1().PlaceBlocksat(NormalBlock.class, 2, 1, 1);
-
-    }
 
     public Board getBoard1() {
         return board1;
