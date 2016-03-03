@@ -1,7 +1,10 @@
 package ploobs.plantevolution.Gameplay;
 
+import android.content.Context;
+
 import java.io.IOException;
 
+import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.World.IWorld;
 
@@ -17,12 +20,18 @@ IWorld _localworld;
     private float cameradistance;
     GameConstants.GAMECONTEXT _gamecontext;
     int size;
+    Context localContext;
 
-    public StageManager(IWorld w,GameConstants.GAMECONTEXT gt)
-    {
+    int stagescount=0;
+
+    public StageManager(IWorld w,GameConstants.GAMECONTEXT gt) throws IOException {
+        localContext = GraphicFactory.getInstance().getGraphicContext();
         this._localworld = w;
         setBoard1(new Board(w));
         this._gamecontext = gt;
+
+        stagescount = localContext.getAssets().list("stages").length;
+
 
     }
 
@@ -44,23 +53,19 @@ IWorld _localworld;
 
     private void StartStage(boolean restart) throws IOException {
 
+
+
+
         if (restart)
             getBoard1().Reset();
         else {
             getBoard1().Initialize();
 
             try {
-                switch (actualstage) {
-                    case 1:
 
-                        CreateStageFile("stages/stage0.txt");
-                        break;
-                    case 2:
-                        CreateStageFile("stages/stage1.txt");
-                        break;
-                    case 3:
-                        CreateStageFile("stages/stage4.txt");
-                        break;
+                if (actualstage <= stagescount)
+                {
+                    CreateStageFile("stages/stage"+actualstage+".txt");
 
                 }
             } catch (IOException e) {

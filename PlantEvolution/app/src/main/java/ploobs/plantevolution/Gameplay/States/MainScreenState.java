@@ -122,9 +122,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
         scene = new SimpleScene(world,world2d);
-        stages = new StageManager(world,_gamecontext);
 
         try {
+
+            stages = new StageManager(world,_gamecontext);
             stages.NextStage();
         } catch (IOException e) {
             e.printStackTrace();
