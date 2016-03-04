@@ -1,7 +1,7 @@
 package ploobs.plantevolution.Material;
 
 import android.content.Context;
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 import ploobs.plantevolution.GraphicFactory;
@@ -79,8 +79,8 @@ public class DiffuseMaterial extends IMaterial {
 	//	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);
 		//String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_vertex);
 
-		int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
-		int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, frag);
+		int vertexShaderHandle = Utils.loadShader(	GLES20.GL_VERTEX_SHADER, vert);
+		int fragmentShaderHandle = Utils.loadShader(	GLES20.GL_FRAGMENT_SHADER, frag);
 
 		mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
 				new String[]{"a_Position", "a_Color", "a_Normal"});
@@ -102,8 +102,8 @@ public class DiffuseMaterial extends IMaterial {
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
 		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
 
-		 int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
-		 int fragmentShaderHandle = Utils.loadShader(GLES30.GL_FRAGMENT_SHADER, frag);
+		 int vertexShaderHandle = Utils.loadShader(	GLES20.GL_VERTEX_SHADER, vert);
+		 int fragmentShaderHandle = Utils.loadShader(GLES20.GL_FRAGMENT_SHADER, frag);
 			
 			mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
 					new String[]{"a_Position", "a_Color", "a_Normal"});
@@ -175,64 +175,64 @@ public class DiffuseMaterial extends IMaterial {
 
 
 // Use culling to remove back faces.
-		GLES30.glEnable(GLES30.GL_CULL_FACE);
+		GLES20.glEnable(GLES20.GL_CULL_FACE);
 
 		// Enable depth testing
-		GLES30.glEnable(GLES30.GL_DEPTH_TEST);
-		GLES30.glUseProgram(mProgram);
+		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+		GLES20.glUseProgram(mProgram);
 		 
 		// set program handles for cube drawing.
-	        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "u_MVPMatrix");
-	        mMVMatrixHandle = GLES30.glGetUniformLocation(mProgram, "u_MVMatrix");
+	        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVPMatrix");
+	        mMVMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVMatrix");
 
 
-	        mLightPosHandle = GLES30.glGetUniformLocation(mProgram, "u_LightPos");
-			mCameraPosHandle  = GLES30.glGetUniformLocation(mProgram, "v_CameraPosition");
+	        mLightPosHandle = GLES20.glGetUniformLocation(mProgram, "u_LightPos");
+			mCameraPosHandle  = GLES20.glGetUniformLocation(mProgram, "v_CameraPosition");
 
-		    mLightIntensityHandle = GLES30.glGetUniformLocation(mProgram, "u_LightIntensity");
+		    mLightIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_LightIntensity");
 
 
-		mAmbientIntensityHandle = GLES30.glGetUniformLocation(mProgram, "u_AmbientLightIntensity");
-		mSpecularIntensityHandle= GLES30.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
-	//	mDiffuseColorHandle = GLES30.glGetUniformLocation(mProgram, "u_DiffuseColor");
-	//	mSpecularColorHandle = GLES30.glGetUniformLocation(mProgram, "u_SpecColor");
+		mAmbientIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_AmbientLightIntensity");
+		mSpecularIntensityHandle= GLES20.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
+	//	mDiffuseColorHandle = GLES20.glGetUniformLocation(mProgram, "u_DiffuseColor");
+	//	mSpecularColorHandle = GLES20.glGetUniformLocation(mProgram, "u_SpecColor");
 
 
 		float[] colortemp = getDiffuseColor().getColor();
 
-	//	GLES30.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
-	//	GLES30.glUniform4f(mDiffuseColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
-	//	GLES30.glUniform4f(mSpecularColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+	//	GLES20.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+	//	GLES20.glUniform4f(mDiffuseColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+	//	GLES20.glUniform4f(mSpecularColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
 
 		//uniform vec3 u_AmbientColor;// = vec3(0.1, 0.0, 0.0);
 		//uniform vec3 u_DiffuseColor;// = vec3(0.5, 0.0, 0.0);
 		//uniform vec3 u_SpecColor;// = vec3(1.0, 1.0, 1.0);
 		
 		
-	        mPositionHandle = GLES30.glGetAttribLocation(mProgram, "a_Position");
-	        mColorHandle = GLES30.glGetAttribLocation(mProgram, "a_Color");
-	        mNormalHandle = GLES30.glGetAttribLocation(mProgram, "a_Normal");
+	        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
+	        mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
+	        mNormalHandle = GLES20.glGetAttribLocation(mProgram, "a_Normal");
 
 
 	        
 	        // Enable a handle to the triangle vertices
 
-			GLES30.glEnableVertexAttribArray(mPositionHandle);
+			GLES20.glEnableVertexAttribArray(mPositionHandle);
 		// Prepare the triangle coordinate data
 		obj.getModel().getVertexBuffer().position(0);
-		GLES30.glVertexAttribPointer(
+		GLES20.glVertexAttribPointer(
 				mPositionHandle, COORDS_PER_VERTEX,
-				GLES30.GL_FLOAT, false,
+				GLES20.GL_FLOAT, false,
 				0, obj.getModel().getVertexBuffer());
 
 
 		// set color for drawing the triangle
 		// set color for drawing the triangle
-		//GLES30.glUniform4fv(mColorHandle, 1, color, 0);
+		//GLES20.glUniform4fv(mColorHandle, 1, color, 0);
 
-	      //  GLES30.glUniform4f(mColorHandle, color[0],color[1],color[2],color[3]);
-		//GLES30.glEnableVertexAttribArray(mColorHandle);
-		GLES30.glEnableVertexAttribArray(mColorHandle);
+	      //  GLES20.glUniform4f(mColorHandle, color[0],color[1],color[2],color[3]);
+		//GLES20.glEnableVertexAttribArray(mColorHandle);
+		GLES20.glEnableVertexAttribArray(mColorHandle);
 // Pass in the color information
 
 
@@ -243,26 +243,26 @@ public class DiffuseMaterial extends IMaterial {
 		if (mCubeColors == null)
 		{
 			obj.getModel().getVertices().colors().buffer().position(0);
-			GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_BYTE, false,
+			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_BYTE, false,
 			0, obj.getModel().getVertices().colors().buffer());
 		}
 		else*/
 		setColor(getDiffuseColor(), obj);
 		{
 			obj.getModel().getVertices().colors().buffer().position(0);
-			GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_FLOAT, false,
+			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_FLOAT, false,
 					0, mCubeColors);
 			//	0, obj.getModel().getVertices().colors().buffer());
 		}
 
 
-		GLES30.glEnableVertexAttribArray(mNormalHandle);
+		GLES20.glEnableVertexAttribArray(mNormalHandle);
 	        // Prepare the triangle coordinate data
 
 		obj.getModel().getNormalsBuffer().position(0);
-		GLES30.glVertexAttribPointer(
+		GLES20.glVertexAttribPointer(
 				mNormalHandle, COORDS_PER_VERTEX,
-				GLES30.GL_FLOAT, false,
+				GLES20.GL_FLOAT, false,
 				vertexStride, obj.getModel().getNormalsBuffer());
 
 
@@ -275,37 +275,37 @@ public class DiffuseMaterial extends IMaterial {
 
 
 
-		GLES30.glUniform3f(mCameraPosHandle,cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ());
+		GLES20.glUniform3f(mCameraPosHandle,cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ());
 
 		
 		//Multiply the ViewMatrix by the Object local position to obtain position in worldspace
 		Matrix.multiplyMM(mMVMatrix, 0, cam.getViewMatrix(), 0, obj.getLocalTransformation(), 0);
         // Apply the projection and view transformation
-        GLES30.glUniformMatrix4fv(mMVMatrixHandle, 1, false, mMVMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMVMatrixHandle, 1, false, mMVMatrix, 0);
 
 //Mat Norm
 
 	//	Matrix.invertM(matNormMatrix, 0, mMVMatrix, 0);
 	//	Matrix.transposeM(matNormMatrix,0,matNormMatrix,0);
 
-	//	GLES30.glUniformMatrix4fv(mNormalHandle, 1, false, matNormMatrix, 0);
+	//	GLES20.glUniformMatrix4fv(mNormalHandle, 1, false, matNormMatrix, 0);
 
 
 
 		//Multiply the worldspace position by the projection matrix and obtain the screen position
 		Matrix.multiplyMM(mMVPMatrix, 0, cam.getProjectionMatrix(), 0, mMVMatrix, 0);
         // Apply the projection and view transformation
-		GLES30.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
+		GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 		
 
         ILight l1 = world.getLights().get(0);
 
 
-		GLES30.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
+		GLES20.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
 
-		GLES30.glUniform1f(mAmbientIntensityHandle, l1.getAmbientIntensity());
+		GLES20.glUniform1f(mAmbientIntensityHandle, l1.getAmbientIntensity());
 
-		GLES30.glUniform1f(mSpecularIntensityHandle, l1.getSpecularIntensity());
+		GLES20.glUniform1f(mSpecularIntensityHandle, l1.getSpecularIntensity());
 
 
 
@@ -316,37 +316,37 @@ public class DiffuseMaterial extends IMaterial {
 	//	Matrix.multiplyMV(mLightPosInEyeSpace, 0,l1.getLocalTransformation(),0, cam.getViewMatrix(), 0);
 
 
-		//GLES30.glUniform1f(mLightIntensityHandle,l1.getDiffuseIntensity());
+		//GLES20.glUniform1f(mLightIntensityHandle,l1.getDiffuseIntensity());
         // Apply the projection and view transformation
 
-    //    GLES30.glUniformMatrix3fv(mLightPosHandle, 1, false,mLightPosInEyeSpace, 0);
-		//GLES30.glUniform3fv(mLightPosHandle,1,mLightPosInEyeSpace);
+    //    GLES20.glUniformMatrix3fv(mLightPosHandle, 1, false,mLightPosInEyeSpace, 0);
+		//GLES20.glUniform3fv(mLightPosHandle,1,mLightPosInEyeSpace);
 		// Pass in the light position in eye space.
 
 
 
-		//GLES30.glUniform3f(mLightPosHandle, mLightPosInEyeSpace[0],mLightPosInEyeSpace[1],mLightPosInEyeSpace[2]);
-		GLES30.glUniform3f(mLightPosHandle, l1.getPosition().getX(),l1.getPosition().getY(),l1.getPosition().getZ());
+		//GLES20.glUniform3f(mLightPosHandle, mLightPosInEyeSpace[0],mLightPosInEyeSpace[1],mLightPosInEyeSpace[2]);
+		GLES20.glUniform3f(mLightPosHandle, l1.getPosition().getX(),l1.getPosition().getY(),l1.getPosition().getZ());
 
 
         // Draw the cube.
-      //  GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP, 0, 24);
+      //  GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 24);
            
            // Disable vertex array
-       //  GLES30.glDisableVertexAttribArray(mPositionHandle);
+       //  GLES20.glDisableVertexAttribArray(mPositionHandle);
 
 		//int verticescount = obj.getModel().getVerticesCount()/3;
 		int verticescount = obj.getModel().getVerticesCount();
 
-		//GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
-		//GLES30.glDrawElements(GLES30.GL_TRIANGLES,0,verticescount);
+		//GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN,0,verticescount);
+		//GLES20.glDrawElements(GLES20.GL_TRIANGLES,0,verticescount);
 		obj.getModel().getFaces().buffer().position(0);
 
-		GLES30.glDrawElements ( GLES30.GL_TRIANGLES, obj.getModel().getFaces().size()* FacesBufferList.PROPERTIES_PER_ELEMENT, GLES30.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
+		GLES20.glDrawElements ( GLES20.GL_TRIANGLES, obj.getModel().getFaces().size()* FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
 
 
 		// Disable vertex array
-		GLES30.glDisableVertexAttribArray(mPositionHandle);
+		GLES20.glDisableVertexAttribArray(mPositionHandle);
 	}
 
 

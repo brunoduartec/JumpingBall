@@ -1,10 +1,12 @@
-#version 300 es
+#version 200 es
 uniform mat4 u_MVPMatrix[24];           // An array representing the combined
                                                     // model/view/projection matrices for each sprite
 
       in float a_MVPMatrixIndex; 	// The index of the MVPMatrix of the particular sprite
+
       in vec4 a_Position;          // Per-vertex position information we will pass in.
       in vec2 a_TexCoordinate;     // Per-vertex texture coordinate information we will pass in
+
       out vec2 v_TexCoordinate;     // This will be passed into the fragment shader.
       void main()                         // The entry point for our vertex shader.
       {

@@ -8,7 +8,7 @@ import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.Camera.ICamera;
 
 import android.content.Context;
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 import org.w3c.dom.Node;
@@ -55,8 +55,8 @@ public PointLightMaterial()
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	
 
-	 int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, pointVertexShader);
-	 int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, pointFragmentShader);
+	 int vertexShaderHandle = Utils.loadShader(	GLES20.GL_VERTEX_SHADER, pointVertexShader);
+	 int fragmentShaderHandle = Utils.loadShader(	GLES20.GL_FRAGMENT_SHADER, pointFragmentShader);
 	
 	 
    
@@ -86,32 +86,32 @@ public PointLightMaterial()
 		// TODO Auto-generated method stub
 		
 		 // Add program to OpenGL environment
-    	GLES30.glUseProgram(mProgram);
+    	GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member
-        mPositionHandle = GLES30.glGetAttribLocation(mProgram, "vPosition");
+        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
         // get handle to fragment shader's vColor member
-        mColorHandle = GLES30.glGetUniformLocation(mProgram, "vColor");
+        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
         // get handle to shape's transformation matrix
-        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "uMVPMatrix");
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
         MyGLRenderer.checkGlError("glGetUniformLocation");        
         
         
         
         
         // Enable a handle to the triangle vertices
-        GLES30.glEnableVertexAttribArray(mPositionHandle);
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
 
         // Prepare the triangle coordinate data
-        GLES30.glVertexAttribPointer(
+        GLES20.glVertexAttribPointer(
                 mPositionHandle, COORDS_PER_VERTEX,
-                GLES30.GL_FLOAT, false,
+                GLES20.GL_FLOAT, false,
                 vertexStride,obj.getModel().getVertexBuffer());
 
 
 
         // set color for drawing the triangle
-        GLES30.glUniform4fv(mColorHandle, 1, color.getColor(), 0);
+        GLES20.glUniform4fv(mColorHandle, 1, color.getColor(), 0);
 
 ICamera cam = world.getCameraManager().getActualCamera();
 
@@ -127,7 +127,7 @@ ICamera cam = world.getCameraManager().getActualCamera();
         
         
         // Apply the projection and view transformation
-        GLES30.glUniformMatrix4fv(mMVPMatrixHandle, 1, false,mMVPMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false,mMVPMatrix, 0);
         MyGLRenderer.checkGlError("glUniformMatrix4fv");
 
         // Draw the square
@@ -137,12 +137,12 @@ ICamera cam = world.getCameraManager().getActualCamera();
            // set the color for each of the faces
            //gl.glColor4f(colors[face][0], colors[face][1], colors[face][2], colors[face][3]);
            // Draw the primitive from the vertex-array directly
-           GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP, face*4, 4);
+           GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, face*4, 4);
         }
         
         
         // Disable vertex array
-        GLES30.glDisableVertexAttribArray(mPositionHandle);
+        GLES20.glDisableVertexAttribArray(mPositionHandle);
 		
 	}
 

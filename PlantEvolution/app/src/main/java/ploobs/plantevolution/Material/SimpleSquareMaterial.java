@@ -1,7 +1,7 @@
 package ploobs.plantevolution.Material;
 
 import android.content.Context;
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 import ploobs.plantevolution.Camera.ICamera;
@@ -68,12 +68,12 @@ public class SimpleSquareMaterial extends IMaterial
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragment_tex);
 	String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertex);
-	 int vertexShaderHandle = Utils.loadShader(	GLES30.GL_VERTEX_SHADER, vert);
-	 int fragmentShaderHandle = Utils.loadShader(	GLES30.GL_FRAGMENT_SHADER, frag);
-	 mProgram = GLES30.glCreateProgram();             // create empty OpenGL Program
-      GLES30.glAttachShader(mProgram, vertexShaderHandle);   // add the vertex shader to program
-      GLES30.glAttachShader(mProgram, fragmentShaderHandle); // add the fragment shader to program
-      GLES30.glLinkProgram(mProgram);
+	 int vertexShaderHandle = Utils.loadShader(	GLES20.GL_VERTEX_SHADER, vert);
+	 int fragmentShaderHandle = Utils.loadShader(	GLES20.GL_FRAGMENT_SHADER, frag);
+	 mProgram = GLES20.glCreateProgram();             // create empty OpenGL Program
+      GLES20.glAttachShader(mProgram, vertexShaderHandle);   // add the vertex shader to program
+      GLES20.glAttachShader(mProgram, fragmentShaderHandle); // add the fragment shader to program
+      GLES20.glLinkProgram(mProgram);
 
     mSquareColors = ByteBuffer.allocateDirect(4*4 * 4)
             .order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -146,59 +146,59 @@ public class SimpleSquareMaterial extends IMaterial
 		// TODO Auto-generated method stub
 
 // Use culling to remove back faces.
-        GLES30.glEnable(GLES30.GL_CULL_FACE);
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
 
         // Enable depth testing
-        GLES30.glEnable(GLES30.GL_DEPTH_TEST);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
 		   // Add program to OpenGL environment
-    	GLES30.glUseProgram(mProgram);
+    	GLES20.glUseProgram(mProgram);
 
 
 
-        mPositionHandle = GLES30.glGetAttribLocation(mProgram, "a_Position");
-        mColorHandle = GLES30.glGetAttribLocation(mProgram, "a_Color");
-        mMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "uMVPMatrix");
-        mTextureCoordinateHandle = GLES30.glGetAttribLocation(mProgram, "a_TexCoordinate");
-        mTextureUniformHandle = GLES30.glGetUniformLocation(mProgram, "u_Texture");
+        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
+        mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        mTextureCoordinateHandle = GLES20.glGetAttribLocation(mProgram, "a_TexCoordinate");
+        mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
 
 
 
         // Set the active texture unit to texture unit 0.
-        GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
 
         // Bind the texture to this unit.
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, mTextureDataHandle);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureDataHandle);
         // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-        GLES30.glUniform1i(mTextureUniformHandle, 0);
+        GLES20.glUniform1i(mTextureUniformHandle, 0);
 
         // Pass in the texture coordinate information
         textureCoordinates.position(0);
-        GLES30.glVertexAttribPointer(mTextureCoordinateHandle, mTextureCoordinateDataSize, GLES30.GL_FLOAT, false,
+        GLES20.glVertexAttribPointer(mTextureCoordinateHandle, mTextureCoordinateDataSize, GLES20.GL_FLOAT, false,
                 0, textureCoordinates);
 
-        GLES30.glEnableVertexAttribArray(mTextureCoordinateHandle);
+        GLES20.glEnableVertexAttribArray(mTextureCoordinateHandle);
 
 
 
         // Enable a handle to the triangle vertices
-        GLES30.glEnableVertexAttribArray(mPositionHandle);
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
 
         // Prepare the triangle coordinate data
-        GLES30.glVertexAttribPointer(
+        GLES20.glVertexAttribPointer(
                 mPositionHandle, COORDS_PER_VERTEX,
-                GLES30.GL_FLOAT, false,
+                GLES20.GL_FLOAT, false,
                 vertexStride,obj.getModel().getVertexBuffer().position(0));
 
 
 
         // set color for drawing the triangle
-       // GLES30.glUniform4fv(mColorHandle, 1, color, 0);
+       // GLES20.glUniform4fv(mColorHandle, 1, color, 0);
         mSquareColors.position(0);
-        GLES30.glVertexAttribPointer(mColorHandle, 4, GLES30.GL_FLOAT, false,
+        GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_FLOAT, false,
                 0, mSquareColors);
 
-        GLES30.glEnableVertexAttribArray(mColorHandle);
+        GLES20.glEnableVertexAttribArray(mColorHandle);
 
 
         ICamera cam = world.getCameraManager().getActualCamera();
@@ -215,7 +215,7 @@ public class SimpleSquareMaterial extends IMaterial
         
         
         // Apply the projection and view transformation
-        GLES30.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
 
 
@@ -228,12 +228,12 @@ public class SimpleSquareMaterial extends IMaterial
 
 //int verticescount = obj.getModel().getVerticesCount()/2;
 
-       GLES30.glDrawArrays(GLES30.GL_TRIANGLE_FAN,0,verticescount);
-      //  GLES30.glDrawArrays ( GLES30.GL_TRIANGLES, 0, verticescount );
+       GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN,0,verticescount);
+      //  GLES20.glDrawArrays ( GLES20.GL_TRIANGLES, 0, verticescount );
         
         
         // Disable vertex array
-        GLES30.glDisableVertexAttribArray(mPositionHandle);
+        GLES20.glDisableVertexAttribArray(mPositionHandle);
 		
 	}
 

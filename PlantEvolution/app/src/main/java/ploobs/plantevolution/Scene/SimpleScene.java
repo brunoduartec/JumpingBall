@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Scene;
 
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
@@ -29,8 +29,8 @@ public class SimpleScene implements IScene {
 			}
 		}
 
-		GLES30.glEnable(GLES30.GL_BLEND);
-		GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		GLES20.glEnable(GLES20.GL_BLEND);
+		GLES20.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		if (world2d !=null)
 		{
 			List<IObject> ot =  getWorld2d().getObjectsList();
@@ -43,7 +43,7 @@ public class SimpleScene implements IScene {
 			}
 
 		}
-		GLES30.glDisable(GLES30.GL_BLEND);
+		GLES20.glDisable(GLES20.GL_BLEND);
 
 
 	}

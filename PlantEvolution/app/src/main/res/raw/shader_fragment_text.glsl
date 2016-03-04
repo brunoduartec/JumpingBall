@@ -1,10 +1,10 @@
-#version 300 es
 
-in sampler2D u_Texture;           // The input texture.
 precision mediump float;            // Set the default precision to medium. We don't need as high of a
 // precision in the fragment shader.
-in vec4 u_Color;
-out vec2 v_TexCoordinate;   // Interpolated texture coordinate per fragment.
+varying vec4 u_Color;
+varying vec2 v_TexCoordinate;   // Interpolated texture coordinate per fragment.
+uniform sampler2D u_Texture;           // The input texture.
+
 
 void main()                         // The entry point for our fragment shader.
 {

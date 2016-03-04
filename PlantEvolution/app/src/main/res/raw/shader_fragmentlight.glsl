@@ -1,5 +1,3 @@
-#version 300 es
-
 precision mediump float;
 
 
@@ -12,15 +10,13 @@ uniform float u_SpecularLightIntensity;
 
 
 
-in vec3 v_Position;
-in vec4 v_Color;
-in vec3 v_Normal;
+varying vec3 v_Position;
+varying vec4 v_Color;
+varying vec3 v_Normal;
 
-in vec3 o_LightPos;
-in vec3 o_CameraPos;
-
-
-out vec4 fragColor;
+varying vec3 o_LightPos;
+varying vec3 o_CameraPos;
+//varying vec4 fragColor;
 
 float ambientLighting()
 {
@@ -28,7 +24,7 @@ float ambientLighting()
     return  u_AmbientLightIntensity;
 }
 
-float diffuseLighting( in vec3 N, in vec3 L)
+float diffuseLighting(vec3 N, vec3 L)
 {
    // calculation as for Lambertian reflection
 
@@ -41,7 +37,7 @@ float diffuseLighting( in vec3 N, in vec3 L)
 }
 
 // returns intensity of specular reflection
-float specularLighting(in vec3 N, in vec3 L, in vec3 V)
+float specularLighting(vec3 N, vec3 L, vec3 V)
 {
 
    float specularTerm = 0.0;
@@ -75,6 +71,6 @@ vec3 N = normalize(v_Normal);
     float Idif = diffuseLighting(N,L);
     float Ispe = specularLighting(N, L, V);
 
- fragColor  = v_Color * ( Iamb + Idif + Ispe);
+ gl_FragColor  = v_Color * ( Iamb + Idif + Ispe);
 
 }

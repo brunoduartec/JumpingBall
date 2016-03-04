@@ -37,7 +37,7 @@ import ploobs.plantevolution.Scene.SimpleScene;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.SimpleWorld;
 
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,11 +54,11 @@ import android.util.Log;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
-    public OpenGLES30Activity get_activityhandle() {
+    public GameActivity get_activityhandle() {
         return _activityhandle;
     }
 
-    public void set_activityhandle(OpenGLES30Activity _activityhandle) {
+    public void set_activityhandle(GameActivity _activityhandle) {
         this._activityhandle = _activityhandle;
     }
 
@@ -68,7 +68,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private GameStateManager gsmanager = new GameStateManager();
 
-    private OpenGLES30Activity _activityhandle;
+    private GameActivity _activityhandle;
     private static final String TAG = "MyGLRenderer";
 
 
@@ -79,16 +79,16 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
       //  this.scale = GameConstants.scale;
 
         // set the background frame color
-        GLES30.glClearColor(0.29f, 0.95f, 0.88f, 1.0f);
+        GLES20.glClearColor(0.29f, 0.95f, 0.88f, 1.0f);
 
         // Use culling to remove back faces.
-        GLES30.glEnable(GLES30.GL_CULL_FACE);
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
 
         // Enable depth testing
-        GLES30.glEnable(GLES30.GL_DEPTH_TEST);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        GLES30.glEnable(GLES30.GL_BLEND);
-        GLES30.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
         gsmanager.Push(new MainScreenState());
         gsmanager.Push(new MenuScreenState());
@@ -105,7 +105,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
 
         // Draw background color
-        GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
         // set the camera position (View matrix)
 
 
@@ -119,7 +119,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         // Adjust the viewport based on geometry changes,
         // such as screen rotation
-        GLES30.glViewport(0, 0, width, height);
+        GLES20.glViewport(0, 0, width, height);
 
 
 
@@ -141,7 +141,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      */
     public static void checkGlError(String glOperation) {
         int error;
-        while ((error = GLES30.glGetError()) != GLES30.GL_NO_ERROR) {
+        while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
             Log.e(TAG, glOperation + ": glError " + error);
             throw new RuntimeException(glOperation + ": glError " + error);
         }

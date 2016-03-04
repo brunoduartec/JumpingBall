@@ -10,7 +10,7 @@ import java.util.Random;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
 
@@ -60,15 +60,15 @@ public class Utils {
 	 */
 	public static int createAndLinkProgram(final int vertexShaderHandle, final int fragmentShaderHandle, final String[] attributes) 
 	{
-		int programHandle = GLES30.glCreateProgram();
+		int programHandle = GLES20.glCreateProgram();
 		
 		if (programHandle != 0) 
 		{
 			// Bind the vertex shader to the program.
-			GLES30.glAttachShader(programHandle, vertexShaderHandle);			
+			GLES20.glAttachShader(programHandle, vertexShaderHandle);			
 
 			// Bind the fragment shader to the program.
-			GLES30.glAttachShader(programHandle, fragmentShaderHandle);
+			GLES20.glAttachShader(programHandle, fragmentShaderHandle);
 			
 			// Bind attributes
 			if (attributes != null)
@@ -76,22 +76,22 @@ public class Utils {
 				final int size = attributes.length;
 				for (int i = 0; i < size; i++)
 				{
-					GLES30.glBindAttribLocation(programHandle, i, attributes[i]);
+					GLES20.glBindAttribLocation(programHandle, i, attributes[i]);
 				}						
 			}
 			
 			// Link the two shaders together into a program.
-			GLES30.glLinkProgram(programHandle);
+			GLES20.glLinkProgram(programHandle);
 
 			// get the link status.
 			final int[] linkStatus = new int[1];
-			GLES30.glGetProgramiv(programHandle, GLES30.GL_LINK_STATUS, linkStatus, 0);
+			GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, linkStatus, 0);
 
 			// If the link failed, delete the program.
 			if (linkStatus[0] == 0) 
 			{				
-				Log.e(TAG, "Error compiling program: " + GLES30.glGetProgramInfoLog(programHandle));
-				GLES30.glDeleteProgram(programHandle);
+				Log.e(TAG, "Error compiling program: " + GLES20.glGetProgramInfoLog(programHandle));
+				GLES20.glDeleteProgram(programHandle);
 				programHandle = 0;
 			}
 		}
@@ -108,29 +108,29 @@ public class Utils {
 
         // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
         // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES30.glCreateShader(type);
+        int shader = GLES20.glCreateShader(type);
 
         // add the source code to the shader and compile it
-        //GLES30.glShaderSource(shader, shaderCode);
-        //GLES30.glCompileShader(shader);
+        //GLES20.glShaderSource(shader, shaderCode);
+        //GLES20.glCompileShader(shader);
 
         
 		if (shader != 0) 
 		{
 			// Pass in the shader source.
-			GLES30.glShaderSource(shader, shaderCode);
+			GLES20.glShaderSource(shader, shaderCode);
 
 			// Compile the shader.
-			GLES30.glCompileShader(shader);
+			GLES20.glCompileShader(shader);
 
 			// get the compilation status.
 			final int[] compileStatus = new int[1];
-			GLES30.glGetShaderiv(shader, GLES30.GL_COMPILE_STATUS, compileStatus, 0);
+			GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
 
 			// If the compilation failed, delete the shader.
 			if (compileStatus[0] == 0) 
 			{				
-				GLES30.glDeleteShader(shader);
+				GLES20.glDeleteShader(shader);
 				shader = 0;
 			}
 		}
@@ -188,7 +188,7 @@ public class Utils {
 	{
 		final int[] textureHandle = new int[1];
 
-		GLES30.glGenTextures(1, textureHandle, 0);
+		GLES20.glGenTextures(1, textureHandle, 0);
 
 		if (textureHandle[0] != 0)
 		{
@@ -199,14 +199,14 @@ public class Utils {
 			final Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
 			// Bind to the texture in OpenGL
-			GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureHandle[0]);
+			GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureHandle[0]);
 
 			// Set filtering
-			GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_NEAREST);
-			GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_NEAREST);
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
 
 			// Load the bitmap into the bound texture.
-			GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap, 0);
+			GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
 			// Recycle the bitmap, since its data has been loaded into OpenGL.
 			bitmap.recycle();
@@ -280,18 +280,18 @@ public class Utils {
 		int glTextureId;
 
 		int[] a = new int[1];
-		GLES30.glGenTextures(1, a, 0); // create a 'texture name' and put it in array element 0
+		GLES20.glGenTextures(1, a, 0); // create a 'texture name' and put it in array element 0
 		glTextureId = a[0];
-		GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, glTextureId);
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, glTextureId);
 
 		if($generateMipMap) {
-			GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D,GLES30.GL_GENERATE_MIPMAP_HINT, GLES30.GL_TRUE);
+			GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,GLES20.GL_GENERATE_MIPMAP_HINT, GLES20.GL_TRUE);
 		} else {
-			GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_GENERATE_MIPMAP_HINT, GLES30.GL_FALSE);
+			GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_GENERATE_MIPMAP_HINT, GLES20.GL_FALSE);
 		}
 
 		// 'upload' to gpu
-		GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, $bitmap, 0);
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, $bitmap, 0);
 
 		return glTextureId;
 	}

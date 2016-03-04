@@ -12,7 +12,7 @@ uniform vec3 u_AmbientColor;
 uniform vec3 u_DiffuseColor;
 uniform vec3 u_SpecColor;
 
-out vec4 fragColor;
+
 
 void main() {
 
@@ -40,7 +40,7 @@ void main() {
     }
   }
 
-  fragColor = vec4(u_AmbientColor +
+  gl_FragColor = vec4(u_AmbientColor +
                       lambertian * u_DiffuseColor +
                       specular * u_SpecColor, 1.0);
 }
