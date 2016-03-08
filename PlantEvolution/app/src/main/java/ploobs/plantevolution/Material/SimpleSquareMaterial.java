@@ -159,6 +159,8 @@ public class SimpleSquareMaterial extends IMaterial
         mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
         mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+
+
         mTextureCoordinateHandle = GLES20.glGetAttribLocation(mProgram, "a_TexCoordinate");
         mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
 

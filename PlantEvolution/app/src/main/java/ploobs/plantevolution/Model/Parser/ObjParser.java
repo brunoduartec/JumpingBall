@@ -85,9 +85,9 @@ public class ObjParser extends AParser implements IParser {
 
                 if (type.equals(VERTEX)) {
                     Vector3 vertex = new Vector3();
-                    vertex.setX(Short.parseShort(parts.nextToken()));
-                    vertex.setY(Short.parseShort(parts.nextToken()));
-                    vertex.setZ(Short.parseShort(parts.nextToken()));
+                    vertex.setX(Float.parseFloat(parts.nextToken()));
+                    vertex.setY(Float.parseFloat(parts.nextToken()));
+                    vertex.setZ(Float.parseFloat(parts.nextToken()));
                     vertices.add(vertex);
                 } else if (type.equals(FACE)) {
                     if (numTokens == 4) {
@@ -99,14 +99,14 @@ public class ObjParser extends AParser implements IParser {
                     }
                 } else if (type.equals(TEXCOORD)) {
                     Uv texCoord = new Uv();
-                    texCoord.u = Short.parseShort(parts.nextToken());
-                    texCoord.v = Short.parseShort(parts.nextToken()) * -1f;
+                    texCoord.u = Float.parseFloat(parts.nextToken());
+                    texCoord.v = Float.parseFloat(parts.nextToken()) * -1f;
                     texCoords.add(texCoord);
                 } else if (type.equals(NORMAL)) {
                     Vector3 normal = new Vector3();
-                    normal.setX(Short.parseShort(parts.nextToken()));
-                    normal.setY(Short.parseShort(parts.nextToken()));
-                    normal.setZ(Short.parseShort(parts.nextToken()));
+                    normal.setX(Float.parseFloat(parts.nextToken()));
+                    normal.setY(Float.parseFloat(parts.nextToken()));
+                    normal.setZ(Float.parseFloat(parts.nextToken()));
                     normals.add(normal);
                 } else if (type.equals(MATERIAL_LIB)) {
                     readMaterialLib(parts.nextToken());

@@ -40,6 +40,9 @@ public class DiffuseMaterial extends IMaterial {
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
+	private int mTextureCoordinateDataSize = 2;
+
+
 	private float[] mMVPMatrix =new float[16];
 	private float[] mMVMatrix = new float[16];
 
@@ -63,6 +66,9 @@ public class DiffuseMaterial extends IMaterial {
 
 	private int mAmbientIntensityHandle;
 	private int mSpecularIntensityHandle;
+	private int mTextureDataHandle;
+	private int mTextureCoordinateHandle;
+	private int mTextureUniformHandle;
 
 
 	public DiffuseMaterial(String name)
@@ -83,7 +89,7 @@ public class DiffuseMaterial extends IMaterial {
 		int fragmentShaderHandle = Utils.loadShader(	GLES20.GL_FRAGMENT_SHADER, frag);
 
 		mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
-				new String[]{"a_Position", "a_Color", "a_Normal"});
+				new String[]{"a_Position", "a_Color", "a_Normal","a_TexCoordinate"});
 
 
 	//	mCubeColors = ByteBuffer.allocateDirect(144 * 4)
@@ -91,6 +97,13 @@ public class DiffuseMaterial extends IMaterial {
 	}
 
 
+	public void setTexture(String texturename)
+	{
+		// Load the texture
+		mTextureDataHandle = TextureManager.getInstance().getGlTextureId(texturename);
+
+
+	}
 
 	public DiffuseMaterial()
 	{
@@ -106,7 +119,7 @@ public class DiffuseMaterial extends IMaterial {
 		 int fragmentShaderHandle = Utils.loadShader(GLES20.GL_FRAGMENT_SHADER, frag);
 			
 			mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
-					new String[]{"a_Position", "a_Color", "a_Normal"});
+					new String[]{"a_Position", "a_Color", "a_Normal","a_TexCoordinate"});
 
 
 
@@ -185,8 +198,18 @@ public class DiffuseMaterial extends IMaterial {
 	        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVPMatrix");
 	        mMVMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVMatrix");
 
+		mTextureCoordinateHandle = GLES20.glGetAttribLocation(mProgram, "a_TexCoordinate");
+		mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
+		mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
+		mNormalHandle = GLES20.glGetAttribLocation(mProgram, "a_Normal");
 
-	        mLightPosHandle = GLES20.glGetUniformLocation(mProgram, "u_LightPos");
+
+
+		mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
+
+
+
+		mLightPosHandle = GLES20.glGetUniformLocation(mProgram, "u_LightPos");
 			mCameraPosHandle  = GLES20.glGetUniformLocation(mProgram, "v_CameraPosition");
 
 		    mLightIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_LightIntensity");
@@ -196,6 +219,25 @@ public class DiffuseMaterial extends IMaterial {
 		mSpecularIntensityHandle= GLES20.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
 	//	mDiffuseColorHandle = GLES20.glGetUniformLocation(mProgram, "u_DiffuseColor");
 	//	mSpecularColorHandle = GLES20.glGetUniformLocation(mProgram, "u_SpecColor");
+
+
+
+		// Set the active texture unit to texture unit 0.
+		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+
+		// Bind the texture to this unit.
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureDataHandle);
+		// Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
+		GLES20.glUniform1i(mTextureUniformHandle, 0);
+
+		obj.getModel().getVertices().uvs().buffer().position(0);
+
+		GLES20.glVertexAttribPointer(mTextureCoordinateHandle, mTextureCoordinateDataSize, GLES20.GL_FLOAT, false,
+				0, obj.getModel().getVertices().uvs().buffer());
+
+		GLES20.glEnableVertexAttribArray(mTextureCoordinateHandle);
+
+
 
 
 		float[] colortemp = getDiffuseColor().getColor();
@@ -209,9 +251,7 @@ public class DiffuseMaterial extends IMaterial {
 		//uniform vec3 u_SpecColor;// = vec3(1.0, 1.0, 1.0);
 		
 		
-	        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
-	        mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
-	        mNormalHandle = GLES20.glGetAttribLocation(mProgram, "a_Normal");
+
 
 
 	        
@@ -252,7 +292,7 @@ public class DiffuseMaterial extends IMaterial {
 			obj.getModel().getVertices().colors().buffer().position(0);
 			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_FLOAT, false,
 					0, mCubeColors);
-			//	0, obj.getModel().getVertices().colors().buffer());
+
 		}
 
 
@@ -283,12 +323,6 @@ public class DiffuseMaterial extends IMaterial {
         // Apply the projection and view transformation
         GLES20.glUniformMatrix4fv(mMVMatrixHandle, 1, false, mMVMatrix, 0);
 
-//Mat Norm
-
-	//	Matrix.invertM(matNormMatrix, 0, mMVMatrix, 0);
-	//	Matrix.transposeM(matNormMatrix,0,matNormMatrix,0);
-
-	//	GLES20.glUniformMatrix4fv(mNormalHandle, 1, false, matNormMatrix, 0);
 
 
 
@@ -313,33 +347,14 @@ public class DiffuseMaterial extends IMaterial {
         Matrix.multiplyMV(mLightPosInEyeSpace, 0, cam.getViewMatrix(), 0, l1.getLocalTransformation(), 0);
 
 
-	//	Matrix.multiplyMV(mLightPosInEyeSpace, 0,l1.getLocalTransformation(),0, cam.getViewMatrix(), 0);
-
-
-		//GLES20.glUniform1f(mLightIntensityHandle,l1.getDiffuseIntensity());
-        // Apply the projection and view transformation
-
-    //    GLES20.glUniformMatrix3fv(mLightPosHandle, 1, false,mLightPosInEyeSpace, 0);
-		//GLES20.glUniform3fv(mLightPosHandle,1,mLightPosInEyeSpace);
-		// Pass in the light position in eye space.
-
-
 
 		//GLES20.glUniform3f(mLightPosHandle, mLightPosInEyeSpace[0],mLightPosInEyeSpace[1],mLightPosInEyeSpace[2]);
 		GLES20.glUniform3f(mLightPosHandle, l1.getPosition().getX(),l1.getPosition().getY(),l1.getPosition().getZ());
 
 
-        // Draw the cube.
-      //  GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 24);
-           
-           // Disable vertex array
-       //  GLES20.glDisableVertexAttribArray(mPositionHandle);
-
-		//int verticescount = obj.getModel().getVerticesCount()/3;
 		int verticescount = obj.getModel().getVerticesCount();
 
-		//GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN,0,verticescount);
-		//GLES20.glDrawElements(GLES20.GL_TRIANGLES,0,verticescount);
+
 		obj.getModel().getFaces().buffer().position(0);
 
 		GLES20.glDrawElements ( GLES20.GL_TRIANGLES, obj.getModel().getFaces().size()* FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );

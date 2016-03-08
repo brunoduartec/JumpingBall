@@ -1,5 +1,6 @@
 package ploobs.plantevolution.Gameplay.States;
 
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 
@@ -8,11 +9,13 @@ import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GameState.TimeBasedGameStateUpdatableDrawable;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.GraphicFactory;
+import ploobs.plantevolution.Material.TextureManager;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.SimpleScene;
+import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.SimpleWorld;
 
@@ -63,20 +66,20 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
 
         int volume = 1;
 
-        AudioPlayer.getInstance().changeVolume("pickup_gem", 50*volume);
+        AudioPlayer.getInstance().changeVolume("pickup_gem", 50 * volume);
 
 
 
 
 
         AudioPlayer.getInstance().addAudio("jump_sound", R.raw.jump);
-        AudioPlayer.getInstance().changeVolume("jump_sound", 30*volume);
+        AudioPlayer.getInstance().changeVolume("jump_sound", 30 * volume);
 
 
-        AudioPlayer.getInstance().changeVolume("switch_sound", 20*volume);
+        AudioPlayer.getInstance().changeVolume("switch_sound", 20 * volume);
 
 
-        AudioPlayer.getInstance().changeVolume("theme", 60*volume);
+        AudioPlayer.getInstance().changeVolume("theme", 60 * volume);
        AudioPlayer.getInstance().playAudio("theme");
 
 

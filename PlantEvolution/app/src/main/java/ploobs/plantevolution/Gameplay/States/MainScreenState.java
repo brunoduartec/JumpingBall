@@ -1,5 +1,6 @@
 package ploobs.plantevolution.Gameplay.States;
 
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
@@ -18,12 +19,14 @@ import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Input.InputSystem;
+import ploobs.plantevolution.Material.TextureManager;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.IScene;
 import ploobs.plantevolution.Scene.SimpleScene;
+import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.SimpleWorld;
 
@@ -79,9 +82,29 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
     GuiManager gm;
 
+    private void Init()
+    {
+
+        Bitmap b;
+
+        b = Utils.makeBitmapFromResourceId(R.drawable.grass);
+        TextureManager.getInstance().addTextureId(b, "grass", false);
+        b.recycle();
+
+        b = Utils.makeBitmapFromResourceId(R.drawable.white);
+        TextureManager.getInstance().addTextureId(b, "white", false);
+        b.recycle();
+
+    }
+
 
     @Override
     public void Entered() {
+
+
+        Init();
+
+
         this.scale = GameConstants.scale;
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();
         width = metrics.widthPixels;
@@ -120,6 +143,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
       //  world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("jumpbutton", GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight(), new Vector2(0, 0)));
 
 
+
+//ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
 
         scene = new SimpleScene(world,world2d);
 

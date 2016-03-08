@@ -161,7 +161,7 @@ public class Vertices
     /**
      * List of texture coordinates
      */
-    UvBufferList uvs() /*package-private*/
+    public UvBufferList uvs() /*package-private*/
     {
         return _uvs;
     }

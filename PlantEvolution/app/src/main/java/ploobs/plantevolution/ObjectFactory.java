@@ -1,5 +1,7 @@
 package ploobs.plantevolution;
 
+
+
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.Gameplay.Player;
 import ploobs.plantevolution.Material.Color;
@@ -14,6 +16,9 @@ import ploobs.plantevolution.Model.Model2D.SquareModel;
 import ploobs.plantevolution.Model.Model3D.BoxModel;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.Model.Model3D.SphereModel;
+import ploobs.plantevolution.Model.Parser.IParser;
+import ploobs.plantevolution.Model.Parser.Parser;
+import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.SimpleObject;
 
 public class ObjectFactory {
@@ -33,6 +38,27 @@ public class ObjectFactory {
 		    return SingletonHolder.INSTANCE;
 		  }
 
+
+	public IObject getOBJModel(String name, String model)
+	{
+		IObject objModel;
+
+		IParser parser = Parser.createParser(Parser.Type.OBJ,GraphicFactory.getInstance().getResources(), model, true);
+		parser.parse();
+
+		objModel = parser.getParsedObject();
+
+		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
+		DiffuseMaterial mat1 = new DiffuseMaterial();
+		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+
+		objModel.setMaterial(mat1);
+
+		return objModel;
+	}
+
+
 	public Player getPlayer(String name,float scale,int energy)
 	{
 		Player obj;
@@ -44,6 +70,7 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+		mat1.setTexture("white");
 		obj = new Player(mat1,m1, name,energy);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -60,7 +87,8 @@ public class ObjectFactory {
 
 		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.PURPLE));
-
+		//mat1.setTexture(R.drawable.grass);
+		mat1.setTexture("white");
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -74,7 +102,7 @@ public class ObjectFactory {
 
 		//mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.GRAY));
-
+		mat1.setTexture("white");
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -88,6 +116,8 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setTexture("grass");
+
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;

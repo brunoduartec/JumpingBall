@@ -8,11 +8,14 @@ uniform vec3 u_CameraPos;       	    // The position of the light in eye space.
 
 
 
+varying vec2 v_TexCoordinate;
 
 attribute vec4 a_Position;     		// Per-vertex position information we will pass in.
 attribute vec4 a_Color;        		// Per-vertex color information we will pass in.
 attribute vec3 a_Normal;       		// Per-vertex normal information we will pass in.
-		  
+attribute vec2 a_TexCoordinate;
+
+
 
 varying vec3 v_Position;              // This will be passed into the fragment shader.
 varying vec4 v_Color;                // This will be passed into the fragment shader.
@@ -39,7 +42,7 @@ void main()                     	// The entry point for our vertex shader.
    // o_CameraPos = normalize(  vec3(u_MVMatrix * vec4(u_CameraPos,0.0) )   - v_Position);
 
 
-
+    v_TexCoordinate = a_TexCoordinate;
 
    // Transform to screen coordinates
    gl_Position = u_MVPMatrix * a_Position;

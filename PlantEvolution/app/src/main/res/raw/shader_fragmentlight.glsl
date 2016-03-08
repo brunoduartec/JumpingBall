@@ -5,7 +5,7 @@ uniform float u_LightIntensity;
 uniform float u_AmbientLightIntensity;
 uniform float u_SpecularLightIntensity;
 
-
+uniform sampler2D u_Texture;    // The input texture.
 //uniform float u_matShininess = 64; // = 64;
 
 
@@ -16,6 +16,10 @@ varying vec3 v_Normal;
 
 varying vec3 o_LightPos;
 varying vec3 o_CameraPos;
+varying vec2 v_TexCoordinate;
+
+
+
 //varying vec4 fragColor;
 
 float ambientLighting()
@@ -71,6 +75,6 @@ vec3 N = normalize(v_Normal);
     float Idif = diffuseLighting(N,L);
     float Ispe = specularLighting(N, L, V);
 
- gl_FragColor  = v_Color * ( Iamb + Idif + Ispe);
-
+// gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)  * ( Iamb + Idif + Ispe);
+gl_FragColor  = texture2D(u_Texture, v_TexCoordinate);
 }

@@ -15,32 +15,17 @@
  */
 package ploobs.plantevolution;
 
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
+import android.util.Log;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-
-import ploobs.plantevolution.Camera.Camera2D;
-import ploobs.plantevolution.Camera.SimpleCamera;
-import ploobs.plantevolution.Component.FpsCounterComponent;
-import ploobs.plantevolution.Component.TimerComponent;
 import ploobs.plantevolution.GameState.GameStateManager;
-import ploobs.plantevolution.Gameplay.GameConstants;
-import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.Gameplay.States.MainScreenState;
 import ploobs.plantevolution.Gameplay.States.MenuScreenState;
 import ploobs.plantevolution.Gameplay.States.SplitScreenState;
-import ploobs.plantevolution.Light.AmbientLight;
-import ploobs.plantevolution.Math.Vector2;
-import ploobs.plantevolution.Math.Vector3;
-import ploobs.plantevolution.Scene.IScene;
-import ploobs.plantevolution.Scene.SimpleScene;
-import ploobs.plantevolution.World.IWorld;
-import ploobs.plantevolution.World.SimpleWorld;
-
-import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
 /**
  * Provides drawing instructions for a GLSurfaceView object. This class

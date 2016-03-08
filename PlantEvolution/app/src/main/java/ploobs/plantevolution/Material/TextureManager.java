@@ -44,7 +44,11 @@ public class TextureManager {
 
         return s;
     }
-
+    private TextureManager()
+    {
+        _idToTextureName = new HashMap<>();
+        _idToHasMipMap = new HashMap<>();
+    }
 
     /**
      * SingletonHolder is loaded on the first execution of Singleton.getInstance()
@@ -62,6 +66,9 @@ public class TextureManager {
         return "atlas".concat(Integer.toString(_atlasId++));
     }
 
-
+    int getGlTextureId(String textureId) /*package-private*/
+    {
+        return _idToTextureName.get(textureId);
+    }
 
 }
