@@ -66,45 +66,45 @@ public class BoxModel implements IModel
 		short ul, ur, lr, ll;
 
 		// front
-		ul = _vertices.addVertex(-w, +h, +d, 0f, 0f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(+w, +h, +d, 1f, 0f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(+w, -h, +d, 1f, 1f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(-w, -h, +d, 0f, 1f, 0, 0, 1, _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(-w, +h, +d, 0.0f, 0.0f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(+w, +h, +d, 0.0f, 1.0f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(+w, -h, +d, 1.0f, 1.0f, 0, 0, 1,  _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(-w, -h, +d, 1.0f, 0.0f, 0, 0, 1, _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// right
-		ul = _vertices.addVertex(+w, +h, +d, 0f, 0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(+w, +h, -d, 1f, 0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(+w, -h, -d, 1f, 1f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(+w, -h, +d, 0f, 1f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(+w, +h, +d, 0.0f, 0.0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(+w, +h, -d, 0.0f, 1.0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(+w, -h, -d, 1.0f, 1.0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(+w, -h, +d, 1.0f, 0.0f, 1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// back
-		ul = _vertices.addVertex(+w, +h, -d, 0f, 0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(-w, +h, -d, 1f, 0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(-w, -h, -d, 1f, 1f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(+w, -h, -d, 0f, 1f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(+w, +h, -d, 0.0f, 0.0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(-w, +h, -d, 0.0f, 1.0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(-w, -h, -d, 1.0f, 1.0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(+w, -h, -d, 1.0f, 0.0f, 0, 0, -1,  _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// left
-		ul = _vertices.addVertex(-w, +h, -d, 0f, 0f, -1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(-w, +h, +d, 1f, 0f, -1, 0, 0, _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(-w, -h, +d, 1f, 1f, -1, 0, 0, _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(-w, -h, -d, 0f, 1f, -1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(-w, +h, -d, 0.0f, 0.0f, -1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(-w, +h, +d, 0.0f, 1.0f, -1, 0, 0, _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(-w, -h, +d, 1.0f, 1.0f, -1, 0, 0, _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(-w, -h, -d, 1.0f, 0.0f, -1, 0, 0,  _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// top
-		ul = _vertices.addVertex(-w, +h, -d, 0f, 0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(+w, +h, -d, 1f, 0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(+w, +h, +d, 1f, 1f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(-w, +h, +d, 0f, 1f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(-w, +h, -d, 0.0f, 0.0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(+w, +h, -d, 0.0f, 1.0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(+w, +h, +d, 1.0f, 1.0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(-w, +h, +d, 1.0f, 0.0f, 0, 1, 0,  _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul,ur,lr,ll);
 
 		// bottom
-		ul = _vertices.addVertex(-w, -h, +d, 0f, 0f, 0, -1, 0, _color.r,  _color.g, _color.b, _color.a);
-		ur = _vertices.addVertex(+w, -h, +d, 1f, 0f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
-		lr = _vertices.addVertex(+w, -h, -d, 1f, 1f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
-		ll = _vertices.addVertex(-w, -h, -d, 0f, 1f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ul = _vertices.addVertex(-w, -h, +d, 0.0f, 0.0f, 0, -1, 0, _color.r,  _color.g, _color.b, _color.a);
+		ur = _vertices.addVertex(+w, -h, +d, 0.0f, 1.0f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		lr = _vertices.addVertex(+w, -h, -d, 1.0f, 1.0f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
+		ll = _vertices.addVertex(-w, -h, -d, 1.0f, 0.0f, 0, -1, 0,  _color.r,  _color.g, _color.b, _color.a);
 		Utils.addQuad(_faces, ul, ur, lr, ll);
 	}
 

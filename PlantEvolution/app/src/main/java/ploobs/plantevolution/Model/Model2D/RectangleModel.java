@@ -69,7 +69,7 @@ public class RectangleModel implements IModel {
     public RectangleModel(float width, float height)
     {
 
-        _vertices = new Vertices(4,false,false,false);
+        _vertices = new Vertices(4,true,true,true);
         _faces = new FacesBufferList(2);
 
         calculateSquareCoords(width,height);

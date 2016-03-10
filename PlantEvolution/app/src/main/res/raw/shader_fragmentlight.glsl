@@ -75,6 +75,6 @@ vec3 N = normalize(v_Normal);
     float Idif = diffuseLighting(N,L);
     float Ispe = specularLighting(N, L, V);
 
-// gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)  * ( Iamb + Idif + Ispe);
-gl_FragColor  = texture2D(u_Texture, v_TexCoordinate);
+ gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)  * ( Iamb + Idif + Ispe);
+//gl_FragColor  = texture2D(u_Texture, v_TexCoordinate);
 }

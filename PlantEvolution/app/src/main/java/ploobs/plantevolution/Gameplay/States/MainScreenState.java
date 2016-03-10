@@ -95,6 +95,16 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         TextureManager.getInstance().addTextureId(b, "white", false);
         b.recycle();
 
+        b = Utils.makeBitmapFromResourceId(R.drawable.gem);
+        TextureManager.getInstance().addTextureId(b, "gem", false);
+        b.recycle();
+
+        b = Utils.makeBitmapFromResourceId(R.drawable.stone);
+        TextureManager.getInstance().addTextureId(b, "stone", false);
+        b.recycle();
+
+
+
     }
 
 

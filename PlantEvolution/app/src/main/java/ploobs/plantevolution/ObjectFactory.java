@@ -88,7 +88,7 @@ public class ObjectFactory {
 		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.PURPLE));
 		//mat1.setTexture(R.drawable.grass);
-		mat1.setTexture("white");
+		mat1.setTexture("grass");
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -102,7 +102,7 @@ public class ObjectFactory {
 
 		//mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.GRAY));
-		mat1.setTexture("white");
+		mat1.setTexture("stone");
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
@@ -116,7 +116,7 @@ public class ObjectFactory {
 		DiffuseMaterial mat1 = new DiffuseMaterial();
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
-		mat1.setTexture("grass");
+		mat1.setTexture("gem");
 
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));

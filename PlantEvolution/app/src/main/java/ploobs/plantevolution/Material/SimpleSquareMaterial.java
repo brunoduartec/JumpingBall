@@ -24,7 +24,6 @@ public class SimpleSquareMaterial extends IMaterial
 
 
 	 private final int mProgram;
-    private final FloatBuffer textureCoordinates;
     private int mPositionHandle;
 	private int mColorHandle;
     private int mTextureCoordinateHandle;
@@ -78,10 +77,6 @@ public class SimpleSquareMaterial extends IMaterial
     mSquareColors = ByteBuffer.allocateDirect(4*4 * 4)
             .order(ByteOrder.nativeOrder()).asFloatBuffer();
 
-
-    textureCoordinates = ByteBuffer.allocateDirect(textureCoordinateData.length * GraphicFactory.getInstance().mBytesPerFloat)
-            .order(ByteOrder.nativeOrder()).asFloatBuffer();
-    textureCoordinates.put(textureCoordinateData).position(0);
 
 
     // Load the texture
@@ -175,9 +170,13 @@ public class SimpleSquareMaterial extends IMaterial
         GLES20.glUniform1i(mTextureUniformHandle, 0);
 
         // Pass in the texture coordinate information
-        textureCoordinates.position(0);
-        GLES20.glVertexAttribPointer(mTextureCoordinateHandle, mTextureCoordinateDataSize, GLES20.GL_FLOAT, false,
-                0, textureCoordinates);
+
+        obj.getModel().getVertices().uvs().buffer().position(0);
+
+       GLES20.glVertexAttribPointer(mTextureCoordinateHandle, mTextureCoordinateDataSize, GLES20.GL_FLOAT, false,
+               0, obj.getModel().getVertices().uvs().buffer());
+
+
 
         GLES20.glEnableVertexAttribArray(mTextureCoordinateHandle);
 
