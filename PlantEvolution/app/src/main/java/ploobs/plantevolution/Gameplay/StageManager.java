@@ -56,9 +56,11 @@ IWorld _localworld;
 
 
 
-        if (restart)
+        if (restart) {
             getBoard1().Reset();
-        else {
+            restart = false;
+        }
+            else {
             getBoard1().Initialize();
 
             try {

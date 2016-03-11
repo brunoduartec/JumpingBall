@@ -61,9 +61,12 @@ public class Vector3
 	
 	
 	
-	public float[] getNormalized()
+	public Vector3 getNormalized()
 	{
-		normalized[0] = getX() /magnitude;
+		Vector3 normalized = new Vector3(x,y,z);
+		normalized = normalized.div(getMagnitude());
+
+
 		return normalized;
 	
 	}
@@ -74,8 +77,9 @@ public class Vector3
         return new Vector3(getX() + other.getX(), getY() + other.getY(), getZ() + other.getZ());
     }
 
-
-
+	public Vector3 div(float other) {
+		return new Vector3(getX() / other, getY() / other, getZ() / other);
+	}
     public Vector3 sub(Vector3 other) {
         return new Vector3(getX() - other.getX(), getY() - other.getY(), getZ() - other.getZ());
     }

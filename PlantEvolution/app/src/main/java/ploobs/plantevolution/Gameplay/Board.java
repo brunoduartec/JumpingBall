@@ -8,6 +8,7 @@ import org.xml.sax.InputSource;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Light.AmbientLight;
+import ploobs.plantevolution.Material.SimpleSquareMaterial;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
@@ -129,8 +130,10 @@ public class Board {
             Vector3 pos = (Vector3)pair.getValue();
 
             Block btemp = findBlockbyID(id);
-            btemp.MoveTo(pos);
-            SyncPhysicObject(btemp);
+            if (btemp != null) {
+                btemp.MoveTo(pos);
+                SyncPhysicObject(btemp);
+            }
         }
 
     }
@@ -516,16 +519,16 @@ public void MergeBlock(Block origin, Block destiny)
 
         float x,z;
 
-        Vector3 scale = new Vector3(getScale()*size,getScale(),getScale()*size);
+      //  Vector3 scale = new Vector3(getScale()*size,getScale(),getScale()*size);
 
 
 
-        SimpleObject bbd = ObjectFactory.getInstance().getNormalBoxObject("board", getScale());
-        bbd.setScale(scale);
-        bbd.setPosition( new Vector3(0,0,0) );
+      //  SimpleObject bbd = ObjectFactory.getInstance().getNormalBoxObject("board", getScale());
+       // bbd.setScale(scale);
+       // bbd.setPosition( new Vector3(0,0,0) );
 
-        localWorld.AddObject(bbd);
-/*
+       // localWorld.AddObject(bbd);
+
         for (int i=0;i<size;i++)
         {
             for (int j=0;j<size;j++) {
@@ -536,14 +539,14 @@ public void MergeBlock(Block origin, Block destiny)
 
                 if ( i == size/2 && j == size/2) {
                     float dark = -0.2f;
-                    FaceShadedCubeMaterial m1 = (FaceShadedCubeMaterial)b1.getMaterial();
+                   // SimpleSquareMaterial m1 = (SimpleSquareMaterial)b1.getMaterial();
 
 
 
-                    m1.setColor(new float[]{0.2695f+dark, 0.921875f+dark, 0.109375f+dark, 1.0f});
+                   // m1.setColor(new Color(.2695f+dark, 0.921875f+dark, 0.109375f+dark, 1.0f));
                 }
 
-                b1.setPosition( convertLocalPosWorldPos(new float[]{i,0,j}));
+                b1.setPosition( convertLocalPosWorldPos(new Vector3(i,0,j)));
 
                 localWorld.AddObject(b1);
 
@@ -552,7 +555,7 @@ public void MergeBlock(Block origin, Block destiny)
 
 
         }
-    */
+
 
 //Adding Plateau
 

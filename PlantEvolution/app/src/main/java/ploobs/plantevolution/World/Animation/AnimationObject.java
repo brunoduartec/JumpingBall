@@ -4,6 +4,7 @@ import org.w3c.dom.Node;
 
 import ploobs.plantevolution.Material.TextureList;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
+import ploobs.plantevolution.Model.Model3D.SimpleModel;
 import ploobs.plantevolution.Model.Model3D.Vertices;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
@@ -32,6 +33,9 @@ public class AnimationObject extends IObject {
 
     public AnimationObject(int maxVertices, int maxFaces)
     {
+
+        this.setModel( new SimpleModel());
+
         Vertices  _vertices = new Vertices(maxVertices,true,true,true);
         FacesBufferList _faces = new FacesBufferList(maxFaces);
 

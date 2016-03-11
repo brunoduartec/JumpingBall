@@ -19,6 +19,14 @@ public class Vector2
 	public float getY(){return y;}
 
 
+	public Vector2()
+	{
+		this.x=0;
+		this.y=0;
+		normalized = new float[2];
+
+	}
+
 	public Vector2(float x, float y)
 	{
 		this.x=x;
@@ -60,9 +68,11 @@ public class Vector2
 	
 	
 	
-	public float[] getNormalized()
+	public Vector2 getNormalized()
 	{
-		normalized[0] = x/magnitude;
+		Vector2 normalized = new Vector2(x,y);
+		normalized = normalized.div(getMagnitude());
+
 		return normalized;
 	
 	}
@@ -87,7 +97,14 @@ public class Vector2
 		return new Vector2(x*v,y*v);
 	}
 
-	
+
+	public Vector2 div(float v)
+	{
+
+		return new Vector2(x/v,y/v);
+	}
+
+
 	// When the vectors are interpreted as points, 
 	// you'll often need these:
 	// (Updated based on the comments: This is 

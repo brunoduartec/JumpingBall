@@ -14,11 +14,19 @@ public class Player extends SimpleObject {
 
 
     private int objectID;
-private Vector2 _direction;
+
+    private Vector2 _direction = new Vector2();
 
     private Vector3 localPos = new Vector3();
 
     private Vector3 velocity = new Vector3(0,0,0);
+
+    private Vector2 tendency = new Vector2();
+
+    private float moveamount = 0;
+    private float deltamove = 0.2f;
+
+
 
     private Vector3 g = new Vector3(0,-9.81f,0);
 
@@ -45,6 +53,7 @@ private Vector2 _direction;
         super(mat,mod,nm);
         this.scale = GameConstants.scale;
         this.setEnergy(energy);
+        this.deltamove = scale/4;
 
     }
 
@@ -63,18 +72,22 @@ private Vector2 _direction;
     {
        this._direction = dir;
 
+this.moveamount = scale;
 
         if (getPosition().getY()>= after)
         {
-            Vector3 oldpos = getPosition();
+        //    Vector3 oldpos = getPosition();
 
-            Vector3 delta = new Vector3(dir.getX()*scale,0,dir.getY()*scale);
-            oldpos = oldpos.add(delta);
 
+          //  Vector3 delta = new Vector3(dir.getX()*scale,0,dir.getY()*scale);
+            //adding the delta to the block
+            //oldpos = oldpos.add(delta);
+
+            // in the case the ball goes up a degree
             this.minimunY = after+scale;
 
-            setPosition(oldpos);
-            setLocalPos( new Vector3(localPos.getX()+dir.getX(),this.minimunY,localPos.getZ()+dir.getY()));
+           // setPosition(oldpos);
+           // setLocalPos( new Vector3(localPos.getX()+dir.getX(),this.minimunY,localPos.getZ()+dir.getY()));
 
 
 
@@ -92,13 +105,16 @@ private Vector2 _direction;
 
         if (jumping) //|| this.getPosition()[1]>=minimunY)
             Jump();
-        else
-        {
+        else {
             Vector3 pp = this.getPosition();
-            pp.setY( minimunY);
+            pp.setY(minimunY);
             this.setPosition(pp);
-
         }
+
+        if (_direction.getMagnitude()>0)
+            Move();
+
+
 
 
 
@@ -108,8 +124,18 @@ private Vector2 _direction;
     void Move()
     {
 
+        Vector3 pp = this.getPosition();
 
+        this.moveamount -= deltamove;
 
+      Vector3 delta = new Vector3(_direction.getX(),0,_direction.getY()).mul(deltamove);
+        this.setPosition(pp.add(delta));
+
+        if (this.moveamount <= 0) {
+            // at this moment set the local position
+            setLocalPos(new Vector3(localPos.getX() + _direction.getX(), this.minimunY, localPos.getZ() + _direction.getY()));
+            _direction = new Vector2();
+        }
     }
 
     void Jump()
@@ -137,6 +163,7 @@ private Vector2 _direction;
             float Vinit = (float)Math.sqrt(-2*g.getY()*1.3f*scale);
             velocity = new Vector3(0, Vinit, 0);
             AudioPlayer.getInstance().playAudio("jump_sound");
+
 
 
         }

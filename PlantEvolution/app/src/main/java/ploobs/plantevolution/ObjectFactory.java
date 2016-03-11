@@ -2,6 +2,8 @@ package ploobs.plantevolution;
 
 
 
+import java.util.HashMap;
+
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.Gameplay.Player;
 import ploobs.plantevolution.Material.Color;
@@ -22,7 +24,13 @@ import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.SimpleObject;
 
 public class ObjectFactory {
-	
+
+
+	HashMap<String, IMaterial> _materials = new HashMap<>();
+	HashMap<String, IModel> _models = new HashMap<>();
+
+
+
 	private ObjectFactory(){}
 	
 	
@@ -49,7 +57,14 @@ public class ObjectFactory {
 		objModel = parser.getParsedObject();
 
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		DiffuseMaterial mat1 = new DiffuseMaterial();
+		//DiffuseMaterial mat1 = new DiffuseMaterial();
+		DiffuseMaterial mat1;
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
+
+
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
@@ -67,7 +82,13 @@ public class ObjectFactory {
 		IModel m1 = new SphereModel(scale,16,16);
 
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		DiffuseMaterial mat1 = new DiffuseMaterial();
+		//DiffuseMaterial mat1 = new DiffuseMaterial();
+		DiffuseMaterial mat1;
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
+
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 		mat1.setTexture("white");
@@ -80,9 +101,24 @@ public class ObjectFactory {
 	public SimpleObject getNormalBoxObject(String name, float scale)
 	{
 		SimpleObject obj;
-		IModel m1 = new BoxModel(scale);
+
+		IModel m1;
+
+		if (_models.containsKey("boxmodel"))
+			m1 = _models.get("boxmodel");
+		else
+		    m1 = new BoxModel(scale);
+
+
+
+		DiffuseMaterial mat1;
+
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		DiffuseMaterial mat1 = new DiffuseMaterial();
+		//DiffuseMaterial mat1 = new DiffuseMaterial();
 
 
 		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
@@ -97,8 +133,20 @@ public class ObjectFactory {
 	public SimpleObject getStoneBoxObject(String name, float scale)
 	{
 		SimpleObject obj;
-		IModel m1 = new BoxModel(scale);
-		DiffuseMaterial mat1 = new DiffuseMaterial();////DiffuseMaterial();
+		IModel m1;
+
+		if (_models.containsKey("boxmodel"))
+			m1 = _models.get("boxmodel");
+		else
+			m1 = new BoxModel(scale);
+
+		//DiffuseMaterial mat1 = new DiffuseMaterial();////DiffuseMaterial();
+		DiffuseMaterial mat1;
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
+
 
 		//mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.GRAY));
@@ -111,9 +159,20 @@ public class ObjectFactory {
 	public SimpleObject getGemaObject(String name, float scale)
 	{
 		SimpleObject obj;
-		IModel m1 = new BoxModel(scale);
+		IModel m1;
+
+		if (_models.containsKey("boxmodel"))
+			m1 = _models.get("boxmodel");
+		else
+			m1 = new BoxModel(scale);
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		DiffuseMaterial mat1 = new DiffuseMaterial();
+	//	DiffuseMaterial mat1 = new DiffuseMaterial();
+		DiffuseMaterial mat1;
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
+
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		mat1.setTexture("gem");
@@ -128,7 +187,13 @@ public class ObjectFactory {
 	public SimpleObject getBoxObject(String name,float scale)
 	{
 		SimpleObject obj;
-		IModel m1 = new BoxModel(scale);
+		IModel m1;
+
+		if (_models.containsKey("boxmodel"))
+			m1 = _models.get("boxmodel");
+		else
+			m1 = new BoxModel(scale);
+
 		IMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));

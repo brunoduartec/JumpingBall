@@ -27,6 +27,7 @@ import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.IScene;
 import ploobs.plantevolution.Scene.SimpleScene;
 import ploobs.plantevolution.Utils;
+import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.SimpleWorld;
 
@@ -154,7 +155,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
 
-//ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
+//IObject tt = ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
 
         scene = new SimpleScene(world,world2d);
 
