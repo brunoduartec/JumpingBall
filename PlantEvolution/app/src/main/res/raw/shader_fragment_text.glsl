@@ -1,7 +1,7 @@
 
 precision mediump float;            // Set the default precision to medium. We don't need as high of a
 // precision in the fragment shader.
-varying vec4 u_Color;
+uniform vec4 u_Color;
 varying vec2 v_TexCoordinate;   // Interpolated texture coordinate per fragment.
 uniform sampler2D u_Texture;           // The input texture.
 
