@@ -50,7 +50,7 @@ public class Element extends SimpleObject {
 
 
         float widthconverted = GraphicFactory.getInstance().getRatio()*width/GraphicFactory.getInstance().getWidth();
-        float heightconverted = height/GraphicFactory.getInstance().getHeight();
+        float heightconverted =height/GraphicFactory.getInstance().getHeight();
 
 
 

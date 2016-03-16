@@ -45,8 +45,14 @@ public class Utils {
 	public static Color RandColor()
 	{
 		Random rnd = new Random();
-		int[] color = { rnd.nextInt(), rnd.nextInt(),rnd.nextInt(), rnd.nextInt() };
-		return new Color(color[0],color[1],color[2],color[3]);
+		//int[] color = { rnd.nextInt(255), rnd.nextInt(255),rnd.nextInt(255), rnd.nextInt(255) };
+
+
+
+
+		Color ret = Color.enumtoColor(Color.COLORNAME.values()[rnd.nextInt(Color.COLORNAME.values().length-1)]);
+
+		return ret;
 	
 		
 	}

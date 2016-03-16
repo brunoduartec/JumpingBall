@@ -7,14 +7,15 @@ public class TimerComponent {
 
     private int tick;
     private float constant;
+    private boolean started;
 
 
     public TimerComponent(int constant)
     {
         this.constant = constant;
-
+        this.started = false;
         //get the current time
-        tick = (int) System.currentTimeMillis();
+
 
     }
 
@@ -23,15 +24,15 @@ public class TimerComponent {
 
         int gametime = (int) System.currentTimeMillis();
         boolean toUpdate = false;
-        if ((gametime - tick)>(constant))
-        {
-            tick = gametime;
-            toUpdate= true;
 
-        }
-        else
-            toUpdate=false;
+      if(started) {
+          if ((gametime - tick) > (constant)) {
+              tick = gametime;
+              toUpdate = true;
 
+          } else
+              toUpdate = false;
+      }
 
 
 
@@ -39,6 +40,8 @@ public class TimerComponent {
     }
 
 
-
-
+    public void Start() {
+        started = true;
+        tick = (int) System.currentTimeMillis();
+    }
 }

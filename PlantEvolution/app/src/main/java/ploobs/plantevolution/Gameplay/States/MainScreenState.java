@@ -191,7 +191,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         gm.AddElement(jumpbutton);
 
 
-        pushbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.box, 118*scale, 128*scale, new Vector3(0.6f, -1.6f,0.0f));
+        pushbutton = ObjectFactory.getInstance().getButtonObject("pushbutton", R.drawable.box, 118*scale, 128*scale, new Vector3(0.6f, -1.6f,0.0f));
         IEventHandler h2 = new IEventHandler() {
             @Override
             public void Execute() {

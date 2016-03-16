@@ -1,7 +1,6 @@
 package ploobs.plantevolution.Gameplay.States;
 
 import android.content.Context;
-import android.opengl.GLES20;
 import android.util.DisplayMetrics;
 
 import ploobs.plantevolution.Audio.AudioPlayer;
@@ -9,11 +8,8 @@ import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.GUI.GuiManager;
 import ploobs.plantevolution.GUI.IEventHandler;
-import ploobs.plantevolution.GUI.StartButton;
 import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.Material.SimpleSquareMaterial;
-import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
@@ -42,11 +38,9 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
         // Load the font from file (set size + padding), creates the texture
         // NOTE: after a successful call to this the font is ready for rendering!
-        glText.load( "Roboto-Regular.ttf", 1, 2, 2 );  // Create Font (Height: 14 Pixels / X+Y Padding 2 Pixels)
+        glText.load("Roboto-Regular.ttf", 12, 2, 2);  // Create Font (Height: 14 Pixels / X+Y Padding 2 Pixels)
 
         // enable texture + alpha blending
-        GLES20.glEnable(GLES20.GL_BLEND);
-        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
         //AudioPlayer.getInstance().changeVolume("theme", 20);
 
@@ -144,27 +138,23 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     public void Draw() {
 
 
-         //   scene.Draw();
+            scene.Draw();
+
+        /*
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
         float[] mVPMatrix = new float[16];
 
         mVPMatrix = scene.getWorld2d().getCameraManager().getActualCamera().getViewProjectionMatrix();
 
-        // TEST: render the entire font texture
-     //   glText.drawTexture( width/2, height/2, mVPMatrix);            // Draw the Entire Texture
-
         // TEST: render some strings with the font
-        glText.begin( 1.0f, 1.0f, 1.0f, 1.0f, mVPMatrix );         // Begin Text Rendering (Set Color WHITE)
-        glText.drawC("Test String 3D!", 0f, 0f, 0f, 0, 0, 0);
-//		glText.drawC( "Test String :)", 0, 0, 0 );          // Draw Test String
-      //  glText.draw( "Diagonal 1", 40, 40, 40);                // Draw Test String
-       // glText.draw( "Column 1", 100, 100, 90);              // Draw Test String
-        glText.end();                                   // End Text Rendering
+        glText.begin( 0.0f, 1.0f, 1.0f, 1.0f, mVPMatrix );         // Begin Text Rendering (Set Color WHITE)
+        glText.drawC("A", 0f, 0f, 0f, 0, 0, 0);
 
-      //  glText.begin( 0.0f, 0.0f, 1.0f, 1.0f, mVPMatrix );         // Begin Text Rendering (Set Color BLUE)
-       // glText.draw( "More Lines...", 50, 200 );        // Draw Test String
-       // glText.draw( "The End.", 50, 200 + glText.getCharHeight(), 180);  // Draw Test String
-       // glText.end();
+        glText.end();                                   // End Text Rendering
+*/
+;
 
 
     }

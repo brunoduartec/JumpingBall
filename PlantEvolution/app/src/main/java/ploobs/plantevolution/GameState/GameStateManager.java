@@ -73,6 +73,13 @@ public class GameStateManager {
         if (actualState instanceof GameStateUpdatableDrawable) {
             GameStateUpdatableDrawable up = (GameStateUpdatableDrawable)actualState;
             up.Draw();
+
+            if (actualState instanceof TimeBasedGameStateUpdatableDrawable) {
+                TimeBasedGameStateUpdatableDrawable tup = (TimeBasedGameStateUpdatableDrawable) actualState;
+                if (!tup.isStarted())
+                    tup.setStarted(true);
+            }
+
         }
 
 

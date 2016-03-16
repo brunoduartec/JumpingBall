@@ -117,8 +117,6 @@ public class ObjectFactory {
 			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
 		else
 			mat1 = new DiffuseMaterial();
-		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		//DiffuseMaterial mat1 = new DiffuseMaterial();
 
 
 		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
@@ -175,7 +173,7 @@ public class ObjectFactory {
 
 		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
-		mat1.setTexture("gem");
+		mat1.setTexture("white");
 
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
@@ -244,7 +242,11 @@ public class ObjectFactory {
 		Square sq;
 
 		Element obj;
-		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
+
+		float w = (2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth());
+		float h = 2*height/GraphicFactory.getInstance().getHeight();
+
+		IModel m1 = new RectangleModel(w,h);
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
 
 		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));

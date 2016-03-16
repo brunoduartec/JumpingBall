@@ -8,7 +8,9 @@ import org.xml.sax.InputSource;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Light.AmbientLight;
+import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.SimpleSquareMaterial;
+import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
@@ -514,6 +516,10 @@ public void MergeBlock(Block origin, Block destiny)
 
     public void CreateBoard(int size)
     {
+
+        CreatePlayer();
+        CreateGema();
+
         this.size = size;
         this.setMaxheight(3);
 
@@ -539,8 +545,8 @@ public void MergeBlock(Block origin, Block destiny)
 
                 if ( i == size/2 && j == size/2) {
                     float dark = -0.2f;
-                   // SimpleSquareMaterial m1 = (SimpleSquareMaterial)b1.getMaterial();
-
+                   DiffuseMaterial m1 = (DiffuseMaterial)b1.getMaterial();
+                    m1.setShadowed(1);
 
 
                    // m1.setColor(new Color(.2695f+dark, 0.921875f+dark, 0.109375f+dark, 1.0f));
@@ -563,13 +569,11 @@ public void MergeBlock(Block origin, Block destiny)
         SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box" + size + "_" + size, getScale());
 
 
-
         b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));
 
         localWorld.AddObject(b1);
 
-            CreatePlayer();
-        CreateGema();
+
 
 
     }
@@ -580,6 +584,10 @@ public void MergeBlock(Block origin, Block destiny)
         gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
 
         gema.setPosition(convertLocalPosWorldPos(position.mul(size)));
+
+        ILight ll = localWorld.getLights().get(0);
+                ll.setPosition(gema.getPosition());
+        ll.setColor(Utils.RandColor());
 
 
         localWorld.AddObject(gema);
@@ -594,6 +602,9 @@ public void MergeBlock(Block origin, Block destiny)
 
         gema.setPosition(convertLocalPosWorldPos(new Vector3(size / 2, getGemaheight(), size / 2)));
 
+        ILight ll = localWorld.getLights().get(0);
+        ll.setPosition(gema.getPosition());
+        ll.setColor(Utils.RandColor());
 
      //   List<ILight> ll = localWorld.getLights();
       //  if (ll.size()>0)
@@ -664,6 +675,8 @@ public void MergeBlock(Block origin, Block destiny)
                 ob1 = ObjectFactory.getInstance().getNormalBoxObject(obname, getScale());
             else if (t == StoneBlock.class)
                 ob1 = ObjectFactory.getInstance().getStoneBoxObject(obname, getScale());
+
+
 
 
 

@@ -63,6 +63,7 @@ public Color(short r, short g, short b, short a)
 		switch (cc) {
 		case BLACK:
 			color = new short[]{0,0,0,255};
+
 		break;
 
 		case WHITE:

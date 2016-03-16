@@ -30,6 +30,7 @@ public class DiffuseMaterial extends IMaterial {
 	private int mColorHandle;
 	//private float[] color = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
 
+	private int shadowed = 0;
 
 	// R, G, B, A
 	float[] cubeColorData;
@@ -69,6 +70,7 @@ public class DiffuseMaterial extends IMaterial {
 	private int mTextureDataHandle;
 	private int mTextureCoordinateHandle;
 	private int mTextureUniformHandle;
+	private int mShadowed;
 
 
 	public DiffuseMaterial(String name)
@@ -204,8 +206,11 @@ public class DiffuseMaterial extends IMaterial {
 		mNormalHandle = GLES20.glGetAttribLocation(mProgram, "a_Normal");
 
 
+		mShadowed = GLES20.glGetUniformLocation(mProgram, "u_Shadowit");
+		GLES20.glUniform1i(mShadowed,shadowed);
 
-		mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
+
+				mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
 
 
 
@@ -216,7 +221,12 @@ public class DiffuseMaterial extends IMaterial {
 
 
 		mAmbientIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_AmbientLightIntensity");
+		mAmbientColorHandle = GLES20.glGetUniformLocation(mProgram, "u_AmbientLightColor");
+
+
 		mSpecularIntensityHandle= GLES20.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
+
+
 	//	mDiffuseColorHandle = GLES20.glGetUniformLocation(mProgram, "u_DiffuseColor");
 	//	mSpecularColorHandle = GLES20.glGetUniformLocation(mProgram, "u_SpecColor");
 
@@ -240,10 +250,10 @@ public class DiffuseMaterial extends IMaterial {
 
 
 
+		ILight l1 = world.getLights().get(0);
+		float[] colortemp = l1.getColor().getColor();
 
-		float[] colortemp = getDiffuseColor().getColor();
-
-	//	GLES20.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
+		GLES20.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
 	//	GLES20.glUniform4f(mDiffuseColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
 	//	GLES20.glUniform4f(mSpecularColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
 
@@ -333,7 +343,7 @@ public class DiffuseMaterial extends IMaterial {
 		GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 		
 
-        ILight l1 = world.getLights().get(0);
+
 
 
 		GLES20.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
@@ -382,5 +392,13 @@ public class DiffuseMaterial extends IMaterial {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int isShadowed() {
+		return shadowed;
+	}
+
+	public void setShadowed(int shadowed) {
+		this.shadowed = shadowed;
 	}
 }
