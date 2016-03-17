@@ -52,6 +52,8 @@ public class Board {
     Vector2 _direction = new Vector2(0,0);
     Vector2 _playerpos;
 
+    Vector3 _playerInitpos;
+
 
     private ArrayList<Block> bk;// = new LinkedList<Block>();
 
@@ -99,7 +101,7 @@ public class Board {
         //this.localWorld.CleanObjects();
 
         setBoardbyList();
-        SetPlayerPos(new Vector3(size - 1, 1, size));
+        SetPlayerPos(new Vector3(_playerInitpos));
 
 
 
@@ -517,8 +519,8 @@ public void MergeBlock(Block origin, Block destiny)
     public void CreateBoard(int size)
     {
 
-        CreatePlayer();
-        CreateGema();
+      //  CreatePlayer();
+      //  CreateGema();
 
         this.size = size;
         this.setMaxheight(3);
@@ -566,12 +568,12 @@ public void MergeBlock(Block origin, Block destiny)
 //Adding Plateau
 
 
-        SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box" + size + "_" + size, getScale());
+      //  SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box" + size + "_" + size, getScale());
 
 
-        b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));
+      //  b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));
 
-        localWorld.AddObject(b1);
+       // localWorld.AddObject(b1);
 
 
 
@@ -583,14 +585,17 @@ public void MergeBlock(Block origin, Block destiny)
 
         gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
 
-        gema.setPosition(convertLocalPosWorldPos(position.mul(size)));
+
+        gema.setPosition(convertLocalPosWorldPos(position));
 
         ILight ll = localWorld.getLights().get(0);
-                ll.setPosition(gema.getPosition());
+        ll.setPosition(gema.getPosition());
         ll.setColor(Utils.RandColor());
 
-
         localWorld.AddObject(gema);
+
+
+
 
     }
 
@@ -605,10 +610,6 @@ public void MergeBlock(Block origin, Block destiny)
         ILight ll = localWorld.getLights().get(0);
         ll.setPosition(gema.getPosition());
         ll.setColor(Utils.RandColor());
-
-     //   List<ILight> ll = localWorld.getLights();
-      //  if (ll.size()>0)
-      //      localWorld.getLights().get(0).setPosition(gema.getPosition());
 
         localWorld.AddObject(gema);
 
@@ -908,7 +909,8 @@ public void Place0x0Block()
         {
 
             int cX=0,cY=0;
-
+            String[] pos;
+            Vector3 position;
 
             while ((line = buffreader.readLine()) != null)
             {
@@ -926,17 +928,36 @@ public void Place0x0Block()
                         CreateBoard(GameConstants.size);
 
                         break;
+                    case "P":
 
+                        CreatePlayer();
+                       pos = obj[1].split(",");
+
+                        position = new Vector3(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]), Float.parseFloat(pos[2]));
+
+
+                        p1.setPosition(convertLocalPosWorldPos(position));
+
+                        _playerInitpos = position;
+                        p1.setLocalPos(new Vector3(position));
+
+
+//                        getPlayer().setPosition(convertLocalPosWorldPos(position));
+
+
+                        break;
 
                     case "G":
 
-                        String[] pos = obj[1].split(",");
+                        pos = obj[1].split(",");
 
-                        Vector3 position = new Vector3(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]), Float.parseFloat(pos[2]));
+                        position = new Vector3(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]), Float.parseFloat(pos[2]));
                        // CreateGemaat(position);
+                        CreateGemaat(position);
+                        //CreateGemaat(position);
 
-                        gema.setPosition(convertLocalPosWorldPos(position));
-                        setGemaheight(GameConstants.size);
+                        //gema.setPosition(convertLocalPosWorldPos(position));
+                        //setGemaheight(GameConstants.size);
 
                         break;
                     case "M":
@@ -944,7 +965,7 @@ public void Place0x0Block()
                         do {
 
 
-                            String[] bb = obj[1].split(" ");
+                            String[] bb = obj[1].split("\t");
                             cX = 0;
                             for (String b : bb) {
 

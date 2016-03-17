@@ -29,7 +29,7 @@ public class StoneBlock extends Block {
 
     @Override
     public boolean canStack() {
-        return false;
+        return true;
     }
 
     @Override

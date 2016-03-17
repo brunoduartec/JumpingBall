@@ -224,6 +224,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         Vector3 delta =  new Vector3(0.2f,0,0);
 
 
+        /*
         Vector3 pp = initpos;
         for (int i=0;i<energy;i++)
         {
@@ -232,11 +233,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
         }
+*/
 
-
-        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_1", R.drawable.sun, 64*scale, 64*scale, initpos));
-        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_2", R.drawable.sun, 64*scale, 64*scale, initpos.add(delta)));
-        //world2d.AddObject(ObjectFactory.getInstance().getRectangleObject("energy_3", R.drawable.sun, 64*scale, 64*scale, initpos.add(delta.mul(2))));
 
 
 

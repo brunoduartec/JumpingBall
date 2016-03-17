@@ -77,7 +77,7 @@ public class DiffuseMaterial extends IMaterial {
 	{
 
 		this.name = name;
-		color = Utils.RandColor();
+	//	color = Utils.RandColor();
 		//setColor(Utils.RandColor());
 		Context localContext = GraphicFactory.getInstance().getGraphicContext();
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
@@ -109,7 +109,7 @@ public class DiffuseMaterial extends IMaterial {
 
 	public DiffuseMaterial()
 	{
-		color = Utils.RandColor();
+		//color = Utils.RandColor();
 		//setColor(Utils.RandColor());
 		Context localContext = GraphicFactory.getInstance().getGraphicContext();
 		//String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);

@@ -44,7 +44,7 @@ public class FaceShadedCubeMaterial extends IMaterial
 public FaceShadedCubeMaterial()
 {
 	
-	color = Utils.RandColor();
+	//color = Utils.RandColor();
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragment);
 	String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertex);

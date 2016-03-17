@@ -47,10 +47,15 @@ public class Utils {
 		Random rnd = new Random();
 		//int[] color = { rnd.nextInt(255), rnd.nextInt(255),rnd.nextInt(255), rnd.nextInt(255) };
 
+int ii=0;
+
+		while(ii== 0 || ii==1 || ii==7 ) {
+		ii = rnd.nextInt(Color.COLORNAME.values().length-1);
+		}
 
 
 
-		Color ret = Color.enumtoColor(Color.COLORNAME.values()[rnd.nextInt(Color.COLORNAME.values().length-1)]);
+		Color ret = Color.enumtoColor(Color.COLORNAME.values()[ii]);
 
 		return ret;
 	

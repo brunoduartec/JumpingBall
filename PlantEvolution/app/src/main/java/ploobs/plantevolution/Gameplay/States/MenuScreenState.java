@@ -107,7 +107,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
         soundbutton.setOnClick(h2);
 
 
-        gm.AddElement(soundbutton);
+      //  gm.AddElement(soundbutton);
 
 
 
