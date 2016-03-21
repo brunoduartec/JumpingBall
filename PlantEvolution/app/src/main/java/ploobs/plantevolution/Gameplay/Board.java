@@ -87,7 +87,7 @@ public class Board {
         this.localWorld.Initialize();
 
 
-        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),0.5f,0.5f,1.0f, new Vector3(0,1,0));
+        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),0.2f,0.7f,0.2f, new Vector3(0,1,0));
 
         localWorld.AddLight(light1);
 
@@ -527,15 +527,7 @@ public void MergeBlock(Block origin, Block destiny)
 
         float x,z;
 
-      //  Vector3 scale = new Vector3(getScale()*size,getScale(),getScale()*size);
 
-
-
-      //  SimpleObject bbd = ObjectFactory.getInstance().getNormalBoxObject("board", getScale());
-       // bbd.setScale(scale);
-       // bbd.setPosition( new Vector3(0,0,0) );
-
-       // localWorld.AddObject(bbd);
 
         for (int i=0;i<size;i++)
         {
@@ -550,8 +542,6 @@ public void MergeBlock(Block origin, Block destiny)
                    DiffuseMaterial m1 = (DiffuseMaterial)b1.getMaterial();
                     m1.setShadowed(1);
 
-
-                   // m1.setColor(new Color(.2695f+dark, 0.921875f+dark, 0.109375f+dark, 1.0f));
                 }
 
                 b1.setPosition( convertLocalPosWorldPos(new Vector3(i,0,j)));
@@ -590,7 +580,7 @@ public void MergeBlock(Block origin, Block destiny)
 
         ILight ll = localWorld.getLights().get(0);
         ll.setPosition(gema.getPosition());
-        ll.setColor(Utils.RandColor());
+      //  ll.setColor(Utils.RandColor());
 
         localWorld.AddObject(gema);
 
@@ -609,7 +599,7 @@ public void MergeBlock(Block origin, Block destiny)
 
         ILight ll = localWorld.getLights().get(0);
         ll.setPosition(gema.getPosition());
-        ll.setColor(Utils.RandColor());
+      //  ll.setColor(Utils.RandColor());
 
         localWorld.AddObject(gema);
 
@@ -625,9 +615,6 @@ public void MergeBlock(Block origin, Block destiny)
     {
         p1 = ObjectFactory.getInstance().getPlayer("P1", getScale(),3);
 
-
-     //   FaceShadedCubeMaterial mt1 = (FaceShadedCubeMaterial)p1.getMaterial();
-      //  mt1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
 
         p1.setPosition(convertLocalPosWorldPos(new Vector3(size - 1, 1, size)));
         p1.setLocalPos(new Vector3(size - 1, 1, size));
@@ -942,7 +929,6 @@ public void Place0x0Block()
                         p1.setLocalPos(new Vector3(position));
 
 
-//                        getPlayer().setPosition(convertLocalPosWorldPos(position));
 
 
                         break;
@@ -952,12 +938,8 @@ public void Place0x0Block()
                         pos = obj[1].split(",");
 
                         position = new Vector3(Float.parseFloat(pos[0]), Float.parseFloat(pos[1]), Float.parseFloat(pos[2]));
-                       // CreateGemaat(position);
                         CreateGemaat(position);
-                        //CreateGemaat(position);
 
-                        //gema.setPosition(convertLocalPosWorldPos(position));
-                        //setGemaheight(GameConstants.size);
 
                         break;
                     case "M":

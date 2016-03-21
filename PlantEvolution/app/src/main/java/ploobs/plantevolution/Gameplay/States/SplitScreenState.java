@@ -64,7 +64,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         AudioPlayer.getInstance().addAudio("switch_sound", R.raw.switch_sound);
         AudioPlayer.getInstance().addAudio("pickup_gem", R.raw.pickup_gem_1);
 
-        int volume = 1;
+        int volume = 3;
 
         AudioPlayer.getInstance().changeVolume("pickup_gem", 50 * volume);
 

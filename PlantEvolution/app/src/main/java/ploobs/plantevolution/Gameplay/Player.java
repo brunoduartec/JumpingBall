@@ -37,7 +37,7 @@ public class Player extends SimpleObject {
 
 
 
-    private float minimunY=0.7f;
+    private float minimunY=GameConstants.scale;
     private float scale;
 
     private boolean isColiding;
@@ -76,18 +76,9 @@ this.moveamount = scale;
 
         if (getPosition().getY()>= after)
         {
-        //    Vector3 oldpos = getPosition();
-
-
-          //  Vector3 delta = new Vector3(dir.getX()*scale,0,dir.getY()*scale);
-            //adding the delta to the block
-            //oldpos = oldpos.add(delta);
-
-            // in the case the ball goes up a degree
+          // in the case the ball goes up a degree
             this.minimunY = after+scale;
 
-           // setPosition(oldpos);
-           // setLocalPos( new Vector3(localPos.getX()+dir.getX(),this.minimunY,localPos.getZ()+dir.getY()));
 
 
 
@@ -141,7 +132,7 @@ this.moveamount = scale;
     void Jump()
     {
 
-        float dt = 0.05f;
+        float dt = 0.1f;
 
 
         Vector3 Vft = velocity.add(g.mul(dt));

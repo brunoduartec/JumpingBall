@@ -79,7 +79,7 @@ vec3 N = normalize(v_Normal);
     float Ispe = specularLighting(N, L, V);
 
  //gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)  + u_AmbientLightColor*( Idif + Ispe + Iamb);
- gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)*(Idif + Ispe) + u_AmbientLightColor * Iamb;
+ gl_FragColor  = texture2D(u_Texture, v_TexCoordinate)*(Idif + Ispe + Iamb*u_AmbientLightColor);
 
     if (u_Shadowit)
     {

@@ -9,11 +9,12 @@ public class SimpleModel implements IModel
 {
 
 	protected FacesBufferList _faces;
+	protected Vertices _vertices;
 
 	@Override
 	public Vertices getVertices() {
 		// TODO Auto-generated method stub
-		return null;
+		return _vertices;
 	}
 
 	@Override
@@ -23,7 +24,7 @@ public class SimpleModel implements IModel
 
 	@Override
 	public void setFaceBufferList(FacesBufferList faces) {
-
+this._faces = faces;
 	}
 
 	@Override
@@ -39,12 +40,11 @@ public class SimpleModel implements IModel
 
 	@Override
 	public void setVertices(Vertices vertices) {
-
+this._vertices = vertices;
 	}
 
 
 	public void setVertexBuffer(FloatBuffer vertex) {
-
 	}
 
 	@Override
@@ -61,7 +61,6 @@ public class SimpleModel implements IModel
 
 	@Override
 	public void setNormalBuffer(FloatBuffer normals) {
-
 	}
 
 }

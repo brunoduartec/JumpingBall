@@ -59,7 +59,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     float scale;
     float delta = 0.01f;
 
-    int size = 8;
+
     float cameradistance = 3.0f;
 
     Vector2 direction = new Vector2(0, -1);
@@ -155,10 +155,12 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
 
-//IObject tt = ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
-
+    IObject tt = ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
+    tt.setPosition(new Vector3(0,0,0));
         scene = new SimpleScene(world,world2d);
 
+
+        world.AddObject(tt);
         try {
 
             stages = new StageManager(world,_gamecontext);

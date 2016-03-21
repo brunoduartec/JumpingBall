@@ -299,6 +299,13 @@ public class DiffuseMaterial extends IMaterial {
 		}
 		else*/
 		setColor(getDiffuseColor(), obj);
+
+		if (getDiffuseColor().a <255)
+			GLES20.glEnable(GLES20.GL_BLEND);
+		else
+			GLES20.glDisable(GLES20.GL_BLEND);
+
+
 		{
 			obj.getModel().getVertices().colors().buffer().position(0);
 			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_FLOAT, false,

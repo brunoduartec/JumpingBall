@@ -31,6 +31,8 @@ public class SimpleScene implements IScene {
 
 		GLES20.glEnable(GLES20.GL_BLEND);
 		GLES20.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+
 		if (world2d !=null)
 		{
 			List<IObject> ot =  getWorld2d().getObjectsList();
@@ -86,8 +88,8 @@ public class SimpleScene implements IScene {
 
 	@Override
 	public void Initialize() {
-		
-		
+
+	//	GLES20.glDisable(GLES20.GL_CULL_FACE);
 	
 	}
 

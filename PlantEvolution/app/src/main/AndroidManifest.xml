@@ -22,7 +22,9 @@
     <activity
             android:name=".GameActivity"
             android:label="@string/gameactivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:screenOrientation="portrait"
+        >
             
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

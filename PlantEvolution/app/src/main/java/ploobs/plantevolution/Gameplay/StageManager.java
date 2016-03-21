@@ -101,7 +101,7 @@ private void CreateStageFile(String name) throws IOException {
 
    // cameradistance = 2f;
 
-    cameradistance = Math.round((GameConstants.size*GameConstants.scale/2));
+    cameradistance = Math.round((GameConstants.size*GameConstants.scale*GameConstants.scale));
 
 
 

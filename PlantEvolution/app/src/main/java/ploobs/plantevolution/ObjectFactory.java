@@ -170,9 +170,14 @@ public class ObjectFactory {
 			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
 		else
 			mat1 = new DiffuseMaterial();
+		Color cc =Color.enumtoColor(Color.COLORNAME.YELLOW);
+		cc.a = 10;
+				//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setDiffuseColor(cc);
 
-		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
-		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+
+
+
 		mat1.setTexture("white");
 
 		obj = new SimpleObject(mat1,m1, name);

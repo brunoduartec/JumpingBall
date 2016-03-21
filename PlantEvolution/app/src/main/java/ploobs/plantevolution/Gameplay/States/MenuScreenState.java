@@ -1,6 +1,8 @@
 package ploobs.plantevolution.Gameplay.States;
 
 import android.content.Context;
+import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.util.DisplayMetrics;
 
 import ploobs.plantevolution.Audio.AudioPlayer;
@@ -14,7 +16,6 @@ import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.SimpleScene;
-import ploobs.plantevolution.Text.GLText;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.SimpleWorld;
 
@@ -27,20 +28,15 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     private Element button;
     boolean end=false;
     private Element soundbutton;
-    private GLText glText;
+
 
     @Override
     public void Entered() {
 
         Context localContext = GraphicFactory.getInstance().getGraphicContext();
         // Create the GLText
-        glText = new GLText(localContext.getAssets());
 
-        // Load the font from file (set size + padding), creates the texture
-        // NOTE: after a successful call to this the font is ready for rendering!
-        glText.load("Roboto-Regular.ttf", 12, 2, 2);  // Create Font (Height: 14 Pixels / X+Y Padding 2 Pixels)
 
-        // enable texture + alpha blending
 
         //AudioPlayer.getInstance().changeVolume("theme", 20);
 
@@ -137,24 +133,8 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     @Override
     public void Draw() {
 
+        scene.Draw();
 
-            scene.Draw();
-
-        /*
-        GLES20.glEnable(GLES20.GL_BLEND);
-        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-
-        float[] mVPMatrix = new float[16];
-
-        mVPMatrix = scene.getWorld2d().getCameraManager().getActualCamera().getViewProjectionMatrix();
-
-        // TEST: render some strings with the font
-        glText.begin( 0.0f, 1.0f, 1.0f, 1.0f, mVPMatrix );         // Begin Text Rendering (Set Color WHITE)
-        glText.drawC("A", 0f, 0f, 0f, 0, 0, 0);
-
-        glText.end();                                   // End Text Rendering
-*/
-;
 
 
     }

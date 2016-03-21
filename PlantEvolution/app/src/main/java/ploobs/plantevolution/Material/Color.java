@@ -23,7 +23,7 @@ public class Color {
 	public short r=0;
 	public short g=0;
 	public short b=0;
-	public short a=1;
+	public short a=255;
 
 
 	public Color (short[] color)

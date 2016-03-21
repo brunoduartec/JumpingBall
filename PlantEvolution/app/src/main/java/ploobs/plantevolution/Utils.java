@@ -18,10 +18,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import ploobs.plantevolution.Material.Color;
-import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
-import ploobs.plantevolution.Text.AttribVariable;
-import ploobs.plantevolution.World.IObject;
 
 public class Utils {
 	
@@ -61,19 +58,7 @@ int ii=0;
 	
 		
 	}
-	public static int createAndLinkProgram(final int vertexShaderHandle, final int fragmentShaderHandle, final AttribVariable[] attributes)
-	{
-		String [] trans = new String[AttribVariable.values().length];
 
-
-	for (int i=0;i<AttribVariable.values().length;i++)
-	{
-
-		trans[i] = attributes[i].getName();
-	}
-		return createAndLinkProgram(vertexShaderHandle,fragmentShaderHandle,trans);
-
-	}
 
 
 	/**
