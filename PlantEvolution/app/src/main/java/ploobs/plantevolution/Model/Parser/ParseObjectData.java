@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.Uv;
 import ploobs.plantevolution.Math.Vector3;
+import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.Model.Model3D.Face;
+import ploobs.plantevolution.Model.Model3D.SimpleModel;
 import ploobs.plantevolution.World.Animation.AnimationObject;
 import ploobs.plantevolution.World.Animation.KeyFrame;
 import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.SimpleObject;
 
 /**
  * Created by Bruno on 23/02/2016.
@@ -56,19 +60,26 @@ public class ParseObjectData {
     }
 
     public IObject getParsedObject(HashMap<String, IMaterial> materialMap, AParser.TextureAtlas textureAtlas) {
-        AnimationObject obj = new AnimationObject(numFaces * 3, numFaces);
+        SimpleObject obj = new SimpleObject();//(numFaces * 3, numFaces);
         obj.setName(name);
 
-        parseObject((AnimationObject) obj, materialMap, textureAtlas);
+      //  parseObject((AnimationObject) obj, materialMap, textureAtlas);
+        parseObject(obj,materialMap,textureAtlas);
 
         return obj;
     }
 
-    private void parseObject(AnimationObject obj, HashMap<String, IMaterial> materialMap, AParser.TextureAtlas textureAtlas)
+    private void parseObject(IObject obj, HashMap<String, IMaterial> materialMap, AParser.TextureAtlas textureAtlas)
     {
         int numFaces = faces.size();
         int faceIndex = 0;
         boolean hasBitmaps = textureAtlas.hasBitmaps();
+
+        IModel localmodel = new SimpleModel(numFaces*3,numFaces);
+        obj.setModel(localmodel);
+        IMaterial localmaterial = new DiffuseMaterial();
+        obj.setMaterial(localmaterial);
+
 
         for (int i = 0; i < numFaces; i++) {
             ParseObjectFace face = faces.get(i);

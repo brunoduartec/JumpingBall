@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
@@ -19,7 +20,11 @@ import ploobs.plantevolution.Material.Color;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.TextureManager;
 import ploobs.plantevolution.Material.Uv;
+import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
+import ploobs.plantevolution.Model.Model3D.FacesBufferList;
+import ploobs.plantevolution.Model.Model3D.SimpleModel;
+import ploobs.plantevolution.Model.Model3D.Vertices;
 import ploobs.plantevolution.PlantEvolution;
 import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.ObjectContainer;
@@ -66,6 +71,9 @@ public class ObjParser extends AParser implements IParser {
         BufferedReader buffer = new BufferedReader(
                 new InputStreamReader(fileIn));
         String line;
+
+
+
         co = new ParseObjectData(vertices, texCoords, normals);
         parseObjects.add(co);
 
@@ -107,7 +115,7 @@ public class ObjParser extends AParser implements IParser {
                     normal.setX(Float.parseFloat(parts.nextToken()));
                     normal.setY(Float.parseFloat(parts.nextToken()));
                     normal.setZ(Float.parseFloat(parts.nextToken()));
-                    normals.add(normal);
+                   normals.add(normal);
                 } else if (type.equals(MATERIAL_LIB)) {
                     readMaterialLib(parts.nextToken());
                 } else if (type.equals(USE_MATERIAL)) {
@@ -123,7 +131,7 @@ public class ObjParser extends AParser implements IParser {
                     else
                     {
                         Log.d(PlantEvolution.TAG, "Create object " + objName);
-                        co = new ParseObjectData(vertices, texCoords, normals);
+                        co = new ParseObjectData(getVertices(), getTexCoords(), getNormals());
                         co.name = objName;
                         parseObjects.add(co);
                     }
@@ -143,6 +151,8 @@ public class ObjParser extends AParser implements IParser {
         int numObjects = parseObjects.size();
         Bitmap texture = null;
 
+
+
         if(textureAtlas.hasBitmaps())
         {
             textureAtlas.generate();
@@ -153,7 +163,7 @@ public class ObjParser extends AParser implements IParser {
         for (int i = 0; i < numObjects; i++) {
             ParseObjectData o = parseObjects.get(i);
             Log.d(PlantEvolution.TAG, "Creating object " + o.name);
-            obj.addChild(o.getParsedObject(materialMap, textureAtlas));
+            obj.addChild(o.getParsedObject(getMaterialMap(), textureAtlas));
         }
 
         if(textureAtlas.hasBitmaps())
@@ -194,15 +204,15 @@ public class ObjParser extends AParser implements IParser {
                 if (type.equals(NEW_MATERIAL)) {
                     if (parts.length > 1) {
                         currentMaterial = parts[1];
-                        materialMap.put(currentMaterial, new DiffuseMaterial(currentMaterial));
+                        getMaterialMap().put(currentMaterial, new DiffuseMaterial(currentMaterial));
                     }
                 } else if(type.equals(DIFFUSE_COLOR) && !type.equals(DIFFUSE_TEX_MAP))
                 {
                     Color diffuseColor = new Color(Short.parseShort(parts[1]) , Short.parseShort(parts[2]) , Short.parseShort(parts[3]),255);
-                    materialMap.get(currentMaterial).setDiffuseColor(diffuseColor);
+                    getMaterialMap().get(currentMaterial).setDiffuseColor(diffuseColor);
                 } else if (type.equals(DIFFUSE_TEX_MAP)) {
                     if (parts.length > 1) {
-                        materialMap.get(currentMaterial).setDiffuseTextureMap( parts[1]);
+                        getMaterialMap().get(currentMaterial).setDiffuseTextureMap( parts[1]);
                         StringBuffer texture = new StringBuffer(packageID);
                         texture.append(":drawable/");
 
@@ -228,7 +238,7 @@ public class ObjParser extends AParser implements IParser {
     @Override
     protected void cleanup() {
         super.cleanup();
-        materialMap.clear();
+        getMaterialMap().clear();
     }
 
     private class ObjFace extends ParseObjectFace {

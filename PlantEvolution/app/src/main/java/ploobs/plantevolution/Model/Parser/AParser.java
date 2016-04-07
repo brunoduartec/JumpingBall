@@ -45,17 +45,17 @@ public abstract class AParser implements IParser {
     protected ArrayList<Uv> texCoords;
     protected ArrayList<Vector3> normals;
     protected boolean generateMipMap;
-    protected HashMap<String, IMaterial> materialMap;
+    private HashMap<String, IMaterial> materialMap;
 
     public AParser()
     {
-        vertices = new ArrayList<Vector3>();
-        texCoords = new ArrayList<Uv>();
-        normals = new ArrayList<Vector3>();
+        setVertices(new ArrayList<Vector3>());
+        setTexCoords(new ArrayList<Uv>());
+        setNormals(new ArrayList<Vector3>());
         parseObjects = new ArrayList<ParseObjectData>();
         textureAtlas = new TextureAtlas();
         firstObject = true;
-        materialMap = new HashMap<String, IMaterial>();
+        setMaterialMap(new HashMap<String, IMaterial>());
     }
 
     public AParser(Resources resources, String resourceID, Boolean generateMipMap)
@@ -72,9 +72,9 @@ public abstract class AParser implements IParser {
     {
         parseObjects.clear();
         textureAtlas.cleanup();
-        vertices.clear();
-        texCoords.clear();
-        normals.clear();
+        getVertices().clear();
+        getTexCoords().clear();
+        getNormals().clear();
     }
 
     /**
@@ -116,6 +116,38 @@ public abstract class AParser implements IParser {
      * Override this in the concrete parser
      */
     public void parse() {
+    }
+
+    public ArrayList<Vector3> getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(ArrayList<Vector3> vertices) {
+        this.vertices = vertices;
+    }
+
+    public ArrayList<Uv> getTexCoords() {
+        return texCoords;
+    }
+
+    public void setTexCoords(ArrayList<Uv> texCoords) {
+        this.texCoords = texCoords;
+    }
+
+    public ArrayList<Vector3> getNormals() {
+        return normals;
+    }
+
+    public void setNormals(ArrayList<Vector3> normals) {
+        this.normals = normals;
+    }
+
+    public HashMap<String, IMaterial> getMaterialMap() {
+        return materialMap;
+    }
+
+    public void setMaterialMap(HashMap<String, IMaterial> materialMap) {
+        this.materialMap = materialMap;
     }
 
 
@@ -376,9 +408,9 @@ public abstract class AParser implements IParser {
 
             if(atlas != null) atlas.recycle();
             bitmaps.clear();
-            vertices.clear();
-            texCoords.clear();
-            normals.clear();
+            getVertices().clear();
+            getTexCoords().clear();
+            getNormals().clear();
         }
 
         public void setId(String newAtlasId) {

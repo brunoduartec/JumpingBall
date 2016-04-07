@@ -29,6 +29,7 @@ import ploobs.plantevolution.Scene.SimpleScene;
 import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
+import ploobs.plantevolution.World.ObjectContainer;
 import ploobs.plantevolution.World.SimpleWorld;
 
 /**
@@ -155,12 +156,11 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
 
-    IObject tt = ObjectFactory.getInstance().getOBJModel("planta","ploobs.plantevolution:raw/plant_player");
-    tt.setPosition(new Vector3(0,0,0));
+
         scene = new SimpleScene(world,world2d);
 
 
-        world.AddObject(tt);
+
         try {
 
             stages = new StageManager(world,_gamecontext);

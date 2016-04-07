@@ -143,6 +143,9 @@ public class Vertices
         return (short)(_points.size()-1);
     }
 
+
+
+
     public void overwriteVerts(float[] newVerts)
     {
         _points.overwrite(newVerts);

@@ -34,7 +34,7 @@ public class AnimationObject extends IObject {
     public AnimationObject(int maxVertices, int maxFaces)
     {
 
-        this.setModel( new SimpleModel());
+        this.setModel( new SimpleModel(maxVertices,maxFaces));
 
         Vertices  _vertices = new Vertices(maxVertices,true,true,true);
         FacesBufferList _faces = new FacesBufferList(maxFaces);
@@ -231,7 +231,7 @@ public class AnimationObject extends IObject {
 
     @Override
     public void Draw(IWorld world) {
-
+        getMaterial().Draw(this, world);
     }
 
     @Override

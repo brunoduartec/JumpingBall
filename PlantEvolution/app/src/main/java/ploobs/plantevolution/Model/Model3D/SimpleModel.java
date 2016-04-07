@@ -11,6 +11,14 @@ public class SimpleModel implements IModel
 	protected FacesBufferList _faces;
 	protected Vertices _vertices;
 
+	public SimpleModel(int vertices,int faces)
+	{
+
+		_vertices = new Vertices(vertices,true,true,true);//new Vertices(4*6,true,true,true);
+		_faces = new FacesBufferList(faces);
+	}
+
+
 	@Override
 	public Vertices getVertices() {
 		// TODO Auto-generated method stub
@@ -35,14 +43,13 @@ this._faces = faces;
 	@Override
 	public FloatBuffer getVertexBuffer() {
 		// TODO Auto-generated method stub
-		return null;
+		return _vertices.points().buffer();
 	}
 
 	@Override
 	public void setVertices(Vertices vertices) {
-this._vertices = vertices;
+		this._vertices = vertices;
 	}
-
 
 	public void setVertexBuffer(FloatBuffer vertex) {
 	}
@@ -50,17 +57,19 @@ this._vertices = vertices;
 	@Override
 	public float[] getNormals() {
 		// TODO Auto-generated method stub
+		//return _vertices.normals().;
 		return null;
 	}
 
 	@Override
 	public FloatBuffer getNormalsBuffer() {
 		// TODO Auto-generated method stub
-		return null;
+		return _vertices.normals().buffer();
 	}
 
 	@Override
 	public void setNormalBuffer(FloatBuffer normals) {
+		this._vertices.overwriteNormals(normals.array());
 	}
 
 }

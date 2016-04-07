@@ -15,6 +15,7 @@ import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
 import ploobs.plantevolution.ObjectFactory;
+import ploobs.plantevolution.World.ObjectContainer;
 import ploobs.plantevolution.World.SimpleObject;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
@@ -527,7 +528,11 @@ public void MergeBlock(Block origin, Block destiny)
 
         float x,z;
 
+       ObjectContainer tt = ObjectFactory.getInstance().getOBJModel("box_obj","ploobs.plantevolution:raw/box");
+       tt.setScale(new Vector3(30,30,30));
+        tt.setPosition(new Vector3(0, 0, 0));
 
+        localWorld.AddObject(tt);
 
         for (int i=0;i<size;i++)
         {
@@ -558,7 +563,7 @@ public void MergeBlock(Block origin, Block destiny)
 //Adding Plateau
 
 
-      //  SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box" + size + "_" + size, getScale());
+      //  SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box_mtl.mtl" + size + "_" + size, getScale());
 
 
       //  b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));

@@ -3,6 +3,7 @@ package ploobs.plantevolution.Material;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
@@ -22,20 +23,20 @@ import java.nio.FloatBuffer;
 
 public class DiffuseMaterial extends IMaterial {
 
-
+	private static final String TAG = "DiffuseMaterial";
 	boolean colorseted = false;
 	private String name;
 	 
 	private int mPositionHandle;
 	private int mColorHandle;
-	//private float[] color = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+
 
 	private int shadowed = 0;
 
 	// R, G, B, A
 	float[] cubeColorData;
 	private FloatBuffer mCubeColors;
-	//private final ShortBuffer mCubeColors;
+
 
 	private int mMVPMatrixHandle;
     // number of coordinates per vertex in this array
@@ -77,15 +78,12 @@ public class DiffuseMaterial extends IMaterial {
 	{
 
 		this.name = name;
-	//	color = Utils.RandColor();
-		//setColor(Utils.RandColor());
+
 		Context localContext = GraphicFactory.getInstance().getGraphicContext();
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
 		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
 
 
-	//	String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);
-		//String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_vertex);
 
 		int vertexShaderHandle = Utils.loadShader(	GLES20.GL_VERTEX_SHADER, vert);
 		int fragmentShaderHandle = Utils.loadShader(	GLES20.GL_FRAGMENT_SHADER, frag);
@@ -93,9 +91,6 @@ public class DiffuseMaterial extends IMaterial {
 		mProgram = Utils.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle,
 				new String[]{"a_Position", "a_Color", "a_Normal","a_TexCoordinate"});
 
-
-	//	mCubeColors = ByteBuffer.allocateDirect(144 * 4)
-		//		.order(ByteOrder.nativeOrder()).asFloatBuffer();
 	}
 
 
@@ -109,11 +104,8 @@ public class DiffuseMaterial extends IMaterial {
 
 	public DiffuseMaterial()
 	{
-		//color = Utils.RandColor();
-		//setColor(Utils.RandColor());
+
 		Context localContext = GraphicFactory.getInstance().getGraphicContext();
-		//String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_fragment);
-		//String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_phong_vertex);
 		String frag = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_fragmentlight);
 		String vert = RawResourceReader.readTextFileFromRawResource(localContext, R.raw.shader_vertexlight);
 
@@ -134,6 +126,9 @@ public class DiffuseMaterial extends IMaterial {
 			return;
 
 		colorseted=true;
+
+		if (color == null)
+			color = Color.enumtoColor(Color.COLORNAME.GRAY);
 
 		this.color = color;//new Color(color);
 
@@ -227,8 +222,6 @@ public class DiffuseMaterial extends IMaterial {
 		mSpecularIntensityHandle= GLES20.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
 
 
-	//	mDiffuseColorHandle = GLES20.glGetUniformLocation(mProgram, "u_DiffuseColor");
-	//	mSpecularColorHandle = GLES20.glGetUniformLocation(mProgram, "u_SpecColor");
 
 
 
@@ -254,12 +247,7 @@ public class DiffuseMaterial extends IMaterial {
 		float[] colortemp = l1.getColor().getColor();
 
 		GLES20.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
-	//	GLES20.glUniform4f(mDiffuseColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
-	//	GLES20.glUniform4f(mSpecularColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
 
-		//uniform vec3 u_AmbientColor;// = vec3(0.1, 0.0, 0.0);
-		//uniform vec3 u_DiffuseColor;// = vec3(0.5, 0.0, 0.0);
-		//uniform vec3 u_SpecColor;// = vec3(1.0, 1.0, 1.0);
 		
 		
 
@@ -277,27 +265,10 @@ public class DiffuseMaterial extends IMaterial {
 				0, obj.getModel().getVertexBuffer());
 
 
-		// set color for drawing the triangle
-		// set color for drawing the triangle
-		//GLES20.glUniform4fv(mColorHandle, 1, color, 0);
-
-	      //  GLES20.glUniform4f(mColorHandle, color[0],color[1],color[2],color[3]);
-		//GLES20.glEnableVertexAttribArray(mColorHandle);
 		GLES20.glEnableVertexAttribArray(mColorHandle);
-// Pass in the color information
 
 
 
-
-
-/*
-		if (mCubeColors == null)
-		{
-			obj.getModel().getVertices().colors().buffer().position(0);
-			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_BYTE, false,
-			0, obj.getModel().getVertices().colors().buffer());
-		}
-		else*/
 		setColor(getDiffuseColor(), obj);
 
 		if (getDiffuseColor().a <255)
@@ -322,12 +293,6 @@ public class DiffuseMaterial extends IMaterial {
 				mNormalHandle, COORDS_PER_VERTEX,
 				GLES20.GL_FLOAT, false,
 				vertexStride, obj.getModel().getNormalsBuffer());
-
-
-
-
-
-
 
 		ICamera cam = world.getCameraManager().getActualCamera();
 

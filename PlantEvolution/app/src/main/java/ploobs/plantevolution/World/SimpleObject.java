@@ -14,7 +14,7 @@ public class SimpleObject extends IObject
 	// used to xmlparse
 	public SimpleObject()
 	{
-		localID = ID++;
+		localID = ++ID;
 	}
 
 	public SimpleObject(IMaterial mat, IModel mod, String nm)
@@ -24,7 +24,7 @@ public class SimpleObject extends IObject
 		//this.model = mod;
 		setMaterial(mat);
 		setModel(mod);
-		localID = ID++;		
+		localID = ++ID;
 		
 		 
 		
@@ -33,8 +33,14 @@ public class SimpleObject extends IObject
 	@Override
 	public void Draw(IWorld world) {
 		// TODO Auto-generated method stub
+		try {
+			getMaterial().Draw(this, world);
+		}
+		catch(Exception e)
+		{
+			String a = e.getMessage();
 
-		getMaterial().Draw(this, world);
+		}
 	}
 
 	@Override

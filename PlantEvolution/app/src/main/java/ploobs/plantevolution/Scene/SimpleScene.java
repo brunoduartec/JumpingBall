@@ -2,8 +2,10 @@ package ploobs.plantevolution.Scene;
 
 import android.opengl.GLES20;
 
+import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
+import ploobs.plantevolution.World.ObjectContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,24 @@ public class SimpleScene implements IScene {
 			//Map<Integer, IObject> ot = world.getObjectsList();
 			List<IObject> ot = getWorld().getObjectsList();
 			for (int i = 0; i < ot.size(); i++) {
+
+
 				IObject o1 = (IObject) ot.get(i);
-				o1.Draw(world);
+
+
+
+				if (o1 instanceof ObjectContainer)
+				{
+					ObjectContainer oo = (ObjectContainer)o1;
+					for (IObject o2:oo.children() ) {
+						o2.Draw(world);
+					}
+
+				}
+				else {
+
+					//o1.Draw(world);
+				}
 			}
 		}
 

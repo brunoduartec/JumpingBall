@@ -50,7 +50,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world.getCameraManager().addCamera(cam2D);
         world.getCameraManager().setActualCamera("CAM2");
-        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero));
+        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button",R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero));
 
 
         scene = new SimpleScene(world);
@@ -59,7 +59,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
    //     MediaPlayer mediaPlayer = MediaPlayer.create(GraphicFactory.getInstance().getGraphicContext(), R.raw.hopeful_theme_music_1);
     //    mediaPlayer.start(); // no need to call prepare(); create() does that for you
 
-        AudioPlayer.getInstance().addAudio("theme", R.raw.hopeful_theme_music_1);
+        AudioPlayer.getInstance().addAudio("theme",R.raw.hopeful_theme_music_1);
         AudioPlayer.getInstance().addAudio("button_click", R.raw.button_click);
         AudioPlayer.getInstance().addAudio("switch_sound", R.raw.switch_sound);
         AudioPlayer.getInstance().addAudio("pickup_gem", R.raw.pickup_gem_1);

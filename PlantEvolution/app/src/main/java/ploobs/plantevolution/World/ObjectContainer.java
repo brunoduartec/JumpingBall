@@ -18,7 +18,8 @@ public class ObjectContainer extends IObject implements IObjectContainer
 
     public ObjectContainer()
     {
-      //  super(0, 0, false, false, false);
+        localID = ++ID;
+
     }
 
     /**
@@ -94,7 +95,7 @@ public class ObjectContainer extends IObject implements IObjectContainer
     }
 
     /*package-private*/
-    ArrayList<IObject> children()
+    public ArrayList<IObject> children()
     {
         return _children;
     }
@@ -137,6 +138,12 @@ public class ObjectContainer extends IObject implements IObjectContainer
 
     @Override
     public void Draw(IWorld world) {
+
+        for (IObject oo: _children)
+        {
+            oo.Draw(world);
+
+        }
 
     }
 

@@ -21,6 +21,7 @@ import ploobs.plantevolution.Model.Model3D.SphereModel;
 import ploobs.plantevolution.Model.Parser.IParser;
 import ploobs.plantevolution.Model.Parser.Parser;
 import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.ObjectContainer;
 import ploobs.plantevolution.World.SimpleObject;
 
 public class ObjectFactory {
@@ -47,14 +48,18 @@ public class ObjectFactory {
 		  }
 
 
-	public IObject getOBJModel(String name, String model)
+	public ObjectContainer getOBJModel(String name, String model)
 	{
-		IObject objModel;
+		ObjectContainer objModel;
 
 		IParser parser = Parser.createParser(Parser.Type.OBJ,GraphicFactory.getInstance().getResources(), model, true);
 		parser.parse();
 
 		objModel = parser.getParsedObject();
+
+
+
+		objModel.setName(name);
 
 		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		//DiffuseMaterial mat1 = new DiffuseMaterial();

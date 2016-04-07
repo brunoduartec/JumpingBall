@@ -27,8 +27,14 @@ public abstract class IObject implements ISerializable
 	boolean Visible=true;
 	public String name=null;
 	static int ID=0;
-	int localID=-1;
+	public int localID=-1;
 
+	@Override
+	public String toString()
+	{
+
+		return this.getName();
+	}
 	
 public Vector3 getPosition()
 {
