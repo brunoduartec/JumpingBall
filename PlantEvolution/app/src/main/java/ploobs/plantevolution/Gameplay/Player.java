@@ -124,7 +124,7 @@ this.moveamount = scale;
 
         if (this.moveamount <= 0) {
             // at this moment set the local position
-            setLocalPos(new Vector3(localPos.getX() + _direction.getX(), this.minimunY, localPos.getZ() + _direction.getY()));
+            setLocalPos(new Vector3(localPos.getX() + _direction.getX(), this.minimunY/GameConstants.scale, localPos.getZ() + _direction.getY()));
             _direction = new Vector2();
         }
     }

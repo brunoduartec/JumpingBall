@@ -96,15 +96,8 @@ public class Board {
     }
     public void Reset()
     {
-
-//quando eu corrigir o problema do clone posso tirar isso
-
-        //this.localWorld.CleanObjects();
-
         setBoardbyList();
         SetPlayerPos(new Vector3(_playerInitpos));
-
-
 
     }
     private Block findBlockbyID(Integer id)
@@ -260,16 +253,14 @@ public void SetPlayerPos(Vector3 pos)
     public void MovePlayer(Vector2 dir)
     {
 
-
-       // if (initialstage == null)
-        //    initialstage = bk;
-
         Vector3 playerpos = p1.getLocalPos();
 
 
         int h1,h2;
 
-        Vector3 actualpos = p1.getPosition();
+        //Vector3 actualpos = p1.getPosition();
+
+        h1 = (int)(p1.getLocalPos().getY())-1;
 
         float x,y;
 
@@ -282,11 +273,19 @@ public void SetPlayerPos(Vector3 pos)
 
 
         this._direction = dir;
-        Block btemp =BlockExistAt(x, y);
+
+        //calculating the height of the next block
+        Block btemp =BlockExistAt(x,y);
         if (btemp != null)
             h2 = btemp.getChildreenCount()+1;
         else
             h2 = 0;
+
+        //calculating the delta between the actual pos and the next pos
+            int delta_h = h2-h1;
+
+
+
 
 
 
@@ -298,15 +297,15 @@ public void SetPlayerPos(Vector3 pos)
             {
                 validpos = btemp.canStack();
             }
-            if (validpos)
+            if (validpos && delta_h <= 1)
                 p1.setDirection(dir, (h2) * getScale());//walking to a valid position
 
         }
             else {
 
-            if (h2 == 0)
+            if (delta_h <= 0) // can just move if the next block were less or equal
                 p1.setDirection(dir, (h2) * getScale());
-            else if (!p1.isJumping())
+            else if (!p1.isJumping() && p1.getLocalPos().getY() == 1)
                 PushBlock(dir);
 
         }
@@ -448,14 +447,20 @@ public void MergeBlock(Block origin, Block destiny)
     public void PushBlock(Vector2 dir)
     {
 
-
+//used to foreseen two blocks ahead
         Vector2 doubledir = dir.mul(2);
+
+// see if there is a block in the moving direction
         Block bb =BlockExistAt(p1.getLocalPos().getX() + dir.x, p1.getLocalPos().getZ() + dir.y);
 
+
+        //calc the position behind the block to be moved
         float xtry = p1.getLocalPos().getX()+doubledir.x;
         float ytry = p1.getLocalPos().getZ()+doubledir.y;
 
         Block bprox = BlockExistAt(xtry,ytry);
+
+
         if (bprox==null && testposintheBoard(new Vector2(xtry,ytry)) )
         {
             if (bb.canMove())

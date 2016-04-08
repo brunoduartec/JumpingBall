@@ -42,7 +42,7 @@ public class SimpleScene implements IScene {
 				}
 				else {
 
-					//o1.Draw(world);
+					o1.Draw(world);
 				}
 			}
 		}
