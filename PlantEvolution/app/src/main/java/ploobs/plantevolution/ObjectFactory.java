@@ -159,8 +159,12 @@ public class ObjectFactory {
 		return obj;
 	}
 
-	public SimpleObject getGemaObject(String name, float scale)
+	public IObject getGemaObject(String name, float scale)
 	{
+
+		ObjectContainer obc = new ObjectContainer();
+
+
 		SimpleObject obj;
 		IModel m1;
 
@@ -186,7 +190,13 @@ public class ObjectFactory {
 		mat1.setTexture("white");
 
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new Vector3(scale, scale, scale));
+		obj.setScale(new Vector3(scale, 1.5f*scale, scale));
+
+
+		obc.children().add(obj);
+
+
+
 		return obj;
 	}
 

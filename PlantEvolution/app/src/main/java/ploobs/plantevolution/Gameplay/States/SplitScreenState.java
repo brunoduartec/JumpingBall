@@ -53,7 +53,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         world.AddObject(ObjectFactory.getInstance().getRectangleObject("button",R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero));
 
 
-        scene = new SimpleScene(world);
+        scene = new SimpleScene(world,true);
 
 
    //     MediaPlayer mediaPlayer = MediaPlayer.create(GraphicFactory.getInstance().getGraphicContext(), R.raw.hopeful_theme_music_1);

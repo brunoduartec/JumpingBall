@@ -35,9 +35,10 @@ public class SimpleModel implements IModel
 this._faces = faces;
 	}
 
+
 	@Override
 	public int getVerticesCount() {
-		return 0;
+		return _vertices.size();//  squareCoords.length;
 	}
 
 	@Override

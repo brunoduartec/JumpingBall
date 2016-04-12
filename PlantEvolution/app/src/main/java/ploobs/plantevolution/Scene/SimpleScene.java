@@ -22,6 +22,8 @@ public class SimpleScene implements IScene {
 	public void Draw() {
 		// TODO Auto-generated method stub
 
+
+
 		if (world!=null) {
 			//Map<Integer, IObject> ot = world.getObjectsList();
 			List<IObject> ot = getWorld().getObjectsList();
@@ -42,7 +44,7 @@ public class SimpleScene implements IScene {
 				}
 				else {
 
-					o1.Draw(world);
+//					o1.Draw(world);
 				}
 			}
 		}

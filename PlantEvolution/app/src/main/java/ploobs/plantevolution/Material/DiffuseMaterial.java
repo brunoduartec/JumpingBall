@@ -3,7 +3,6 @@ package ploobs.plantevolution.Material;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
-import android.util.Log;
 
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
@@ -71,7 +70,7 @@ public class DiffuseMaterial extends IMaterial {
 	private int mTextureDataHandle;
 	private int mTextureCoordinateHandle;
 	private int mTextureUniformHandle;
-	private int mShadowed;
+	private int mShadowedHandle;
 
 
 	public DiffuseMaterial(String name)
@@ -191,38 +190,27 @@ public class DiffuseMaterial extends IMaterial {
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		GLES20.glUseProgram(mProgram);
 		 
-		// set program handles for cube drawing.
-	        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVPMatrix");
-	        mMVMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVMatrix");
-
+		// set program handles for drawing.
+		mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVPMatrix");
+	    mMVMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVMatrix");
 		mTextureCoordinateHandle = GLES20.glGetAttribLocation(mProgram, "a_TexCoordinate");
 		mPositionHandle = GLES20.glGetAttribLocation(mProgram, "a_Position");
 		mColorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
 		mNormalHandle = GLES20.glGetAttribLocation(mProgram, "a_Normal");
-
-
-		mShadowed = GLES20.glGetUniformLocation(mProgram, "u_Shadowit");
-		GLES20.glUniform1i(mShadowed,shadowed);
-
-
-				mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
-
-
-
+		mTextureUniformHandle = GLES20.glGetUniformLocation(mProgram, "u_Texture");
+		mShadowedHandle = GLES20.glGetUniformLocation(mProgram, "u_Shadowit");
 		mLightPosHandle = GLES20.glGetUniformLocation(mProgram, "u_LightPos");
-			mCameraPosHandle  = GLES20.glGetUniformLocation(mProgram, "v_CameraPosition");
-
-		    mLightIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_LightIntensity");
-
-
+		mCameraPosHandle  = GLES20.glGetUniformLocation(mProgram, "v_CameraPosition");
+		mLightIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_LightIntensity");
 		mAmbientIntensityHandle = GLES20.glGetUniformLocation(mProgram, "u_AmbientLightIntensity");
 		mAmbientColorHandle = GLES20.glGetUniformLocation(mProgram, "u_AmbientLightColor");
-
-
 		mSpecularIntensityHandle= GLES20.glGetUniformLocation(mProgram, "u_SpecularLightIntensity");
 
 
 
+
+		//Setting parameter values
+		GLES20.glUniform1i(mShadowedHandle,shadowed);
 
 
 		// Set the active texture unit to texture unit 0.
@@ -247,22 +235,21 @@ public class DiffuseMaterial extends IMaterial {
 		float[] colortemp = l1.getColor().getColor();
 
 		GLES20.glUniform4f(mAmbientColorHandle, colortemp[0],colortemp[1],colortemp[2],colortemp[3]);
-
+		GLES20.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
+		GLES20.glUniform1f(mAmbientIntensityHandle, l1.getAmbientIntensity());
+		GLES20.glUniform1f(mSpecularIntensityHandle, l1.getSpecularIntensity());
 		
-		
+        // Enable a handle to the triangle vertices
 
-
-
-	        
-	        // Enable a handle to the triangle vertices
-
-			GLES20.glEnableVertexAttribArray(mPositionHandle);
+		GLES20.glEnableVertexAttribArray(mPositionHandle);
 		// Prepare the triangle coordinate data
 		obj.getModel().getVertexBuffer().position(0);
+
 		GLES20.glVertexAttribPointer(
 				mPositionHandle, COORDS_PER_VERTEX,
 				GLES20.GL_FLOAT, false,
 				0, obj.getModel().getVertexBuffer());
+
 
 
 		GLES20.glEnableVertexAttribArray(mColorHandle);
@@ -276,13 +263,11 @@ public class DiffuseMaterial extends IMaterial {
 		else
 			GLES20.glDisable(GLES20.GL_BLEND);
 
-
-		{
 			obj.getModel().getVertices().colors().buffer().position(0);
 			GLES20.glVertexAttribPointer(mColorHandle, 4, GLES20.GL_FLOAT, false,
 					0, mCubeColors);
 
-		}
+
 
 
 		GLES20.glEnableVertexAttribArray(mNormalHandle);
@@ -294,11 +279,13 @@ public class DiffuseMaterial extends IMaterial {
 				GLES20.GL_FLOAT, false,
 				vertexStride, obj.getModel().getNormalsBuffer());
 
+
+
 		ICamera cam = world.getCameraManager().getActualCamera();
 
 
-
-		GLES20.glUniform3f(mCameraPosHandle,cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ());
+		// setting camera pos
+		GLES20.glUniform3f(mCameraPosHandle, cam.getPosition().getX(), cam.getPosition().getY(), cam.getPosition().getZ());
 
 		
 		//Multiply the ViewMatrix by the Object local position to obtain position in worldspace
@@ -315,24 +302,12 @@ public class DiffuseMaterial extends IMaterial {
 		GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 		
 
-
-
-
-		GLES20.glUniform1f(mLightIntensityHandle, l1.getDiffuseIntensity());
-
-		GLES20.glUniform1f(mAmbientIntensityHandle, l1.getAmbientIntensity());
-
-		GLES20.glUniform1f(mSpecularIntensityHandle, l1.getSpecularIntensity());
-
-
-
-
         Matrix.multiplyMV(mLightPosInEyeSpace, 0, cam.getViewMatrix(), 0, l1.getLocalTransformation(), 0);
 
 
 
 		//GLES20.glUniform3f(mLightPosHandle, mLightPosInEyeSpace[0],mLightPosInEyeSpace[1],mLightPosInEyeSpace[2]);
-		GLES20.glUniform3f(mLightPosHandle, l1.getPosition().getX(),l1.getPosition().getY(),l1.getPosition().getZ());
+		GLES20.glUniform3f(mLightPosHandle, l1.getPosition().getX(), l1.getPosition().getY(), l1.getPosition().getZ());
 
 
 		int verticescount = obj.getModel().getVerticesCount();
@@ -340,8 +315,10 @@ public class DiffuseMaterial extends IMaterial {
 
 		obj.getModel().getFaces().buffer().position(0);
 
-		GLES20.glDrawElements ( GLES20.GL_TRIANGLES, obj.getModel().getFaces().size()* FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer() );
+		//GLES20.glDrawElements(GLES20.GL_TRIANGLES, obj.getModel().getFaces().size() * FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer());
 
+		GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,obj.getModel().getVerticesCount());
+		//_gl.glDrawArrays($o.renderType().glValue(), 0, $o.vertices().size());
 
 		// Disable vertex array
 		GLES20.glDisableVertexAttribArray(mPositionHandle);

@@ -16,6 +16,7 @@ import ploobs.plantevolution.GUI.GuiManager;
 import ploobs.plantevolution.GUI.IEventHandler;
 import ploobs.plantevolution.GameState.GameStateUpdatableDrawable;
 import ploobs.plantevolution.Gameplay.GameConstants;
+import ploobs.plantevolution.Gameplay.Score;
 import ploobs.plantevolution.Gameplay.StageManager;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Input.InputSystem;
@@ -83,6 +84,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     private Element restartbutton;
 
     GuiManager gm;
+    Score stagescore = new Score();
 
     private void Init()
     {
@@ -104,6 +106,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         b = Utils.makeBitmapFromResourceId(R.drawable.stone);
         TextureManager.getInstance().addTextureId(b, "stone", false);
         b.recycle();
+
 
 
 

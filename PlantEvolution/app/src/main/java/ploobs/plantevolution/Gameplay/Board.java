@@ -68,7 +68,7 @@ public class Board {
     Block higherblock;
 
     Player p1;
-    SimpleObject gema;
+    IObject gema;
 
 
     private int size;
@@ -534,7 +534,7 @@ public void MergeBlock(Block origin, Block destiny)
         float x,z;
 
        ObjectContainer tt = ObjectFactory.getInstance().getOBJModel("box_obj","ploobs.plantevolution:raw/box");
-       tt.setScale(new Vector3(30,30,30));
+      // tt.setScale(new Vector3(30,30,30));
         tt.setPosition(new Vector3(0, 0, 0));
 
         localWorld.AddObject(tt);
