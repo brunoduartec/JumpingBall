@@ -62,7 +62,7 @@ public FaceShadedCubeMaterial()
 
 }
 	
-	public void setColor(Color color)
+	public void setColor(Color4 color)
     {
 
         this.color = color;
@@ -72,7 +72,7 @@ public FaceShadedCubeMaterial()
     }
 
 
-    private float[] setColorCubeData(Color cc)
+    private float[] setColorCubeData(Color4 cc)
     {
 
         short frontfactor = -51;
@@ -146,7 +146,7 @@ public FaceShadedCubeMaterial()
     }
 
     @Override
-    public Color getDiffuseColor() {
+    public Color4 getDiffuseColor() {
         return this.color;
     }
 
@@ -267,7 +267,7 @@ public FaceShadedCubeMaterial()
                                                 }
                                             }
                                         }
-                                        this.setColor(new Color(pp));
+                                        this.setColor(new Color4(pp));
                                     }
                                     break;
 

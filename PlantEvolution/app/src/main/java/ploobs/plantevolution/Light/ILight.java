@@ -1,25 +1,25 @@
 package ploobs.plantevolution.Light;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.World.IObject;
 
 public abstract class ILight extends IObject implements Cloneable
 {
 	
 	private float diffuseIntensity;
-	private Color color = Color.enumtoColor(Color.COLORNAME.WHITE);
+	private Color4 color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
 
 
 	private float ambientIntensity;
 	private float specularIntensity;
 
 
-	public Color getColor()
+	public Color4 getColor()
 	{
 		
 		return this.color;
 	}
-	public void setColor(Color color)
+	public void setColor(Color4 color)
 	{
 		
 		this.color = color;

@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Model.Model3D;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Utils;
@@ -21,13 +21,13 @@ public class SphereModel implements IModel {
     private  float _radius;
     int _rows,_cols;
 
-    Color defaultColor;
+    Color4 defaultColor;
 
 
 
     public SphereModel(float radius, int columns, int rows)
     {
-        defaultColor =  Color.enumtoColor(Color.COLORNAME.WHITE);
+        defaultColor =  Color4.enumtoColor(Color4.COLORNAME.WHITE);
 
         this._radius = radius/2;
         this._cols = columns;
@@ -101,7 +101,7 @@ this._vertices = vertices;
 
 
         if( defaultColor == null )
-            defaultColor = Color.enumtoColor(Color.COLORNAME.WHITE);
+            defaultColor = Color4.enumtoColor(Color4.COLORNAME.WHITE);
 
         // Build vertices
 
@@ -140,8 +140,8 @@ this._vertices = vertices;
             {
                 int ul = offset  +  c;
                 int ur = offset  +  c+1;
-                int br = offset  +  (int)(c + 1 + colLength);
-                int bl = offset  +  (int)(c + 0 + colLength);
+                int br = offset  + c + 1 + colLength;
+                int bl = offset  + c + 0 + colLength;
 
                 Utils.addQuad(_faces, ul, ur, br, bl);
             }

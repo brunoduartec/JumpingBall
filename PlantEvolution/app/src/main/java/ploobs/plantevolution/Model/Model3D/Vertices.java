@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Model.Model3D;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Material.ColorBufferList;
 import ploobs.plantevolution.Material.Uv;
 import ploobs.plantevolution.Material.UvBufferList;
@@ -132,7 +132,7 @@ public class Vertices
      * 		If hasUvs, hasNormals, or hasColors was set to false,
      * 		their corresponding arguments are just ignored.
      */
-    public short addVertex(Vector3 point, Uv textureUv, Vector3 normal, Color color)
+    public short addVertex(Vector3 point, Uv textureUv, Vector3 normal, Color4 color)
     {
         _points.add(point);
 

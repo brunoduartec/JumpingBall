@@ -50,7 +50,7 @@ public PointLightMaterial()
 {
 
 
-    color = Color.enumtoColor(Color.COLORNAME.WHITE);
+    color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
 	
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
 	
@@ -76,7 +76,7 @@ public PointLightMaterial()
     }
 
     @Override
-    public Color getDiffuseColor() {
+    public Color4 getDiffuseColor() {
         return this.color;
     }
 

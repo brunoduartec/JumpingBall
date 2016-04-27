@@ -17,7 +17,7 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
 
 public class Utils {
@@ -39,7 +39,7 @@ public class Utils {
      * @return - Returns an id for the shader.
      */
 	
-	public static Color RandColor()
+	public static Color4 RandColor()
 	{
 		Random rnd = new Random();
 		//int[] color = { rnd.nextInt(255), rnd.nextInt(255),rnd.nextInt(255), rnd.nextInt(255) };
@@ -47,12 +47,12 @@ public class Utils {
 int ii=0;
 
 		while(ii== 0 || ii==1 || ii==7 ) {
-		ii = rnd.nextInt(Color.COLORNAME.values().length-1);
+		ii = rnd.nextInt(Color4.COLORNAME.values().length-1);
 		}
 
 
 
-		Color ret = Color.enumtoColor(Color.COLORNAME.values()[ii]);
+		Color4 ret = Color4.enumtoColor(Color4.COLORNAME.values()[ii]);
 
 		return ret;
 	

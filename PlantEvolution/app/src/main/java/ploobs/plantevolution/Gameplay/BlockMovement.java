@@ -21,7 +21,7 @@ public class BlockMovement {
         this.blockID = blockID;
     }
 
-    public enum DIRECTION{RIGHT,LEFT,FRONT,BACK};
+    public enum DIRECTION{RIGHT,LEFT,FRONT,BACK}
 
 
     private DIRECTION directionmade;

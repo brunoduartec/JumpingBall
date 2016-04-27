@@ -56,9 +56,10 @@ public class Camera2D extends SimpleCamera {
 
 
 
+        Matrix.setLookAtM(this.getViewMatrix(), 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
 
-        Matrix.setLookAtM(this.getViewMatrix(), 0, position.getX(), position.getY(), position.getZ(), target.getX(), target.getY(), target.getZ(), 0f, 1.0f, 0.0f);
+       // Matrix.setLookAtM(this.getViewMatrix(), 0, position.getX(), position.getY(), position.getZ(), target.getX(), target.getY(), target.getZ(), 0f, 1.0f, 0.0f);
 
     }
 
@@ -83,7 +84,10 @@ public class Camera2D extends SimpleCamera {
 
 
 
-        Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
+        Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, -1, 1);
+      //  Matrix.orthoM(mProjectionMatrix, 0, 0f, GraphicFactory.getInstance().getWidth(), 0.0f, GraphicFactory.getInstance().getHeight(), 0, 50);
+
+      //  Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
 
         Matrix.translateM(mProjectionMatrix, 0, -ratio, 1.0f, 0); // Multiply by translation to the position
 

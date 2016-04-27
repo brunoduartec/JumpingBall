@@ -7,7 +7,7 @@ import org.w3c.dom.Node;
  */
 public interface ISerializable {
 
-  abstract Object Parse(Node childnode);
+  Object Parse(Node childnode);
 
 
 

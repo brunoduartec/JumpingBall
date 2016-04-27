@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.TextureManager;
 import ploobs.plantevolution.Material.Uv;
@@ -208,7 +208,7 @@ public class ObjParser extends AParser implements IParser {
                     }
                 } else if(type.equals(DIFFUSE_COLOR) && !type.equals(DIFFUSE_TEX_MAP))
                 {
-                    Color diffuseColor = new Color(Short.parseShort(parts[1]) , Short.parseShort(parts[2]) , Short.parseShort(parts[3]),255);
+                    Color4 diffuseColor = new Color4(Short.parseShort(parts[1]) , Short.parseShort(parts[2]) , Short.parseShort(parts[3]),255);
                     getMaterialMap().get(currentMaterial).setDiffuseColor(diffuseColor);
                 } else if (type.equals(DIFFUSE_TEX_MAP)) {
                     if (parts.length > 1) {

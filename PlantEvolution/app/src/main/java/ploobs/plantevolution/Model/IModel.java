@@ -9,9 +9,9 @@ public interface IModel
 {
 
     /** How many bytes per float. */
-    public final int mBytesPerFloat = 4;
+    int mBytesPerFloat = 4;
     // number of coordinates per vertex in this array
-    static final int COORDS_PER_VERTEX = 3;
+    int COORDS_PER_VERTEX = 3;
 
     Vertices getVertices();
     FacesBufferList getFaces();

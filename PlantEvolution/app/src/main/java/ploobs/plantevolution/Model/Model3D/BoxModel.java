@@ -1,6 +1,6 @@
 package ploobs.plantevolution.Model.Model3D;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Model.IModel;
 import ploobs.plantevolution.Utils;
 
@@ -14,7 +14,7 @@ public class BoxModel implements IModel
 	protected FacesBufferList _faces;
 
 	//private Color[] _cols;
-	private Color _color;
+	private Color4 _color;
 	float _scale;
 
 
@@ -48,7 +48,7 @@ public class BoxModel implements IModel
 		_scale = scale;
 		{
 			//_cols = new Color[6];
-			_color = Color.enumtoColor(Color.COLORNAME.WHITE);
+			_color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
 
 		}
 

@@ -53,12 +53,7 @@ public class Element extends SimpleObject {
         float heightconverted =height/GraphicFactory.getInstance().getHeight();
 
 
-
-
-        if ( (mposX>posXconvert && mposX < posXconvert + widthconverted) && (mposY>posYconvert && mposY < posYconvert + heightconverted  ) )
-            ret = true;
-        else
-            ret = false;
+        ret = (mposX > posXconvert && mposX < posXconvert + widthconverted) && (mposY > posYconvert && mposY < posYconvert + heightconverted);
 
         return ret;
 

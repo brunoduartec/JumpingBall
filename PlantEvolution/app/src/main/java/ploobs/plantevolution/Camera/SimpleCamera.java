@@ -75,7 +75,7 @@ public class SimpleCamera implements ICamera {
 
 		// Create a new perspective projection matrix. The height will stay the same
 		// while the width will vary as per aspect ratio.
-		final float ratio = (float) width / height;
+		final float ratio = width / height;
 		final float left = -ratio;
 		final float right = ratio;
 		final float bottom = -1.0f;

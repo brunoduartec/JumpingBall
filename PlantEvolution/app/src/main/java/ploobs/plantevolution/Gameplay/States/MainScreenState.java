@@ -90,7 +90,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     {
 
         Bitmap b;
-
+//GAMBIPATTERN
         b = Utils.makeBitmapFromResourceId(R.drawable.grass);
         TextureManager.getInstance().addTextureId(b, "grass", false);
         b.recycle();
@@ -107,6 +107,9 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         TextureManager.getInstance().addTextureId(b, "stone", false);
         b.recycle();
 
+        b = Utils.makeBitmapFromResourceId(R.drawable.basicfont);
+        TextureManager.getInstance().addTextureId(b, "basicfont", false);
+        b.recycle();
 
 
 

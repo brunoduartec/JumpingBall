@@ -61,7 +61,7 @@ public class SimpleSquareMaterial extends IMaterial
     public SimpleSquareMaterial(final int resourceId)
 {
 
-    color = Color.enumtoColor(Color.COLORNAME.GRAY);
+    color = Color4.enumtoColor(Color4.COLORNAME.GRAY);
 
 
 	Context localContext = GraphicFactory.getInstance().getGraphicContext();
@@ -93,7 +93,7 @@ public class SimpleSquareMaterial extends IMaterial
 
 
 	
-	public void setColor(Color color)
+	public void setColor(Color4 color)
     {
 
         this.color = color;
@@ -104,7 +104,7 @@ public class SimpleSquareMaterial extends IMaterial
     }
 
 
-    private float[] setSquareColorData(Color cc)
+    private float[] setSquareColorData(Color4 cc)
     {
 
 
@@ -131,7 +131,7 @@ public class SimpleSquareMaterial extends IMaterial
     }
 
     @Override
-    public Color getDiffuseColor() {
+    public Color4 getDiffuseColor() {
         return this.color;
     }
 
@@ -140,11 +140,6 @@ public class SimpleSquareMaterial extends IMaterial
 		
 		// TODO Auto-generated method stub
 
-// Use culling to remove back faces.
-        GLES20.glEnable(GLES20.GL_CULL_FACE);
-
-        // Enable depth testing
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
 		   // Add program to OpenGL environment
     	GLES20.glUseProgram(mProgram);
@@ -280,7 +275,7 @@ public class SimpleSquareMaterial extends IMaterial
                                                 }
                                             }
                                         }
-                                        this.setColor( new Color(pp));
+                                        this.setColor( new Color4(pp));
                                     }
                                     break;
 

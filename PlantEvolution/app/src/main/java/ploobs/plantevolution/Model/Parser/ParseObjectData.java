@@ -3,7 +3,7 @@ package ploobs.plantevolution.Model.Parser;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.Uv;
@@ -95,7 +95,7 @@ public class ParseObjectData {
                         : new Vector3();
                 IMaterial material = materialMap.get(face.materialKey);
 
-                Color newColor = new Color(255, 255, 0, 255);
+                Color4 newColor = new Color4(255, 255, 0, 255);
                 if(material != null && material.getDiffuseColor() != null)
                 {
                     newColor.r = material.getDiffuseColor().r;

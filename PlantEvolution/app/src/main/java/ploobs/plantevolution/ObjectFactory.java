@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import ploobs.plantevolution.GUI.Element;
 import ploobs.plantevolution.Gameplay.Player;
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Material.DiffuseMaterial;
 import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.Material.FaceShadedCubeMaterial;
@@ -70,8 +70,8 @@ public class ObjectFactory {
 			mat1 = new DiffuseMaterial();
 
 
-		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
-		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+		//mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
+		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
 
 		objModel.setMaterial(mat1);
 
@@ -94,8 +94,8 @@ public class ObjectFactory {
 		else
 			mat1 = new DiffuseMaterial();
 
-		//mat1.setColor(Color.enumtoColor(Color.COLORNAME.WHITE));
-		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.WHITE));
+		//mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
+		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
 		mat1.setTexture("white");
 		obj = new Player(mat1,m1, name,energy);
 		obj.setScale(new Vector3(scale, scale, scale));
@@ -124,8 +124,8 @@ public class ObjectFactory {
 			mat1 = new DiffuseMaterial();
 
 
-		//mat1.setColor(new Color(0.2705f, 0.9216f, 0.1058f, 1.0f));
-		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.PURPLE));
+		//mat1.setColor(new Color4(0.2705f, 0.9216f, 0.1058f, 1.0f));
+		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.PURPLE));
 		//mat1.setTexture(R.drawable.grass);
 		mat1.setTexture("grass");
 		obj = new SimpleObject(mat1,m1, name);
@@ -151,8 +151,8 @@ public class ObjectFactory {
 			mat1 = new DiffuseMaterial();
 
 
-		//mat1.setColor(new Color(0.1f, 0.1f, 0.1f, 1.0f));
-		mat1.setDiffuseColor(Color.enumtoColor(Color.COLORNAME.GRAY));
+		//mat1.setColor(new Color4(0.1f, 0.1f, 0.1f, 1.0f));
+		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.GRAY));
 		mat1.setTexture("stone");
 		obj = new SimpleObject(mat1,m1, name);
 		obj.setScale(new Vector3(scale, scale, scale));
@@ -179,9 +179,9 @@ public class ObjectFactory {
 			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
 		else
 			mat1 = new DiffuseMaterial();
-		Color cc =Color.enumtoColor(Color.COLORNAME.YELLOW);
+		Color4 cc = Color4.enumtoColor(Color4.COLORNAME.YELLOW);
 		cc.a = 10;
-				//mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+				//mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(cc);
 
 
@@ -227,7 +227,7 @@ public class ObjectFactory {
 		SimpleObject obj;
 		IModel m1 = new SquareModel(size);
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(R.drawable.splitscreen);////DiffuseMaterial();
-		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
 
 		float ratio = GraphicFactory.getInstance().getRatio();
@@ -245,7 +245,7 @@ public class ObjectFactory {
 		SimpleObject obj;
 		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
-		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
 
 		obj.setScale(new Vector3(1, 1, 1));
@@ -269,7 +269,7 @@ public class ObjectFactory {
 		IModel m1 = new RectangleModel(w,h);
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
 
-		mat1.setColor(Color.enumtoColor(Color.COLORNAME.YELLOW));
+		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		obj = new Element(mat1,m1, name,position,width,height);
 
 		obj.setScale(new Vector3(1, 1, 1));

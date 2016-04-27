@@ -11,12 +11,12 @@ public interface IParser {
     /**
      * Start parsing the 3D object
      */
-    public void parse();
+    void parse();
     /**
      * Returns the parsed object
      * @return
      */
-    public ObjectContainer getParsedObject();
+    ObjectContainer getParsedObject();
     /**
      * Returns the parsed animation object
      * @return

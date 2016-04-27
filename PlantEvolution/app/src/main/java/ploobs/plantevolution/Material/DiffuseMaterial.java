@@ -119,7 +119,7 @@ public class DiffuseMaterial extends IMaterial {
 
 		
 	}
-	public void setColor(Color color,IObject obj)
+	public void setColor(Color4 color,IObject obj)
 	{
 		if (colorseted)
 			return;
@@ -127,9 +127,9 @@ public class DiffuseMaterial extends IMaterial {
 		colorseted=true;
 
 		if (color == null)
-			color = Color.enumtoColor(Color.COLORNAME.GRAY);
+			color = Color4.enumtoColor(Color4.COLORNAME.GRAY);
 
-		this.color = color;//new Color(color);
+		this.color = color;//new Color4(color);
 
 		this.cubeColorData = TintMaterial(obj);
 		mCubeColors.put(cubeColorData).position(0);
@@ -175,7 +175,7 @@ public class DiffuseMaterial extends IMaterial {
 	}
 
 	@Override
-	public Color getDiffuseColor() {
+	public Color4 getDiffuseColor() {
 		return this.color;
 	}
 
@@ -220,6 +220,7 @@ public class DiffuseMaterial extends IMaterial {
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureDataHandle);
 
 		// Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
+
 		GLES20.glUniform1i(mTextureUniformHandle, 0);
 
 		obj.getModel().getVertices().uvs().buffer().position(0);
@@ -315,9 +316,9 @@ public class DiffuseMaterial extends IMaterial {
 
 		obj.getModel().getFaces().buffer().position(0);
 
-		//GLES20.glDrawElements(GLES20.GL_TRIANGLES, obj.getModel().getFaces().size() * FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer());
+		GLES20.glDrawElements(GLES20.GL_TRIANGLES, obj.getModel().getFaces().size() * FacesBufferList.PROPERTIES_PER_ELEMENT, GLES20.GL_UNSIGNED_SHORT, obj.getModel().getFaces().buffer());
 
-		GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,obj.getModel().getVerticesCount());
+//		GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,obj.getModel().getVerticesCount());
 		//_gl.glDrawArrays($o.renderType().glValue(), 0, $o.vertices().size());
 
 		// Disable vertex array
@@ -330,7 +331,7 @@ public class DiffuseMaterial extends IMaterial {
 		return null;
 	}
 
-	public Color getColor() {
+	public Color4 getColor() {
 		return color;
 	}
 

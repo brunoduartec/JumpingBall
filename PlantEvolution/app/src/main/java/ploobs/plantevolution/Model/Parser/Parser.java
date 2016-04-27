@@ -11,7 +11,7 @@ public class Parser {
      * @author dennis.ippel
      *
      */
-    public static enum Type { OBJ, MAX_3DS, MD2 };
+    public enum Type { OBJ, MAX_3DS, MD2 }
 
     /**
      * Create a parser of the specified type.

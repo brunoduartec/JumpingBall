@@ -2,15 +2,12 @@ package ploobs.plantevolution.Gameplay;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-
-import org.xml.sax.InputSource;
+import android.util.SparseArray;
 
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.Material.Color;
+import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Material.DiffuseMaterial;
-import ploobs.plantevolution.Material.SimpleSquareMaterial;
-import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
@@ -88,7 +85,7 @@ public class Board {
         this.localWorld.Initialize();
 
 
-        AmbientLight light1 = new AmbientLight(Color.enumtoColor(Color.COLORNAME.WHITE),0.2f,0.7f,0.2f, new Vector3(0,1,0));
+        AmbientLight light1 = new AmbientLight(Color4.enumtoColor(Color4.COLORNAME.WHITE),0.2f,0.7f,0.2f, new Vector3(0,1,0));
 
         localWorld.AddLight(light1);
 
@@ -218,10 +215,7 @@ public class Board {
 
         Vector3 go = b.getLocalposition().add(dir);
 
-        if (go.getX()<0 || go.getX()>size-1 || go.getZ()<0 || go.getZ()>size-1)
-            return false;
-        else
-        return true;
+        return !(go.getX() < 0 || go.getX() > size - 1 || go.getZ() < 0 || go.getZ() > size - 1);
 
 
 

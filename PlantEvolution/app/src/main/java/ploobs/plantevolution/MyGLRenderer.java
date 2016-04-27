@@ -71,7 +71,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_CULL_FACE);
 
         // Enable depth testing
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+       // GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -92,7 +92,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
 
         // Draw background color
-        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         // set the camera position (View matrix)
 
 

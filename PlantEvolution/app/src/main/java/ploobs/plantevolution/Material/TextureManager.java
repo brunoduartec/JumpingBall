@@ -66,7 +66,7 @@ public class TextureManager {
         return "atlas".concat(Integer.toString(_atlasId++));
     }
 
-    int getGlTextureId(String textureId) /*package-private*/
+    public int getGlTextureId(String textureId) /*package-private*/
     {
         return _idToTextureName.get(textureId);
     }

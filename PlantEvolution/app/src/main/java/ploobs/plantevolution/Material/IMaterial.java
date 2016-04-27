@@ -11,7 +11,7 @@ public abstract class IMaterial implements ISerializable
 	int vertexShaderHandle=-1;
 	int fragmentShaderHandle=-1;
 	int mProgram;
-	Color color;
+	Color4 color;
 
 
 	private String diffuseTextureMap;
@@ -28,12 +28,12 @@ public abstract class IMaterial implements ISerializable
 
 	public abstract TextureList getTextures();
 
-	public abstract Color getDiffuseColor();
+	public abstract Color4 getDiffuseColor();
 
 public abstract void Draw(IObject obj, IWorld world);
 
 
-	public  void setDiffuseColor(Color diffuseColor) {
+	public  void setDiffuseColor(Color4 diffuseColor) {
 		this.color = diffuseColor;
 	}
 

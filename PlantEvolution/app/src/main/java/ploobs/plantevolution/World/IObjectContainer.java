@@ -6,12 +6,12 @@ package ploobs.plantevolution.World;
 
 public interface IObjectContainer
 {
-    public void addChild(IObject child);
-    public void addChildAt(IObject child, int index);
-    public boolean removeChild(IObject child);
-    public IObject removeChildAt(int index);
-    public IObject getChildAt(int index);
-    public IObject getChildByName(String string);
-    public int getChildIndexOf(IObject o);
-    public int numChildren();
+    void addChild(IObject child);
+    void addChildAt(IObject child, int index);
+    boolean removeChild(IObject child);
+    IObject removeChildAt(int index);
+    IObject getChildAt(int index);
+    IObject getChildByName(String string);
+    int getChildIndexOf(IObject o);
+    int numChildren();
 }

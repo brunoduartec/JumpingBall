@@ -53,13 +53,13 @@ public class ColorBufferList {
         _b.clear();
     }
 
-    public Color getAsColor(int index)
+    public Color4 getAsColor(int index)
     {
         _b.position(index * PROPERTIES_PER_ELEMENT);
-        return new Color( _b.get(), _b.get(), _b.get(), _b.get() );
+        return new Color4( _b.get(), _b.get(), _b.get(), _b.get() );
     }
 
-    public void putInColor(int index, Color Color)
+    public void putInColor(int index, Color4 Color)
     {
         _b.position(index * PROPERTIES_PER_ELEMENT);
         Color.r = (short)_b.get();
@@ -91,7 +91,7 @@ public class ColorBufferList {
 
     //
 
-    public void add(Color c)
+    public void add(Color4 c)
     {
         set( _numElements, c );
         _numElements++;
@@ -103,7 +103,7 @@ public class ColorBufferList {
         _numElements++;
     }
 
-    public void set(int index, Color c)
+    public void set(int index, Color4 c)
     {
         _b.position(index * PROPERTIES_PER_ELEMENT);
         _b.put((byte)c.r);

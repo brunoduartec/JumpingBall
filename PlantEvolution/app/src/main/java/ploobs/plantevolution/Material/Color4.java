@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 
 import ploobs.plantevolution.Utils;
 
-public class Color {
+public class Color4 {
 
 
 	public enum COLORNAME
@@ -17,7 +17,7 @@ public class Color {
 		YELLOW,
 		PURPLE,
 		GRAY
-	};
+	}
 
 
 	public short r=0;
@@ -26,7 +26,7 @@ public class Color {
 	public short a=255;
 
 
-	public Color (short[] color)
+	public Color4(short[] color)
 	{
 
 		this.r = color[0];
@@ -36,7 +36,7 @@ public class Color {
 
 	}
 
-public Color(short r, short g, short b, short a)
+public Color4(short r, short g, short b, short a)
 {
 	this.r = r;
 	this.g = g;
@@ -46,7 +46,7 @@ public Color(short r, short g, short b, short a)
 }
 
 
-	public Color(int r, int g, int b, int a)
+	public Color4(int r, int g, int b, int a)
 	{
 		this.r = (short)r;
 		this.g = (short)g;
@@ -56,7 +56,7 @@ public Color(short r, short g, short b, short a)
 	}
 
 
-	public static Color enumtoColor(COLORNAME cc)
+	public static Color4 enumtoColor(COLORNAME cc)
 	{
 		short[] color =  {255, 255, 255,255};
 		
@@ -87,7 +87,7 @@ public Color(short r, short g, short b, short a)
 			break;
 		}
 		
-		return new Color(color[0],color[1],color[2],color[3]);
+		return new Color4(color[0],color[1],color[2],color[3]);
 		
 	}
 	

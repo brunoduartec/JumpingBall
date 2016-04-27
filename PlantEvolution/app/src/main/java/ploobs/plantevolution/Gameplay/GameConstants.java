@@ -7,9 +7,9 @@ public final class GameConstants {
     static public float scale = 5.0f;//0.7f;
     static public int size = 4;
 
-    public static enum GAMECONTEXT{PLAYER,BLOCK}
+    public enum GAMECONTEXT{PLAYER,BLOCK}
 
-    public static enum PLAYERRACTION{JUMP,PUSH}
+    public enum PLAYERRACTION{JUMP,PUSH}
 }
 
 
