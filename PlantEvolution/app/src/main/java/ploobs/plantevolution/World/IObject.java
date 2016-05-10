@@ -20,7 +20,7 @@ public abstract class IObject implements ISerializable
 
 	Vector3 position = new Vector3();
 	Vector3 rotation = new Vector3();
-	Vector3 scale = new Vector3();
+	Vector3 scale = new Vector3(1.0f,1.0f,1.0f);
 	private IMaterial material;
 	private IModel model;
 	boolean Enabled=true;

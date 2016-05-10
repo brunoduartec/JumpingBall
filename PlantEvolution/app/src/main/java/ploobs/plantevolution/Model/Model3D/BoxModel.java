@@ -17,6 +17,8 @@ public class BoxModel implements IModel
 	private Color4 _color;
 	float _scale;
 
+	float _width,_height,_depth;
+
 
 	@Override
 	public Vertices getVertices() {
@@ -39,18 +41,34 @@ public class BoxModel implements IModel
 		return _vertices.size();//  squareCoords.length;
 	}
 
+	public BoxModel(float width, float height, float depth)
+	{
+
+		_vertices = new Vertices(4*6,true,true,true);
+		_faces = new FacesBufferList(2*6);
+
+
+		_width = width;
+		_height = height;
+		_depth = depth;
+		_color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
+
+
+		make();
+
+
+	}
+
+
 	public BoxModel(float scale)
 	{
 		_vertices = new Vertices(4*6,true,true,true);
 		_faces = new FacesBufferList(2*6);
 
 
-		_scale = scale;
-		{
-			//_cols = new Color[6];
-			_color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
+		_width = _height = _depth = scale;
+		_color = Color4.enumtoColor(Color4.COLORNAME.WHITE);
 
-		}
 
 		make();
 		
@@ -59,9 +77,9 @@ public class BoxModel implements IModel
 
 	private void make()
 	{
-		float w = _scale / 2f;
-		float h = _scale / 2f;
-		float d = _scale / 2f;
+		float w = _width / 2f;
+		float h = _height / 2f;
+		float d = _depth / 2f;
 
 		short ul, ur, lr, ll;
 

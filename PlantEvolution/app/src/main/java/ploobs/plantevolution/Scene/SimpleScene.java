@@ -28,7 +28,7 @@ public class SimpleScene implements IScene {
 		// TODO Auto-generated method stub
 // clear Screen and Depth Buffer, we have set the clear color as black.
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//GLES20.glClearColor(0.34375f, 0.84375f, 0.7109375f, 1.0f);
 
 
 

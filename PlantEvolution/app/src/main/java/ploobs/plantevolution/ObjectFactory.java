@@ -86,19 +86,16 @@ public class ObjectFactory {
 		//
 		IModel m1 = new SphereModel(scale,16,16);
 
-		//FaceShadedCubeMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
-		//DiffuseMaterial mat1 = new DiffuseMaterial();
 		DiffuseMaterial mat1;
 		if (_models.containsKey("diffusematerial"))
 			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
 		else
 			mat1 = new DiffuseMaterial();
 
-		//mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
+
 		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.WHITE));
 		mat1.setTexture("white");
 		obj = new Player(mat1,m1, name,energy);
-		obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 
 	}
@@ -114,8 +111,6 @@ public class ObjectFactory {
 		else
 		    m1 = new BoxModel(scale);
 
-
-
 		DiffuseMaterial mat1;
 
 		if (_models.containsKey("diffusematerial"))
@@ -129,7 +124,7 @@ public class ObjectFactory {
 		//mat1.setTexture(R.drawable.grass);
 		mat1.setTexture("grass");
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new Vector3(scale, scale, scale));
+		//obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 	}
 
@@ -155,11 +150,11 @@ public class ObjectFactory {
 		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.GRAY));
 		mat1.setTexture("stone");
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new Vector3(scale, scale, scale));
+		//obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 	}
 
-	public IObject getGemaObject(String name, float scale)
+	public IObject getGemaObject(String name, float scale, Vector3 position)
 	{
 
 		ObjectContainer obc = new ObjectContainer();
@@ -180,27 +175,67 @@ public class ObjectFactory {
 		else
 			mat1 = new DiffuseMaterial();
 		Color4 cc = Color4.enumtoColor(Color4.COLORNAME.YELLOW);
-		cc.a = 10;
+		//cc.a = 10;
 				//mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		mat1.setDiffuseColor(cc);
 
 
 
 
-		mat1.setTexture("white");
+
+		mat1.setTexture("red_gem");
+
+
 
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new Vector3(scale, 1.5f*scale, scale));
+		obj.setPosition(position);
+		//obj.setScale(new Vector3(scale, scale, scale));
 
+
+		/*
+		IObject shadowwhite = getBoxObject("shadow",scale,scale*3,scale);
+
+		Vector3 nwepos = position.sub(new Vector3(0,-1.5f*scale,0));
+		shadowwhite.setPosition(nwepos);
 
 		obc.children().add(obj);
+		obc.children().add(shadowwhite);
 
-
-
+*/
 		return obj;
 	}
 
 
+
+
+	public SimpleObject getBoxObject(String name,float width, float height, float depth)
+	{
+		SimpleObject obj;
+
+		IModel m1;
+
+		if (_models.containsKey("boxmodel"))
+			m1 = _models.get("boxmodel");
+		else
+			m1 = new BoxModel(width,height,depth);
+
+		DiffuseMaterial mat1;
+
+		if (_models.containsKey("diffusematerial"))
+			mat1 = (DiffuseMaterial)_materials.get("diffusematerial");
+		else
+			mat1 = new DiffuseMaterial();
+
+
+		//mat1.setColor(new Color4(0.2705f, 0.9216f, 0.1058f, 1.0f));
+		mat1.setDiffuseColor(Color4.enumtoColor(Color4.COLORNAME.PURPLE));
+		//mat1.setTexture(R.drawable.grass);
+		mat1.setTexture("white");
+		obj = new SimpleObject(mat1,m1, name);
+		//obj.setScale(new Vector3(scale, scale, scale));
+		return obj;
+
+	}
 	
 	public SimpleObject getBoxObject(String name,float scale)
 	{
@@ -214,7 +249,7 @@ public class ObjectFactory {
 
 		IMaterial mat1 = new FaceShadedCubeMaterial();////DiffuseMaterial();
 		obj = new SimpleObject(mat1,m1, name);
-		obj.setScale(new Vector3(scale, scale, scale));
+		//obj.setScale(new Vector3(scale, scale, scale));
 		return obj;
 		
 	}
@@ -251,10 +286,42 @@ public class ObjectFactory {
 		obj.setScale(new Vector3(1, 1, 1));
 		obj.setPosition(position);
 
-
-
 		return obj;
 	}
+
+
+	public ObjectContainer getPopUpObject(String name,final int resourceId, float width, float height, Vector3 position)
+	{
+		Square sq;
+
+		ObjectContainer cont = new ObjectContainer();
+
+		Element obj;
+
+		float w = (2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth());
+		float h = 2*height/GraphicFactory.getInstance().getHeight();
+
+		IModel m1 = new RectangleModel(w,h);
+		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
+
+		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
+		obj = new Element(mat1,m1, name,position,width,height);
+
+		//obj.setScale(new Vector3(1, 1, 1));
+		//	obj.setScale(new Vector3ratio, ratio, ratio)):
+		obj.setPosition(position);
+
+
+		IObject background_noise = getRectangleObject("noise",R.drawable.perlin_noise, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero);
+
+		cont.addChild(background_noise);
+		cont.addChild(obj);
+
+
+		return cont;
+
+	}
+
 
 
 	public Element getButtonObject(String name,final int resourceId, float width, float height, Vector3 position)

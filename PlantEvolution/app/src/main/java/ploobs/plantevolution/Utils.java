@@ -17,7 +17,9 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Material.Color4;
+import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
 
 public class Utils {
@@ -57,6 +59,16 @@ int ii=0;
 		return ret;
 	
 		
+	}
+
+	public static Vector2 converttoScreenSpace(Vector2 viewspace)
+	{
+		Vector2 pixel = viewspace;
+		Vector2 point = new Vector2(pixel.getX()/ GameConstants.regularWidth, pixel.getY()/GameConstants.regularHeight);
+		Vector2 screen_space = point.mul(2).sub(new Vector2(-1,-1));
+
+		return screen_space;
+
 	}
 
 

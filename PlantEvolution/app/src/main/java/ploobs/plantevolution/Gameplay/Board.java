@@ -519,19 +519,14 @@ public void MergeBlock(Block origin, Block destiny)
     public void CreateBoard(int size)
     {
 
-      //  CreatePlayer();
-      //  CreateGema();
+
 
         this.size = size;
         this.setMaxheight(3);
 
         float x,z;
 
-       ObjectContainer tt = ObjectFactory.getInstance().getOBJModel("box_obj","ploobs.plantevolution:raw/box");
-      // tt.setScale(new Vector3(30,30,30));
-        tt.setPosition(new Vector3(0, 0, 0));
 
-        localWorld.AddObject(tt);
 
         for (int i=0;i<size;i++)
         {
@@ -559,28 +554,15 @@ public void MergeBlock(Block origin, Block destiny)
         }
 
 
-//Adding Plateau
-
-
-      //  SimpleObject b1 = ObjectFactory.getInstance().getNormalBoxObject("box_mtl.mtl" + size + "_" + size, getScale());
-
-
-      //  b1.setPosition(convertLocalPosWorldPos( new Vector3(size - 1, 0, size)));
-
-       // localWorld.AddObject(b1);
-
-
-
-
     }
 
     private void CreateGemaat(Vector3 position)
     {
 
-        gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
+        gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale(),convertLocalPosWorldPos(position));
 
 
-        gema.setPosition(convertLocalPosWorldPos(position));
+      //  gema.setPosition();
 
         ILight ll = localWorld.getLights().get(0);
         ll.setPosition(gema.getPosition());
@@ -596,10 +578,10 @@ public void MergeBlock(Block origin, Block destiny)
     private void CreateGema()
     {
 
-        gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale());
+        gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale(),convertLocalPosWorldPos(new Vector3(size / 2, getGemaheight(), size / 2)));
 
 
-        gema.setPosition(convertLocalPosWorldPos(new Vector3(size / 2, getGemaheight(), size / 2)));
+        //gema.setPosition();
 
         ILight ll = localWorld.getLights().get(0);
         ll.setPosition(gema.getPosition());

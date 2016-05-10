@@ -157,6 +157,8 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
         scene = new SimpleScene(world,true);
 
         SetupText();
+
+
     }
 
     @Override

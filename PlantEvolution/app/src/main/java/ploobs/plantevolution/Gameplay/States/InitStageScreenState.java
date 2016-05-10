@@ -14,6 +14,9 @@ import ploobs.plantevolution.Scene.SimpleScene;
 import ploobs.plantevolution.Text.TextManager;
 import ploobs.plantevolution.Text.TextObject;
 import ploobs.plantevolution.Text.riGraphicTools;
+import ploobs.plantevolution.World.IObject;
+import ploobs.plantevolution.World.IWorld;
+import ploobs.plantevolution.World.ObjectContainer;
 import ploobs.plantevolution.World.SimpleWorld;
 
 /**
@@ -100,12 +103,22 @@ public class InitStageScreenState extends TimeBasedGameStateUpdatableDrawable {
         world.getCameraManager().setActualCamera("CAM2");
       //  world.AddObject(ObjectFactory.getInstance().getRectangleObject("button", R.drawable.phrase_stage1, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero));
 
-
+        IWorld world3d = new SimpleWorld();
         scene = new SimpleScene(world,true);
 
+     //   ObjectContainer tt = ObjectFactory.getInstance().getOBJModel("box_obj","ploobs.plantevolution:raw/box");
+        // tt.setScale(new Vector3(30,30,30));
+       // tt.setPosition(new Vector3(0, 0, 0));
+        //world3d.AddObject(tt);
 
 
         SetupText();
+
+        //colocar posição relativa
+       // IObject toadd = ObjectFactory.getInstance().getPopUpObject("score",R.drawable.red_panel,400,500,new Vector3(0.2f,-0.6f,0.9f));
+    //    world.AddObject(toadd);
+
+
 
 
 
@@ -128,6 +141,8 @@ public class InitStageScreenState extends TimeBasedGameStateUpdatableDrawable {
 
     @Override
     public void Draw() {
+
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         scene.Draw();
     }
 

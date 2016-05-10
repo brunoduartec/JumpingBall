@@ -77,7 +77,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
         gsmanager.Push(new MainScreenState());
-        gsmanager.Push(new InitStageScreenState(1000));
+        gsmanager.Push(new InitStageScreenState(1300));
         gsmanager.Push(new MenuScreenState());
         gsmanager.Push(new SplitScreenState(2000));
 

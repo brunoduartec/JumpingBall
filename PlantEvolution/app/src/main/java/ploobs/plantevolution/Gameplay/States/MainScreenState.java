@@ -1,6 +1,7 @@
 package ploobs.plantevolution.Gameplay.States;
 
 import android.graphics.Bitmap;
+import android.opengl.GLES20;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
@@ -107,6 +108,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         TextureManager.getInstance().addTextureId(b, "stone", false);
         b.recycle();
 
+        b = Utils.makeBitmapFromResourceId(R.drawable.red_gem);
+        TextureManager.getInstance().addTextureId(b, "red_gem", false);
+        b.recycle();
+
         b = Utils.makeBitmapFromResourceId(R.drawable.basicfont);
         TextureManager.getInstance().addTextureId(b, "basicfont", false);
         b.recycle();
@@ -180,6 +185,9 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
         AudioPlayer.getInstance().changeVolume("theme", 100);
 
+
+
+
         
     }
 
@@ -187,7 +195,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     {
 
         float scale = 1.5f;
-        jumpbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.ball, 118*scale, 133*scale, new Vector3(0.2f, -1.6f,0.0f));
+        jumpbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.ball_shadow, 80*scale, 140*scale, new Vector3(0.2f, -1.6f,0.0f));
         IEventHandler h1 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -199,7 +207,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         gm.AddElement(jumpbutton);
 
 
-        pushbutton = ObjectFactory.getInstance().getButtonObject("pushbutton", R.drawable.box, 118*scale, 128*scale, new Vector3(0.6f, -1.6f,0.0f));
+        pushbutton = ObjectFactory.getInstance().getButtonObject("pushbutton", R.drawable.box_shadow, 140*scale, 80*scale, new Vector3(0.6f, -1.6f,0.0f));
         IEventHandler h2 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -306,6 +314,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
     @Override
     public void Draw() {
+
+        GLES20.glClearColor(0.34375f, 0.84375f, 0.7109375f, 1.0f);
         scene.Draw();
     }
 
