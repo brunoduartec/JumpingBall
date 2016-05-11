@@ -278,7 +278,11 @@ public class ObjectFactory {
 		Square sq;
 
 		SimpleObject obj;
-		IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
+		//IModel m1 = new RectangleModel((2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth()),2*height/GraphicFactory.getInstance().getHeight());
+		IModel m1 = new RectangleModel(GraphicFactory.getInstance().getWidth(),GraphicFactory.getInstance().getHeight());
+
+
+
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
 		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		obj = new SimpleObject(mat1,m1, name);
@@ -333,7 +337,8 @@ public class ObjectFactory {
 		float w = (2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth());
 		float h = 2*height/GraphicFactory.getInstance().getHeight();
 
-		IModel m1 = new RectangleModel(w,h);
+		//IModel m1 = new RectangleModel(w,h);
+		IModel m1 = new RectangleModel(width,height);
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
 
 		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
@@ -341,8 +346,12 @@ public class ObjectFactory {
 
 		obj.setScale(new Vector3(1, 1, 1));
 		//	obj.setScale(new Vector3ratio, ratio, ratio)):
-        obj.setPosition(position);
 
+
+
+       // obj.setPosition(position);
+//		obj.setPosition(Utils.converttoScreenSpace(position));
+		obj.setPosition(position);
 		return obj;
 	}
 

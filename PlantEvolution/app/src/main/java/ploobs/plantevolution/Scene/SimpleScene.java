@@ -7,6 +7,7 @@ import ploobs.plantevolution.Camera.ICamera;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Text.TextManager;
+import ploobs.plantevolution.Text.riGraphicTools;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.ObjectContainer;
@@ -71,33 +72,9 @@ public class SimpleScene implements IScene {
 				IObject o1 = ot.get(i);
 				o1.Draw(world2d);
 			}
-
-
-
-			// Render the text GAMBIARRA MOR
 			if(getTm() !=null) {
+				getTm().Draw(world2d.getCameraManager().getActualCamera().getViewProjectionMatrix());
 
-				float[] mMVPMatrix =new float[16];
-				float[] mtrxProjection = new float[16];
-				float[] mtrxView = new float[16];
-				float[] mtrxProjectionAndView = new float[16];
-
-				// Setup our screen width and height for normal sprite translation.
-				Matrix.orthoM(mtrxProjection, 0, 0f, GraphicFactory.getInstance().getWidth(), 0.0f, GraphicFactory.getInstance().getHeight(), 0, 50);
-
-				// Set the camera position (View matrix)
-				Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-
-				// Calculate the projection and view transformation
-				Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0);
-
-
-				//Multiply the worldspace position by the projection matrix and obtain the screen position
-			//	ICamera cam = world.getCameraManager().getActualCamera();
-			//	Matrix.multiplyMM(mMVPMatrix, 0, cam.getProjectionMatrix(), 0, cam.getViewMatrix(), 0);
-
-				getTm().Draw(mtrxProjectionAndView);
-			//	getTm().Draw(mMVPMatrix);
 			}
 		}
 
@@ -111,6 +88,7 @@ public class SimpleScene implements IScene {
 	{
 
 		this.world = w;
+		Initialize();
 		
 	}
 
@@ -121,6 +99,7 @@ public class SimpleScene implements IScene {
 		else
 			this.world = w;
 
+		Initialize();
 	}
 
 
@@ -128,7 +107,7 @@ public class SimpleScene implements IScene {
 	{
 		this.world2d = w2;
 		this.world = d3;
-
+		Initialize();
 	}
 
 
@@ -147,8 +126,22 @@ public class SimpleScene implements IScene {
 	public void Initialize() {
 
 	//	GLES20.glDisable(GLES20.GL_CULL_FACE);
-	
+		InitTextShader();
 	}
+
+	private void InitTextShader()
+	{
+		// Text shader
+		int vshadert = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_Text);
+		int fshadert = riGraphicTools.loadShader(GLES20.GL_FRAGMENT_SHADER, riGraphicTools.fs_Text);
+
+		riGraphicTools.sp_Text = GLES20.glCreateProgram();
+		GLES20.glAttachShader(riGraphicTools.sp_Text, vshadert);
+		GLES20.glAttachShader(riGraphicTools.sp_Text, fshadert); 		// add the fragment shader to program
+		GLES20.glLinkProgram(riGraphicTools.sp_Text);                  // creates OpenGL ES program executables
+
+	}
+
 
 	@Override
 	public IWorld getWorld() {

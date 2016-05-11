@@ -84,16 +84,11 @@ public class Camera2D extends SimpleCamera {
 
 
 
-        Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, -1, 1);
-      //  Matrix.orthoM(mProjectionMatrix, 0, 0f, GraphicFactory.getInstance().getWidth(), 0.0f, GraphicFactory.getInstance().getHeight(), 0, 50);
+        //Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, -1, 1);
+       // Matrix.translateM(mProjectionMatrix, 0, -ratio, 1.0f, 0); // Multiply by translation to the position
 
-      //  Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
-
-        Matrix.translateM(mProjectionMatrix, 0, -ratio, 1.0f, 0); // Multiply by translation to the position
-
-        //	Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, getNearPlane(), getFarPlane());
-
-//		Matrix.orthoM(mProjectionMatrix, 0, 0, width,0, height, -10,100);
+        // Setup our screen width and height for normal sprite translation.
+        Matrix.orthoM(mProjectionMatrix, 0, 0f, GraphicFactory.getInstance().getWidth(), 0.0f, GraphicFactory.getInstance().getHeight(), 0, 50);
 
 
     }

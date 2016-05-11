@@ -50,7 +50,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world.getCameraManager().addCamera(cam2D);
         world.getCameraManager().setActualCamera("CAM2");
-        world.AddObject(ObjectFactory.getInstance().getRectangleObject("button",R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero));
+        world.AddObject(ObjectFactory.getInstance().getRectangleObject("splitscreen",R.drawable.splitscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), new Vector3(0,GraphicFactory.getInstance().getHeight() -0.01f,0)));
 
 
         scene = new SimpleScene(world,true);

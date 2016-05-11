@@ -20,6 +20,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Math.Vector2;
+import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.Model.Model3D.FacesBufferList;
 
 public class Utils {
@@ -61,11 +62,11 @@ int ii=0;
 		
 	}
 
-	public static Vector2 converttoScreenSpace(Vector2 viewspace)
+	public static Vector3 converttoScreenSpace(Vector3 viewspace)
 	{
-		Vector2 pixel = viewspace;
-		Vector2 point = new Vector2(pixel.getX()/ GameConstants.regularWidth, pixel.getY()/GameConstants.regularHeight);
-		Vector2 screen_space = point.mul(2).sub(new Vector2(-1,-1));
+		Vector3 pixel = viewspace;
+		Vector3 point = new Vector3(pixel.getX()/ GameConstants.regularWidth, pixel.getY()/GameConstants.regularHeight,pixel.getZ());
+		Vector3 screen_space = point.mul(2).mul(new Vector3(GraphicFactory.getInstance().getRatio(),1,0.5f));
 
 		return screen_space;
 

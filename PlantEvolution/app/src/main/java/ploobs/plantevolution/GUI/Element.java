@@ -36,24 +36,29 @@ public class Element extends SimpleObject {
 
 
 
-
+int count =0;
     public boolean checkColision(Vector2 mousepos)
     {
+
+        count++;
         boolean ret = true;
 
         float mposX = mousepos.getX();
-        float mposY = mousepos.getY();
+        float mposY = GraphicFactory.getInstance().getHeight() - mousepos.getY();
 
-        float posXconvert = getPosition().getX()*GraphicFactory.getInstance().getRatio();
-        float posYconvert = -getPosition().getY()/2;
-
-
-
-        float widthconverted = GraphicFactory.getInstance().getRatio()*width/GraphicFactory.getInstance().getWidth();
-        float heightconverted =height/GraphicFactory.getInstance().getHeight();
+        float posXconvert = getPosition().getX();//*GraphicFactory.getInstance().getRatio();
+        float posYconvert = getPosition().getY();///2;
 
 
-        ret = (mposX > posXconvert && mposX < posXconvert + widthconverted) && (mposY > posYconvert && mposY < posYconvert + heightconverted);
+
+        float widthconverted =width; //GraphicFactory.getInstance().getRatio()*width/GraphicFactory.getInstance().getWidth();
+        float heightconverted =height;//height/GraphicFactory.getInstance().getHeight();
+
+        //ret = (mposX > posXconvert && mposX < (posXconvert + widthconverted)) && (mposY > posYconvert && mposY < (posYconvert + heightconverted));
+count++;
+        ret =(mposX > posXconvert && mposX < (posXconvert + widthconverted));
+        ret = ret && (mposY < posYconvert && mposY > (posYconvert - heightconverted));
+
 
         return ret;
 

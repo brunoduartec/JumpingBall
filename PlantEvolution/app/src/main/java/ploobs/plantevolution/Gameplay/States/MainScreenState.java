@@ -195,7 +195,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     {
 
         float scale = 1.5f;
-        jumpbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.ball_shadow, 80*scale, 140*scale, new Vector3(0.2f, -1.6f,0.0f));
+        float jumpposx = GraphicFactory.getInstance().getWidth()/2 - 2*80*scale;
+
+
+        jumpbutton = ObjectFactory.getInstance().getButtonObject("jumpbutton", R.drawable.ball_shadow, 80*scale, 140*scale,new Vector3(jumpposx,140*scale,0) );//new Vector3(0.2f, -1.6f,0.0f));
         IEventHandler h1 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -206,8 +209,8 @@ public class MainScreenState extends GameStateUpdatableDrawable {
         jumpbutton.setOnClick(h1);
         gm.AddElement(jumpbutton);
 
-
-        pushbutton = ObjectFactory.getInstance().getButtonObject("pushbutton", R.drawable.box_shadow, 140*scale, 80*scale, new Vector3(0.6f, -1.6f,0.0f));
+        float pushposx = GraphicFactory.getInstance().getWidth()/2 + 140*scale/2;
+        pushbutton = ObjectFactory.getInstance().getButtonObject("pushbutton", R.drawable.box_shadow, 140*scale, 80*scale,new Vector3(pushposx,140*scale,0) ); //new Vector3(0.6f, -1.6f,0.0f));
         IEventHandler h2 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -220,7 +223,10 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
 
 
-        restartbutton = ObjectFactory.getInstance().getButtonObject("restart", R.drawable.restart, 64*scale, 64*scale, new Vector3(0.85f, 0.0f,0.0f));
+        float restartposx = GraphicFactory.getInstance().getWidth() - 64*scale;
+        float restartposy = GraphicFactory.getInstance().getHeight();
+
+        restartbutton = ObjectFactory.getInstance().getButtonObject("restart", R.drawable.restart, 64*scale, 64*scale,new Vector3(restartposx,restartposy,0) );//new Vector3(0.85f, 0.0f,0.0f));
         IEventHandler h3 = new IEventHandler() {
             @Override
             public void Execute() {

@@ -35,20 +35,6 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
     private TextManager tm;
 
 
-    private void InitTextShader()
-    {
-        // Text shader
-        int vshadert = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_Text);
-        int fshadert = riGraphicTools.loadShader(GLES20.GL_FRAGMENT_SHADER, riGraphicTools.fs_Text);
-
-        riGraphicTools.sp_Text = GLES20.glCreateProgram();
-        GLES20.glAttachShader(riGraphicTools.sp_Text, vshadert);
-        GLES20.glAttachShader(riGraphicTools.sp_Text, fshadert); 		// add the fragment shader to program
-        GLES20.glLinkProgram(riGraphicTools.sp_Text);                  // creates OpenGL ES program executables
-
-    }
-
-
     public void SetupText()
     {
 
@@ -63,13 +49,10 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
 
         // Create our new textobject
-        TextObject txt = new TextObject("START", 240, 240f);
-
         // Add it to our manager
-        tm.addText(txt);
 
-        // Prepare the text for rendering
-        tm.PrepareDraw();
+
+
         scene.setTm(tm);
 
     }
@@ -82,7 +65,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
         // Create the GLText
 
 
-        InitTextShader();
+        //InitTextShader();
 
 
         //AudioPlayer.getInstance().changeVolume("theme", 20);
@@ -97,18 +80,28 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
         world = new SimpleWorld();
         gm = new GuiManager(world);
+        scene = new SimpleScene(world,true);
+
+        SetupText();
 
         Camera2D cam2D = new Camera2D("CAM2", 720, 1118, 0, 50, (float) (3 / 4));
         world.getCameraManager().addCamera(cam2D);
         world.getCameraManager().setActualCamera("CAM2");
 
-        IObject screen =ObjectFactory.getInstance().getRectangleObject("screen", R.drawable.menuscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(),new Vector3(0, 0, 0.0f));
-
+       // IObject screen =ObjectFactory.getInstance().getRectangleObject("screen", R.drawable.menuscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(),new Vector3(0, 0, 0.0f));
+        IObject screen = ObjectFactory.getInstance().getRectangleObject("screen",R.drawable.menuscreen, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), new Vector3(0,GraphicFactory.getInstance().getHeight() -0.01f,0));
         world.AddObject(screen);
 
 
 
-        button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.red_button02, 371, 108, new Vector3(0.2f, -1.5f,0.1f));
+        //button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.red_button02, 371, 108, new Vector3(0.2f, -1.5f,0.1f));
+
+        float buttonwidth = 371;
+        float buttonheight = 108;
+        float buttonposx = GraphicFactory.getInstance().getWidth()/2 - buttonwidth/2 ;
+        float buttonposy = 300;//GraphicFactory.getInstance().getHeight()/2 - buttonheight/2 ;
+
+        button= ObjectFactory.getInstance().getButtonObject("button", R.drawable.red_button02, buttonwidth, buttonheight, new Vector3(buttonposx, buttonposy,0.1f));
         IEventHandler h1 = new IEventHandler() {
             @Override
             public void Execute() {
@@ -117,7 +110,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
             }
         };
         button.setOnClick(h1);
-
+        tm.addText(new TextObject("START", button.getPosition().getX() + 120,button.getPosition().getY() - 100));
 
         gm.AddElement(button);
       // world.AddObject(screen);
@@ -154,9 +147,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
 
 
 
-        scene = new SimpleScene(world,true);
 
-        SetupText();
 
 
     }

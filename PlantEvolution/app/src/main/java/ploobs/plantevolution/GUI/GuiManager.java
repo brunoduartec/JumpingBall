@@ -45,8 +45,8 @@ IWorld _localworld;
 
         if (_element.size()>0 && ev !=null) {
 
-            float mouseX = ev.getX()/GraphicFactory.getInstance().getWidth()  * GraphicFactory.getInstance().getRatio();
-            float mouseY = ev.getY()/GraphicFactory.getInstance().getHeight();
+            float mouseX = ev.getX();///GraphicFactory.getInstance().getWidth()  * GraphicFactory.getInstance().getRatio();
+            float mouseY = ev.getY();///GraphicFactory.getInstance().getHeight();
 
             for (Element e : _element) {
                 if (e.checkColision(new Vector2(mouseX,mouseY))) {

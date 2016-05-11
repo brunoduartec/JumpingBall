@@ -70,6 +70,10 @@ public class TextManager {
     {
         // Add text object to our collection
         txtcollection.add(obj);
+
+        // Prepare the text for rendering
+        PrepareDraw();
+
     }
 
     public void setTextureID(int val)
