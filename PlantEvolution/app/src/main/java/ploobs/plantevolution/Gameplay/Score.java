@@ -51,10 +51,29 @@ public class Score
     {
         float retval=0;
 
-        retval = getParamValue("S")/((getParamValue("M")+1)*(getParamValue("T")+1)*(getParamValue("V")+1) + getParamValue("P") );
+       // retval = getParamValue("S")/((getParamValue("M")+1)*(getParamValue("T")+1)*(getParamValue("V")+1) + getParamValue("P") );
+        retval = 1000 * (1+getParamValue("Dt"));
+
+        //1000 * (1+Delta(Mmin,Mval) ))
 
         return retval;
 
+    }
+
+
+    private Score(){}
+
+
+    /**
+     * SingletonHolder is loaded on the first execution of Singleton.getInstance()
+     * or the first access to SingletonHolder.INSTANCE, not before.
+     */
+    private static class SingletonHolder {
+        private static final Score INSTANCE = new Score();
+    }
+
+    public static Score getInstance() {
+        return SingletonHolder.INSTANCE;
     }
 
 

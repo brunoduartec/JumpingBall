@@ -13,6 +13,8 @@ public class TextObject {
     public float y;
     public float[] color;
 
+
+
     public TextObject()
     {
         text = "default";

@@ -72,6 +72,10 @@ int ii=0;
 
 	}
 
+	public static float calcPercentageDelta(float min,float val)
+	{
+		return (1 - val/min);
+	}
 
 
 	/**

@@ -28,6 +28,8 @@ import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.IScene;
 import ploobs.plantevolution.Scene.SimpleScene;
+import ploobs.plantevolution.Text.TextManager;
+import ploobs.plantevolution.Text.TextObject;
 import ploobs.plantevolution.Utils;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
@@ -49,7 +51,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     private IWorld world2d;
 
 
-    private IScene scene;
+    private SimpleScene scene;
 
 
     private int width, height;
@@ -85,10 +87,40 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     private Element restartbutton;
 
     GuiManager gm;
-    Score stagescore = new Score();
+
+    private TextManager tm;
+TextObject points;
+
+    public void SetupText()
+    {
+
+        float ssu = 1.0f;
+        // Create our text manager
+        tm = new TextManager();
+
+        tm.setTexture("basicfont");
+
+        // Pass the uniform scale
+        tm.setUniformscale(ssu);
+
+
+        // Create our new textobject
+        // Add it to our manager
+
+
+
+        scene.setTm(tm);
+        points = new TextObject("POINTS", GraphicFactory.getInstance().getWidth()/2,GraphicFactory.getInstance().getHeight()-1);
+        tm.addText(points);
+
+
+    }
+
+
 
     private void Init()
     {
+
 
         Bitmap b;
 //GAMBIPATTERN
@@ -170,7 +202,7 @@ public class MainScreenState extends GameStateUpdatableDrawable {
 
         scene = new SimpleScene(world,world2d);
 
-
+        SetupText();
 
         try {
 
@@ -287,14 +319,24 @@ public class MainScreenState extends GameStateUpdatableDrawable {
     public void Update() {
 
 
+        points.text = "POINTS "+ Score.getInstance().Execute();
+        tm.PrepareDraw();
+
         scene.getWorld().getCameraManager().getActualCamera().Update();
 
         //Here in the Prototype 1 i will implement a simple scene management
         if (stages.getBoard1().TestEnd()) {
 
+
+            Score.getInstance().addValuetoParameter("Dt",Utils.calcPercentageDelta(stages.getBoard1().getMinimunMoves(),stages.getBoard1().getMadeMoves()));
+
             AudioPlayer.getInstance().playAudio("pickup_gem");
             try {
-                stages.NextStage();
+              if( !stages.NextStage())
+              {
+                  IObject bb = ObjectFactory.getInstance().getPopUpObject("scorescreen",R.drawable.red_panel,200,200, new Vector3(500,500,0));
+                    world.AddObject(bb);
+              }
             } catch (IOException e) {
                 e.printStackTrace();
             }

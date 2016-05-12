@@ -2,7 +2,6 @@ package ploobs.plantevolution.Gameplay;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.SparseArray;
 
 import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Material.Color4;
@@ -12,7 +11,6 @@ import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
 import ploobs.plantevolution.ObjectFactory;
-import ploobs.plantevolution.World.ObjectContainer;
 import ploobs.plantevolution.World.SimpleObject;
 import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
@@ -43,6 +41,12 @@ public class Board {
 
     private float scale;
     private String name;
+
+
+    //minimun value to accomplish the stage
+    private float minimunMoves;
+    private float madeMoves;
+
 
     int count = 0; // used to name objects
 
@@ -155,7 +159,7 @@ public class Board {
         _playerpos = new Vector2((float)(size-1),(float)size);
         Initialize();
 
-
+        setMadeMoves(0);
 
     }
 
@@ -281,7 +285,7 @@ public void SetPlayerPos(Vector3 pos)
 
 
 
-
+        setMadeMoves(getMadeMoves() + 1);
 
         if (p1.isJumping() )
         {
@@ -295,7 +299,7 @@ public void SetPlayerPos(Vector3 pos)
                 p1.setDirection(dir, (h2) * getScale());//walking to a valid position
 
         }
-            else {
+        else {
 
             if (delta_h <= 0) // can just move if the next block were less or equal
                 p1.setDirection(dir, (h2) * getScale());
@@ -928,6 +932,12 @@ public void Place0x0Block()
 
 
                         break;
+                    case "V":
+
+                        pos = obj[1].split(",");
+                        setMinimunMoves(Float.parseFloat(pos[0]));
+
+                        break;
                     case "M":
 
                         do {
@@ -974,4 +984,19 @@ public void Place0x0Block()
 
     }
 
+    public float getMinimunMoves() {
+        return minimunMoves;
+    }
+
+    public void setMinimunMoves(float minimunMoves) {
+        this.minimunMoves = minimunMoves;
+    }
+
+    public float getMadeMoves() {
+        return madeMoves;
+    }
+
+    public void setMadeMoves(float madeMoves) {
+        this.madeMoves = madeMoves;
+    }
 }

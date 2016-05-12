@@ -110,7 +110,7 @@ public class MenuScreenState extends GameStateUpdatableDrawable {
             }
         };
         button.setOnClick(h1);
-        tm.addText(new TextObject("START", button.getPosition().getX() + 120,button.getPosition().getY() - 100));
+        tm.addText(new TextObject("START", button.getPosition().getX() + 120,button.getPosition().getY() - 80));
 
         gm.AddElement(button);
       // world.AddObject(screen);

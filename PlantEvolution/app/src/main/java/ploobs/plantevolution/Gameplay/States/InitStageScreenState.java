@@ -27,19 +27,6 @@ public class InitStageScreenState extends TimeBasedGameStateUpdatableDrawable {
     private TextManager tm;
 
 
-    private void InitTextShader()
-    {
-        // Text shader
-        int vshadert = riGraphicTools.loadShader(GLES20.GL_VERTEX_SHADER, riGraphicTools.vs_Text);
-        int fshadert = riGraphicTools.loadShader(GLES20.GL_FRAGMENT_SHADER, riGraphicTools.fs_Text);
-
-        riGraphicTools.sp_Text = GLES20.glCreateProgram();
-        GLES20.glAttachShader(riGraphicTools.sp_Text, vshadert);
-        GLES20.glAttachShader(riGraphicTools.sp_Text, fshadert); 		// add the fragment shader to program
-        GLES20.glLinkProgram(riGraphicTools.sp_Text);                  // creates OpenGL ES program executables
-
-    }
-
 
     public void SetupText()
     {
@@ -67,8 +54,7 @@ public class InitStageScreenState extends TimeBasedGameStateUpdatableDrawable {
        tm.addText(txt3);
         tm.addText(txt4);
 
-        // Prepare the text for rendering
-        tm.PrepareDraw();
+
         scene.setTm(tm);
 
     }
@@ -86,7 +72,7 @@ public class InitStageScreenState extends TimeBasedGameStateUpdatableDrawable {
 
 
 
-        InitTextShader();
+
 
 
         DisplayMetrics metrics = GraphicFactory.getInstance().getGraphicContext().getResources().getDisplayMetrics();

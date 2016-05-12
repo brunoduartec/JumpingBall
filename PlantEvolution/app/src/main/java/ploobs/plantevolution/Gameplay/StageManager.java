@@ -51,10 +51,10 @@ IWorld _localworld;
 
     }
 
-    private void StartStage(boolean restart) throws IOException {
+    private boolean StartStage(boolean restart) throws IOException {
 
 
-
+        boolean retval = true;// returns false when there is no other stage to load
 
         if (restart) {
             getBoard1().Reset();
@@ -68,26 +68,29 @@ IWorld _localworld;
                 if (actualstage <= stagescount)
                 {
                     CreateStageFile("stages/stage"+actualstage+".txt");
-
+                    retval = true;
                 }
+                else retval = false;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    return retval;
     }
 
 
 
 
-    public void NextStage() throws IOException {
+    public boolean NextStage() throws IOException {
         actualstage++;
-
+        boolean retval = true;
         try {
-            StartStage(false);
+           retval =  StartStage(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return retval;
     }
 
 
