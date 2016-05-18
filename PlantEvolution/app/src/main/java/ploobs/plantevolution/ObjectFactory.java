@@ -192,16 +192,20 @@ public class ObjectFactory {
 		//obj.setScale(new Vector3(scale, scale, scale));
 
 
-		/*
-		IObject shadowwhite = getBoxObject("shadow",scale,scale*3,scale);
 
-		Vector3 nwepos = position.sub(new Vector3(0,-1.5f*scale,0));
+		IObject shadowwhite = getBoxObject("shadow",scale,position.getY()+scale,scale);
+
+		IMaterial shadowmat = shadowwhite.getMaterial();
+
+		shadowmat.setDiffuseColor(new Color4(255,255,255,1));
+
+		Vector3 nwepos = new Vector3(position.getX(),scale,position.getZ());//position.sub(new Vector3(0,-1.5f*scale,0));
 		shadowwhite.setPosition(nwepos);
 
 		obc.children().add(obj);
 		obc.children().add(shadowwhite);
 
-*/
+
 		return obj;
 	}
 
@@ -294,7 +298,7 @@ public class ObjectFactory {
 	}
 
 
-	public ObjectContainer getPopUpObject(String name,final int resourceId, float width, float height, Vector3 position)
+	public IObject getPopUpObject(String name,final int resourceId, float width, float height, Vector3 position)
 	{
 		Square sq;
 
@@ -302,8 +306,8 @@ public class ObjectFactory {
 
 		Element obj;
 
-		float w = (2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth());
-		float h = 2*height/GraphicFactory.getInstance().getHeight();
+		float w = width;//(2*GraphicFactory.getInstance().getRatio())*(width/GraphicFactory.getInstance().getWidth());
+		float h = height;//2*height/GraphicFactory.getInstance().getHeight();
 
 		IModel m1 = new RectangleModel(w,h);
 		SimpleSquareMaterial mat1 = new SimpleSquareMaterial(resourceId);////DiffuseMaterial();
@@ -311,18 +315,16 @@ public class ObjectFactory {
 		mat1.setColor(Color4.enumtoColor(Color4.COLORNAME.YELLOW));
 		obj = new Element(mat1,m1, name,position,width,height);
 
-		//obj.setScale(new Vector3(1, 1, 1));
-		//	obj.setScale(new Vector3ratio, ratio, ratio)):
 		obj.setPosition(position);
 
 
-		IObject background_noise = getRectangleObject("noise",R.drawable.perlin_noise, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(), Vector3.Zero);
+		IObject background_noise = getRectangleObject("noise",R.drawable.perlin_noise, GraphicFactory.getInstance().getWidth(), GraphicFactory.getInstance().getHeight(),  new Vector3(0,GraphicFactory.getInstance().getHeight() -0.01f,0));
 
 		cont.addChild(background_noise);
 		cont.addChild(obj);
 
 
-		return cont;
+		return background_noise;
 
 	}
 

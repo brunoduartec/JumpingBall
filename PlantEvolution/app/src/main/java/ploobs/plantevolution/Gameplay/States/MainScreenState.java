@@ -177,8 +177,8 @@ TextObject points;
         world2d = new SimpleWorld();
         gm = new GuiManager(world2d);
 
-        Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
-        Vector3 target = new Vector3(0.0f, 0.0f, 0.0f);
+        Vector3 pos = new Vector3(cameradistance, cameradistance * 2.5f, cameradistance);
+        Vector3 target = new Vector3(0.0f, cameradistance, 0.0f);
         SimpleCamera camera = new SimpleCamera("CAM1", 60, 1, 10, pos, target);
 
 
@@ -290,7 +290,8 @@ TextObject points;
 */
 
 
-
+//        IObject bb = ObjectFactory.getInstance().getPopUpObject("scorescreen",R.drawable.red_panel,200,200, new Vector3(200,200,0));
+  //      world2d.AddObject(bb);
 
     }
 
@@ -334,8 +335,8 @@ TextObject points;
             try {
               if( !stages.NextStage())
               {
-                  IObject bb = ObjectFactory.getInstance().getPopUpObject("scorescreen",R.drawable.red_panel,200,200, new Vector3(500,500,0));
-                    world.AddObject(bb);
+                  IObject bb = ObjectFactory.getInstance().getPopUpObject("scorescreen",R.drawable.red_panel,200,200, new Vector3(200,200,0));
+                    world2d.AddObject(bb);
               }
             } catch (IOException e) {
                 e.printStackTrace();

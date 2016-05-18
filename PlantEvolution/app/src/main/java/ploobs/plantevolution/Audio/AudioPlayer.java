@@ -52,12 +52,14 @@ private MediaPlayer _player;
         return SingletonHolder.INSTANCE;
     }
 
-public void addAudio(String alias,int resourceid)
+public void addAudio(String alias, int resourceid, boolean loop)
 {
     if (!_audio.containsKey(alias))
     {
 
         MediaPlayer mediaPlayer = MediaPlayer.create(GraphicFactory.getInstance().getGraphicContext(), resourceid);
+        mediaPlayer.setLooping(loop);
+
         _audio.put(alias,mediaPlayer);
 
     }
@@ -82,6 +84,7 @@ public void addAudio(String alias,int resourceid)
             MediaPlayer mtemp;
             if (_audio.containsKey(soundAlias)) {
                 mtemp = _audio.get(soundAlias);
+
                 mtemp.start();
 
             }

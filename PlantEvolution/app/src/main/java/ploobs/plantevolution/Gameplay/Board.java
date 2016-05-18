@@ -7,6 +7,7 @@ import ploobs.plantevolution.GraphicFactory;
 import ploobs.plantevolution.Material.Color4;
 import ploobs.plantevolution.Light.AmbientLight;
 import ploobs.plantevolution.Material.DiffuseMaterial;
+import ploobs.plantevolution.Material.IMaterial;
 import ploobs.plantevolution.World.IObject;
 import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.Light.ILight;
@@ -566,6 +567,14 @@ public void MergeBlock(Block origin, Block destiny)
         gema =  ObjectFactory.getInstance().getGemaObject("gema" + size + "_" + size, getScale(),convertLocalPosWorldPos(position));
 
 
+
+        IObject shadowwhite = ObjectFactory.getInstance().getBoxObject("shadow",scale,convertLocalPosWorldPos(position.add(new Vector3(0,1,0))).getY()+scale,scale);
+
+        IMaterial shadowmat = shadowwhite.getMaterial();
+
+        shadowmat.setDiffuseColor(new Color4(255,255,255,1));
+        localWorld.AddObject(shadowwhite);
+
       //  gema.setPosition();
 
         ILight ll = localWorld.getLights().get(0);
@@ -872,12 +881,7 @@ public void Place0x0Block()
         Context localContext = GraphicFactory.getInstance().getGraphicContext();
         AssetManager am = localContext.getAssets();
 
-
-
-            is = am.open(idfile);
-
-
-
+        is = am.open(idfile);
 
         InputStreamReader inputreader = new InputStreamReader(is);
         BufferedReader buffreader = new BufferedReader(inputreader);
@@ -917,9 +921,6 @@ public void Place0x0Block()
 
                         _playerInitpos = position;
                         p1.setLocalPos(new Vector3(position));
-
-
-
 
                         break;
 

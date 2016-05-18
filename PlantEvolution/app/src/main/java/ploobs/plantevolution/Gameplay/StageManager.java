@@ -109,8 +109,13 @@ private void CreateStageFile(String name) throws IOException {
 
 
     Vector3 pos = new Vector3(cameradistance, cameradistance * 1.5f, cameradistance);
+    Vector3 lookat = new Vector3(0,2*cameradistance/3,0);
+
+
 
     _localworld.getCameraManager().getActualCamera().setPosition(pos);
+    _localworld.getCameraManager().getActualCamera().setTarget(lookat);
+
 
 
 

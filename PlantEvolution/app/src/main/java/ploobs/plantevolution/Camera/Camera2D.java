@@ -56,7 +56,7 @@ public class Camera2D extends SimpleCamera {
 
 
 
-        Matrix.setLookAtM(this.getViewMatrix(), 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(this.getViewMatrix(), 0/*offset*/, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
 
        // Matrix.setLookAtM(this.getViewMatrix(), 0, position.getX(), position.getY(), position.getZ(), target.getX(), target.getY(), target.getZ(), 0f, 1.0f, 0.0f);

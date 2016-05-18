@@ -1,22 +1,15 @@
 package ploobs.plantevolution.Gameplay.States;
 
-import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 
 import ploobs.plantevolution.Audio.AudioPlayer;
 import ploobs.plantevolution.Camera.Camera2D;
 import ploobs.plantevolution.GameState.TimeBasedGameStateUpdatableDrawable;
-import ploobs.plantevolution.Gameplay.GameConstants;
 import ploobs.plantevolution.GraphicFactory;
-import ploobs.plantevolution.Material.TextureManager;
-import ploobs.plantevolution.Math.Vector2;
 import ploobs.plantevolution.Math.Vector3;
 import ploobs.plantevolution.ObjectFactory;
 import ploobs.plantevolution.R;
 import ploobs.plantevolution.Scene.SimpleScene;
-import ploobs.plantevolution.Utils;
-import ploobs.plantevolution.World.IWorld;
 import ploobs.plantevolution.World.SimpleWorld;
 
 /**
@@ -59,10 +52,10 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
    //     MediaPlayer mediaPlayer = MediaPlayer.create(GraphicFactory.getInstance().getGraphicContext(), R.raw.hopeful_theme_music_1);
     //    mediaPlayer.start(); // no need to call prepare(); create() does that for you
 
-        AudioPlayer.getInstance().addAudio("theme",R.raw.hopeful_theme_music_1);
-        AudioPlayer.getInstance().addAudio("button_click", R.raw.button_click);
-        AudioPlayer.getInstance().addAudio("switch_sound", R.raw.switch_sound);
-        AudioPlayer.getInstance().addAudio("pickup_gem", R.raw.pickup_gem_1);
+        AudioPlayer.getInstance().addAudio("theme",R.raw.hopeful_theme_music_1,true );
+        AudioPlayer.getInstance().addAudio("button_click", R.raw.button_click,false );
+        AudioPlayer.getInstance().addAudio("switch_sound", R.raw.switch_sound,false );
+        AudioPlayer.getInstance().addAudio("pickup_gem", R.raw.pickup_gem_1,false );
 
         int volume = 3;
 
@@ -72,7 +65,7 @@ public class SplitScreenState extends TimeBasedGameStateUpdatableDrawable {
 
 
 
-        AudioPlayer.getInstance().addAudio("jump_sound", R.raw.jump);
+        AudioPlayer.getInstance().addAudio("jump_sound", R.raw.jump,false );
         AudioPlayer.getInstance().changeVolume("jump_sound", 30 * volume);
 
 
