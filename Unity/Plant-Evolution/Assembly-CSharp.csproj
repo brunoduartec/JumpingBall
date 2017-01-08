@@ -47,6 +47,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BoardManager.cs" />
+     <None Include="Assets\Levels\stage5.txt" />
+     <None Include="Assets\Levels\stage1.txt" />
+     <None Include="Assets\Levels\stage7.txt" />
+     <None Include="Assets\Levels\stage4.txt" />
+     <None Include="Assets\Levels\stage2.txt" />
+     <None Include="Assets\Levels\stage6.txt" />
+     <None Include="Assets\Levels\stage3.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
