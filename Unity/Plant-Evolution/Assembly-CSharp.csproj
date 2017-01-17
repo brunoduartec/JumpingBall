@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BoardManager.cs" />
+     <Compile Include="Assets\CameraHandler.cs" />
+     <Compile Include="Assets\CameraMovement.cs" />
+     <Compile Include="Assets\CameraMovement\Scripts\Controller.cs" />
+     <Compile Include="Assets\CameraMovement\Scripts\SmoothFollow.cs" />
+     <Compile Include="Assets\PlayerControllers\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\PlayerMovement.cs" />
      <None Include="Assets\Levels\stage5.txt" />
      <None Include="Assets\Levels\stage1.txt" />
      <None Include="Assets\Levels\stage7.txt" />

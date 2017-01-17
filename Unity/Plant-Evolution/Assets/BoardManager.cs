@@ -8,9 +8,10 @@ using System.IO;
 
 public class BoardManager : MonoBehaviour {
 
+	public string stageName = "stage1";
 	// Use this for initialization
 	void Start () {
-		Load("Assets/Levels/stage1.txt");
+		Load("Assets/Levels/" + stageName +".txt");
 	}
 	
 	// Update is called once per frame
@@ -55,16 +56,33 @@ public class BoardManager : MonoBehaviour {
 						// In this example, I split it into arguments based on comma
 						// deliniators, then send that array to DoStuff()
 						string[] entries = line.Split(',');
+						int boardSize = entries.Length;
+						CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
+
+						mainCamera.distance = boardSize;
+
+						float modBoardSize = boardSize % 2;
+
+						float deltaX = -boardSize/2;
+
+						if (modBoardSize == 1)
+						{
+							deltaX-= 0.5f;
+						}
+
+						float deltaZ = deltaX;
+
+
 						if(entries.Length > 0)
 						{
 							for (int Cx = 0; Cx < entries.Length; Cx++)
 							{
 								if (entries[Cx] == "1"){
-									InstantiateBlock("grass",new Vector3(Cx,0, Cy), size);
+									InstantiateBlock("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
 								}
 								else if(entries[Cx] != "0"){
 									
-									InstantiateBlock("grass",new Vector3(Cx,0, Cy), size);
+									InstantiateBlock("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
 									
 									string entry = entries[Cx].Replace('(', ' ').Replace(')', ' ');
 									string[] block = entry.Split(';');
@@ -76,10 +94,13 @@ public class BoardManager : MonoBehaviour {
 									for (int i = 0; i < amount; i++)
 									{
 										if(block[0].Contains("S")){
-											InstantiateBlock("stone",new Vector3(Cx,blockY + i, Cy), size);	
+											InstantiateBlock("stone",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
 										}
 										if(block[0].Contains("G")){
-											InstantiateBlock("gem",new Vector3(Cx,blockY + i, Cy), size);	
+											InstantiateBlock("gem",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
+										}
+										if(block[0].Contains("M")){
+											InstantiateBlock("grass_moveable",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
 										}
 									}
 									
