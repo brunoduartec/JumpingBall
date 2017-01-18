@@ -59,7 +59,7 @@ public class BoardManager : MonoBehaviour {
 						int boardSize = entries.Length;
 						CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
 
-						mainCamera.distance = boardSize;
+						mainCamera.distance = boardSize * 1.5f;
 
 						float modBoardSize = boardSize % 2;
 
