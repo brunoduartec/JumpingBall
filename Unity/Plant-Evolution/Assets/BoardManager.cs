@@ -56,22 +56,14 @@ public class BoardManager : MonoBehaviour {
 						// In this example, I split it into arguments based on comma
 						// deliniators, then send that array to DoStuff()
 						string[] entries = line.Split(',');
-						int boardSize = entries.Length;
+						float boardSize = entries.Length;
 						CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
 
-						mainCamera.distance = boardSize * 1.5f;
+						mainCamera.setCameraDistance( boardSize * 1.5f);
 
-						float modBoardSize = boardSize % 2;
+						float deltaX = -(boardSize/2 - 0.5f);
 
-						float deltaX = -boardSize/2;
-
-						if (modBoardSize == 1)
-						{
-							deltaX-= 0.5f;
-						}
-
-						float deltaZ = deltaX;
-
+						float deltaZ = deltaX = (deltaX * size);
 
 						if(entries.Length > 0)
 						{
