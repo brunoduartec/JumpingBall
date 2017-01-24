@@ -9,9 +9,10 @@ using System.IO;
 public class BoardManager : MonoBehaviour {
 
 	public string stageName = "stage1";
+	protected string actualStage;
 	// Use this for initialization
 	void Start () {
-		Load("Assets/Levels/" + stageName +".txt");
+		Load(stageName);
 	}
 	
 	// Update is called once per frame
@@ -23,32 +24,81 @@ public class BoardManager : MonoBehaviour {
 	{
 		GameObject prefab = Resources.Load ("Blocks/block_" + type) as GameObject;
 		prefab.transform.position = position * size;
-		Instantiate(prefab);
+		Instantiate(prefab, this.transform);
+
+		
 	}
 
+	public void loadNextLevel()
+	{
+		int nextLevel = int.Parse(actualStage.Replace("stage",string.Empty)) +1;
 
-	private bool Load(string fileName)
+		Load("stage" + nextLevel);
+	}
+
+	private void buildBoundries(float length)
+	{
+		GameObject[] stageCollider = GameObject.FindGameObjectsWithTag("stage_collider");
+	
+		stageCollider[0].transform.localScale = new Vector3(length,length*2,1);		
+		stageCollider[0].transform.position = new Vector3(0,0,(length+1)/2);	
+
+		stageCollider[1].transform.localScale = new Vector3(length,length*2,1);		
+		stageCollider[1].transform.position = new Vector3(0,0,-(length+1)/2);	
+
+		stageCollider[2].transform.localScale = new Vector3(1,length*2,length);		
+		stageCollider[2].transform.position = new Vector3((length+1)/2,0,0);	
+
+		stageCollider[3].transform.localScale = new Vector3(1,length*2,length);		
+		stageCollider[3].transform.position = new Vector3(-(length+1)/2,0,0);	
+
+		stageCollider[4].transform.localScale = new Vector3(length,1,length);		
+		stageCollider[4].transform.position = new Vector3(0,length,0);	
+
+		stageCollider[5].transform.localScale = new Vector3(length,1,length);		
+		stageCollider[5].transform.position = new Vector3(0,-1,0);	
+	}
+	
+	private void cleanBoard()
+	{
+		var children = new List<GameObject>();
+		foreach (Transform child in transform) children.Add(child.gameObject);
+		children.ForEach(child => Destroy(child));
+	}
+
+	public bool Load(string fileName)
 	{
 		// Handle any problems that might arise when reading the text
 		try
 		{
+			cleanBoard();
 			string line;
-			// Create a new StreamReader, tell it which file to read and what encoding the file
-			// was saved as
-			StreamReader theReader = new StreamReader(fileName, Encoding.Default);
-			// Immediately clean up the reader after this block of code is done.
-			// You generally use the "using" statement for potentially memory-intensive objects
-			// instead of relying on garbage collection.
-			// (Do not confuse this with the using directive for namespace at the 
-			// beginning of a class!)
-			using (theReader)
-			{
-				// While there's lines left in the text file, do this:
+			
+			TextAsset file = Resources.Load("Levels\\" + fileName) as TextAsset;
+
+		//	StreamReader theReader = new StreamReader(fileName, Encoding.Default);
+
+			string[] matrix = file.text.Split('\n');
+
 				int Cy = 0;
 				float size = 1;
-				do
+				float delta = 1f;
+				int length =  matrix.Length;
+
+				buildBoundries(length);
+					
+
+				float boardSize = length;
+				CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
+
+				mainCamera.setCameraDistance( boardSize * 1.5f);
+				float deltaX = -(boardSize/2 - 0.5f);
+				float deltaZ = deltaX = (deltaX * size);
+
+				for(int matrixIndex=0; matrixIndex<length;matrixIndex++)
 				{
-					line = theReader.ReadLine();
+					line = matrix[matrixIndex];
+					line = line.Replace("\r", string.Empty);
 						
 					if (line != null)
 					{
@@ -56,20 +106,14 @@ public class BoardManager : MonoBehaviour {
 						// In this example, I split it into arguments based on comma
 						// deliniators, then send that array to DoStuff()
 						string[] entries = line.Split(',');
-						float boardSize = entries.Length;
-						CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
-
-						mainCamera.setCameraDistance( boardSize * 1.5f);
-
-						float deltaX = -(boardSize/2 - 0.5f);
-
-						float deltaZ = deltaX = (deltaX * size);
+						
 
 						if(entries.Length > 0)
 						{
 							for (int Cx = 0; Cx < entries.Length; Cx++)
 							{
 								if (entries[Cx] == "1"){
+									
 									InstantiateBlock("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
 								}
 								else if(entries[Cx] != "0"){
@@ -86,13 +130,13 @@ public class BoardManager : MonoBehaviour {
 									for (int i = 0; i < amount; i++)
 									{
 										if(block[0].Contains("S")){
-											InstantiateBlock("stone",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
+											InstantiateBlock("stone",new Vector3(Cx + deltaX, blockY + i + size/2 + delta, Cy + deltaZ), size);	
 										}
 										if(block[0].Contains("G")){
-											InstantiateBlock("gem",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
+											InstantiateBlock("gem",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
 										}
 										if(block[0].Contains("M")){
-											InstantiateBlock("grass_moveable",new Vector3(Cx + deltaX,blockY + i + size/2, Cy + deltaZ), size);	
+											InstantiateBlock("grass_moveable",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
 										}
 									}
 									
@@ -104,11 +148,9 @@ public class BoardManager : MonoBehaviour {
 					}
 					Cy++;
 				}
-				while (line != null);
-				// Done reading, close the reader and return true to broadcast success    
-				theReader.Close();
+
+				actualStage = fileName;
 				return true;
-				}
 			}
 			// If anything broke in the try block, we throw an exception with information
 			// on what didn't work
@@ -118,5 +160,6 @@ public class BoardManager : MonoBehaviour {
 				return false;
 			}
 	}
+	
 }
 

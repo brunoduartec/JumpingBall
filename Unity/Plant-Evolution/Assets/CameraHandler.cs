@@ -17,7 +17,8 @@ public class CameraHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 position = new Vector3(distance * 1.5f,distance + 3,-distance * 1.5f);
+
+		Vector3 position = new Vector3(distance,distance + 3,-distance);
 		transform.position = position;
 
 		Vector3 lookPosition = new Vector3(0,3,0);
