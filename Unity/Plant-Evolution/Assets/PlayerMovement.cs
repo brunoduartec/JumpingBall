@@ -32,17 +32,63 @@ public class PlayerMovement : MonoBehaviour {
 
 	Vector2 swipeDirection;
 	
+	float tapTimeWindow = 0;
+	float tapTimeDelta = 100;
+
+	Vector3 direction;
+	bool changedDirection;
+
+	int tapCount;
+
+	public void Tap()
+	{
+
+		if ( tapTimeWindow > 0 ) {
+         tapTimeWindow -= Time.deltaTime;
+		}
+		else {
+			Debug.Log("ENTERED" + tapTimeWindow.ToString());
+			tapCount = 0;
+		}
+		if ( tapTimeWindow > 0 )
+		tapCount++;
+		else
+		{
+		tapCount = 1;
+		tapTimeWindow = tapTimeDelta;
+		}
+
+	}
 	public void Update()
 	{
 		swipeDirection = Vector2.zero;
+		
 
 		if(Input.touches.Length > 0)
 		{
+
+			/*
+			if (Time.time < _doubleTapTimeD + .3f)
+            {
+                doubleTapD = true;
+            }
+            _doubleTapTimeD = Time.time;
+			*/
+			Tap();
+
 			Touch t = Input.GetTouch(0);
+
+			
+
+
 			if(t.phase == TouchPhase.Began)
 			{
 				//save began touch 2d point
 				firstPressPos = new Vector2(t.position.x,t.position.y);
+
+				tapCount = t.tapCount;
+
+
 			}
 			if(t.phase == TouchPhase.Ended)
 			{
@@ -56,8 +102,7 @@ public class PlayerMovement : MonoBehaviour {
 				currentSwipe.Normalize();
 	
 				//swipe upwards
-				//if(currentSwipe.y > 0 && currentSwipe.x > -0.5f &&  currentSwipe.x < 0.5f)
-				if(currentSwipe.x >0 &&  currentSwipe.y< 0) ///dir.x > 0 && dir.y < 0
+				if(currentSwipe.x >0 &&  currentSwipe.y< 0)
 				{
 					swipeDirection = new Vector2(1,0);
 				}
@@ -73,23 +118,6 @@ public class PlayerMovement : MonoBehaviour {
 				{
 					swipeDirection = new Vector2(0,-1);
 				}
-				/*
-				//swipe down
-				if(currentSwipe.y < 0 &&  currentSwipe.x > -0.5f &&  currentSwipe.x < 0.5f)
-				{
-					swipeDirection = new Vector2(0,-1);
-				}
-				//swipe left
-				if(currentSwipe.x < 0 &&  currentSwipe.y > -0.5f &&  currentSwipe.y < 0.5f)
-				{
-					swipeDirection = new Vector2(-1,0);
-				}
-				//swipe right
-				if(currentSwipe.x > 0 &&  currentSwipe.y > -0.5f &&  currentSwipe.y < 0.5f)
-				{
-					swipeDirection = new Vector2(1,0);
-				}
-				*/
 			}
 		}
 		
@@ -101,20 +129,24 @@ public class PlayerMovement : MonoBehaviour {
 		float vAxis = 0;
 		if  (Application.platform == RuntimePlatform.Android)
 		{
-			hAxis = swipeDirection.x * 3;
-			vAxis = swipeDirection.y * 3;
+			hAxis = swipeDirection.x;
+			vAxis = swipeDirection.y;			
 		}
 		else
 		{
 			hAxis = Input.GetAxis("Horizontal");
 			vAxis = Input.GetAxis("Vertical");
+
 		}
+
+		direction = new Vector3(hAxis,0,vAxis);
+
 		Vector3 rawMovement = new Vector3(hAxis, 0, vAxis);
 		
 
-		Vector3 movement = rawMovement * speed * Time.deltaTime;
+		Vector3 movement = rawMovement * speed; //* Time.deltaTime;
 		
-		if (Input.GetButton("Jump") && isGrounded){
+		if (( Input.GetButton("Jump") ) && isGrounded){
 			//body.
 			//body.MovePosition(transform.position + new Vector3(0,jumpSpeed,0));
 			body.AddForce(new Vector3(0,jumpSpeed,0), ForceMode.Impulse);
@@ -123,8 +155,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	
      
-		if (movement.magnitude > 0) {
-			body.MovePosition(transform.position + movement);
+		//if (movement.magnitude > 0) 
+		{
+
+			body.AddForce(movement,ForceMode.VelocityChange);
+			Debug.Log(body.velocity.ToString());
 			Quaternion rotation = Quaternion.LookRotation(rawMovement, Vector3.up);
 			transform.rotation = rotation;
 		}

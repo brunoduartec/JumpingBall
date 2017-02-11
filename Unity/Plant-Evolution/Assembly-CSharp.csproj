@@ -47,12 +47,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BoardManager.cs" />
+     <Compile Include="Assets\Buttton_Start.cs" />
      <Compile Include="Assets\CameraHandler.cs" />
      <Compile Include="Assets\CameraMovement.cs" />
      <Compile Include="Assets\CameraMovement\Scripts\Controller.cs" />
      <Compile Include="Assets\CameraMovement\Scripts\SmoothFollow.cs" />
+     <Compile Include="Assets\GemExample\Scripts\DemoTimeOfDay.cs" />
+     <Compile Include="Assets\GemExample\Scripts\Orbit.cs" />
+     <Compile Include="Assets\Gem_Behavior.cs" />
+     <Compile Include="Assets\InputControl.cs" />
      <Compile Include="Assets\LoadNextStage.cs" />
+     <Compile Include="Assets\MenuControl.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
+     <Compile Include="Assets\PlayerReload.cs" />
      <None Include="Assets\Resources\Levels\stage5.txt" />
      <None Include="Assets\Resources\Levels\stage1.txt" />
      <None Include="Assets\Resources\Levels\stage7.txt" />
@@ -60,6 +67,7 @@
      <None Include="Assets\Resources\Levels\stage2.txt" />
      <None Include="Assets\Resources\Levels\stage6.txt" />
      <None Include="Assets\Resources\Levels\stage3.txt" />
+     <None Include="Assets\Gem\Shaders\Gem.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

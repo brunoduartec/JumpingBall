@@ -10,6 +10,8 @@ public class BoardManager : MonoBehaviour {
 
 	public string stageName = "stage1";
 	protected string actualStage;
+
+	private  GameObject bottomCollider;
 	// Use this for initialization
 	void Start () {
 		Load(stageName);
@@ -24,15 +26,12 @@ public class BoardManager : MonoBehaviour {
 	{
 		GameObject prefab = Resources.Load ("Blocks/block_" + type) as GameObject;
 		prefab.transform.position = position * size;
-		Instantiate(prefab, this.transform);
-
-		
+		Instantiate(prefab, this.transform);	
 	}
 
 	public void loadNextLevel()
 	{
 		int nextLevel = int.Parse(actualStage.Replace("stage",string.Empty)) +1;
-
 		Load("stage" + nextLevel);
 	}
 
@@ -56,7 +55,9 @@ public class BoardManager : MonoBehaviour {
 		stageCollider[4].transform.position = new Vector3(0,length,0);	
 
 		stageCollider[5].transform.localScale = new Vector3(length,1,length);		
-		stageCollider[5].transform.position = new Vector3(0,-1,0);	
+		stageCollider[5].transform.position = new Vector3(0,-1,0);
+		bottomCollider = stageCollider[5];
+		bottomCollider.AddComponent<PlayerReload>();
 	}
 	
 	private void cleanBoard()
@@ -133,7 +134,7 @@ public class BoardManager : MonoBehaviour {
 											InstantiateBlock("stone",new Vector3(Cx + deltaX, blockY + i + size/2 + delta, Cy + deltaZ), size);	
 										}
 										if(block[0].Contains("G")){
-											InstantiateBlock("gem",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
+											InstantiateBlock("cristal",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
 										}
 										if(block[0].Contains("M")){
 											InstantiateBlock("grass_moveable",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
