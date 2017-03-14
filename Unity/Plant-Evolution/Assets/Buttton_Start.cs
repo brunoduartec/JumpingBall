@@ -13,9 +13,6 @@ public class Buttton_Start : MonoBehaviour {
 	}
 
 	void TaskOnClick(){
-		Debug.Log ("You have clicked the button!");
-
-
 		SceneManager.LoadScene("mainScene");
 	}
 }

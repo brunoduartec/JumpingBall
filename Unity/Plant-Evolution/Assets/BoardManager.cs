@@ -86,7 +86,7 @@ public class BoardManager : MonoBehaviour {
 				float delta = 1f;
 				int length =  matrix.Length;
 
-				buildBoundries(length);
+				buildBoundries(length* 1.1f);
 					
 
 				float boardSize = length;

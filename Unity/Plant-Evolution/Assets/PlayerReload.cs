@@ -6,7 +6,7 @@ public class PlayerReload : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -18,9 +18,8 @@ public class PlayerReload : MonoBehaviour {
     {
         if(col.gameObject.name.Contains("player"))
         {
-			GameObject boardObject = GameObject.FindGameObjectWithTag("board");
-			BoardManager board = boardObject.GetComponent<BoardManager>();
-			board.loadNextLevel();
+			GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+			player.transform.position = new Vector3(2,2,2);
 
 
         }
