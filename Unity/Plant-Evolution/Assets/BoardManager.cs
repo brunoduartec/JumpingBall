@@ -39,11 +39,13 @@ public class BoardManager : MonoBehaviour {
 	{
 		GameObject[] stageCollider = GameObject.FindGameObjectsWithTag("stage_collider");
 	
+		print("LENGTH------" + length);
+
 		stageCollider[0].transform.localScale = new Vector3(length,length*2,1);		
-		stageCollider[0].transform.position = new Vector3(0,0,(length+1)/2);	
+		stageCollider[0].transform.position = new Vector3(0,0,(length + 1)/2);	
 
 		stageCollider[1].transform.localScale = new Vector3(length,length*2,1);		
-		stageCollider[1].transform.position = new Vector3(0,0,-(length+1)/2);	
+		stageCollider[1].transform.position = new Vector3(0,0,-(length + 1)/2);	
 
 		stageCollider[2].transform.localScale = new Vector3(1,length*2,length);		
 		stageCollider[2].transform.position = new Vector3((length+1)/2,0,0);	
@@ -86,7 +88,7 @@ public class BoardManager : MonoBehaviour {
 				float delta = 1f;
 				int length =  matrix.Length;
 
-				buildBoundries(length* 1.1f);
+				buildBoundries(length);
 					
 
 				float boardSize = length;

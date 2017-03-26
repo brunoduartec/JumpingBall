@@ -17,7 +17,11 @@ public class PlayerMovement : MonoBehaviour {
 	Vector2 secondPressPos;
 	Vector2 currentSwipe;
 
-	Vector2 swipeDirection;
+	private Vector2 swipeDirection;
+	public void setSwipeDirection(Vector2 direction)
+	{
+		swipeDirection = direction;
+	}
 	
 	float tapTimeWindow = 0;
 	float tapTimeDelta = 100;
@@ -50,91 +54,13 @@ public class PlayerMovement : MonoBehaviour {
         isGrounded = true;
     }
 
-	
-
-	public void Tap()
-	{
-
-		if ( tapTimeWindow > 0 ) {
-         tapTimeWindow -= Time.deltaTime;
-		}
-		else {
-			tapCount = 0;
-		}
-		if ( tapTimeWindow > 0 )
-		tapCount++;
-		else
-		{
-		tapCount = 1;
-		tapTimeWindow = tapTimeDelta;
-		}
-
-	}
 	public void Update()
 	{
-	//	swipeDirection = Vector2.zero;
-		
 
-		//if (Time.time < waitTime && waitTime != 0f)
-		//if(Time.frameCount%waitTime==0)
-		{
-
-			if(Input.touches.Length > 0)
-			{
-
-				Tap();
-
-				Touch t = Input.GetTouch(0);
-
-				if(t.phase == TouchPhase.Began)
-				{
-					//save began touch 2d point
-					firstPressPos = new Vector2(t.position.x,t.position.y);
-
-					tapCount = t.tapCount;
-
-
-				}
-				if(t.phase == TouchPhase.Ended)
-				{
-					//save ended touch 2d point
-					secondPressPos = new Vector2(t.position.x,t.position.y);
-								
-					//create vector from the two points
-					currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-					
-					//normalize the 2d vector
-					currentSwipe.Normalize();
-		
-					//swipe upwards
-					if(currentSwipe.x >0 &&  currentSwipe.y< 0)
-					{
-						swipeDirection = new Vector2(1,0);
-					}
-					else if (currentSwipe.x <0 &&  currentSwipe.y> 0)
-					{
-						swipeDirection = new Vector2(-1,0);
-					}
-					else if (currentSwipe.x >0 &&  currentSwipe.y > 0)
-					{
-						swipeDirection = new Vector2(0,1);
-					}
-					else
-					{
-						swipeDirection = new Vector2(0,-1);
-					}
-				}
-			}
-
-		}
 
 	}
 	void FixedUpdate(){
-		 // Store the input axes.
-            // Cache the inputs.
-			//Debug.Log("VLAUS" + Time.frameCount + " " + waitTime );
-		//	Debug.Log((float)(Time.frameCount)%waitTime);
-		//if(Time.frameCount%waitTime==0)
+	
 	
 		
 		{
@@ -142,16 +68,16 @@ public class PlayerMovement : MonoBehaviour {
 			float hAxis = 0;
 			float vAxis = 0;
 		
-			if  (Application.platform == RuntimePlatform.Android)
-			{
+			// if  (Application.platform == RuntimePlatform.Android)
+			// {
 				hAxis = swipeDirection.x;
 				vAxis = swipeDirection.y;	
-			}
-			else
-			{
-				hAxis = Input.GetAxis("Horizontal");
-				vAxis = Input.GetAxis("Vertical");
-			}
+			// }
+			// else
+			// {
+			// 	hAxis = Input.GetAxis("Horizontal");
+			// 	vAxis = Input.GetAxis("Vertical");
+			// }
 
 		
 
