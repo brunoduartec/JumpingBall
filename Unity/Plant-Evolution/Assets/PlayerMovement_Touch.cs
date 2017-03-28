@@ -8,15 +8,19 @@ using System;
  
 
 public class PlayerMovement_Touch : MonoBehaviour {
-
-
 	public float Speed;
+	public float jumpSpeed;
+
+	private bool directionJump = false;
+	private Vector3 direction;
 
 	public ScreenTransformGesture OneFingerMoveGesture;
 
 	private GameObject player;
 
 	private Rigidbody body;
+
+	private bool isGrounded;
 
 	 private void OnEnable()
 	{
@@ -31,6 +35,10 @@ public class PlayerMovement_Touch : MonoBehaviour {
 		GetComponent<TapGesture>().Tapped -= tappedHandler;
 	}
 
+	void OnCollisionStay()
+    {
+        isGrounded = true;
+    }
     private void oneFingerTransformHandler(object sender, EventArgs e)
     {
 
@@ -56,15 +64,15 @@ public class PlayerMovement_Touch : MonoBehaviour {
 		}
 	
 		
-		Vector3 rawMovement = new Vector3(swipeDirection.x, 0, swipeDirection.y);
-		Vector3 movement = rawMovement * Speed;
+		direction = new Vector3(swipeDirection.x, 0, swipeDirection.y);
+		Vector3 movement = direction * Speed;
 
 
 		if (movement.magnitude > 0)
 		{
 			Debug.Log(movement + " " + Speed);
 			body.AddForce(movement,ForceMode.Impulse);
-			Quaternion rotation = Quaternion.LookRotation(rawMovement, Vector3.up);
+			Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 			body.transform.rotation = rotation;
 		}
 
@@ -73,7 +81,9 @@ public class PlayerMovement_Touch : MonoBehaviour {
 
 	private void tappedHandler(object sender, EventArgs e)
     {
-       Debug.Log("--------TAPPED----");
+		body.AddForce(new Vector3(0,jumpSpeed,0), ForceMode.Impulse);	
+		isGrounded = false;
+		directionJump = true;
     }
 
 	
@@ -88,6 +98,14 @@ public class PlayerMovement_Touch : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+	void FixedUpdate(){
+		if (!isGrounded && body.velocity.y < 0 && directionJump){
+			Debug.Log("--------VELOCIDADE DIMINUINDO------");
+			Vector3 directionJumpForce = direction * 2;
+			body.AddForce(directionJumpForce,ForceMode.Impulse);
+			directionJump = false;
+		}	
 	}
 
 }
