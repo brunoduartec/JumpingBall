@@ -11,22 +11,18 @@ public class TapHandler : MonoBehaviour {
 	void OnEnable()
 	{
 		 GetComponent<TapGesture>().Tapped += tappedHandler;
-	  Debug.Log("---------ENABLE-------");
 	}
 	void OnDisable()
 	{
 		// don't forget to unsubscribe
 		GetComponent<TapGesture>().Tapped -= tappedHandler;
-	  Debug.Log("---------DISABLE-------");
 	}
 
     private void tappedHandler(object sender, EventArgs e)
     {
-       Debug.Log("---------TAPPED-------");
     }
 
     void Start () {
-		Debug.Log("-------STARTED------");
 	}
 	
 	// Update is called once per frame

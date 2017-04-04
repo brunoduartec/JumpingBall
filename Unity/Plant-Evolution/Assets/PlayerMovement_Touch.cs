@@ -21,8 +21,16 @@ public class PlayerMovement_Touch : MonoBehaviour {
 	private Rigidbody body;
 
 	private bool isGrounded;
+    private bool movementStarted;
 
-	 private void OnEnable()
+	private enum MOVIMENT{
+		IDLE,
+		MOVING
+	};
+
+	private MOVIMENT playerMoviment;
+
+    private void OnEnable()
 	{
 		OneFingerMoveGesture.Transformed += oneFingerTransformHandler;
 		GetComponent<TapGesture>().Tapped += tappedHandler;
@@ -68,15 +76,25 @@ public class PlayerMovement_Touch : MonoBehaviour {
 		Vector3 movement = direction * Speed;
 
 
-		if (movement.magnitude > 0)
+		if(playerMoviment == MOVIMENT.IDLE)
 		{
+			movementStarted = true;
+			playerMoviment = MOVIMENT.MOVING;
+		}
+	
+	
+
+		if (movementStarted)
+		{
+			print("-------------------------------VLAUS--------------------- " + movement.magnitude);
 			Debug.Log(movement + " " + Speed);
-			body.AddForce(movement,ForceMode.Impulse);
+			// body.AddForce(movement,ForceMode.Impulse);
+			body.transform.position += movement;
 			Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 			body.transform.rotation = rotation;
+			movementStarted = false;
 		}
-
-        //throw new NotImplementedException();
+		
     }
 
 	private void tappedHandler(object sender, EventArgs e)
@@ -93,6 +111,8 @@ public class PlayerMovement_Touch : MonoBehaviour {
     void Start () {
 		player = GameObject.FindGameObjectsWithTag("Player")[0];
 		body = player.GetComponent<Rigidbody>();
+		movementStarted = false;
+		playerMoviment = MOVIMENT.IDLE;
 	}
 	
 	// Update is called once per frame
@@ -100,8 +120,11 @@ public class PlayerMovement_Touch : MonoBehaviour {
 		
 	}
 	void FixedUpdate(){
+		if (body.velocity.magnitude == 0)
+		{
+			playerMoviment = MOVIMENT.IDLE;
+		}
 		if (!isGrounded && body.velocity.y < 0 && directionJump){
-			Debug.Log("--------VELOCIDADE DIMINUINDO------");
 			Vector3 directionJumpForce = direction * 2;
 			body.AddForce(directionJumpForce,ForceMode.Impulse);
 			directionJump = false;
