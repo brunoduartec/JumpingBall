@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class LoadNextStage : MonoBehaviour {
@@ -24,5 +25,9 @@ public class LoadNextStage : MonoBehaviour {
 
 
         }
+		else if (col.gameObject.name.Contains("menu"))
+		{
+			SceneManager.LoadScene("mainScene");
+		}
     }
 }

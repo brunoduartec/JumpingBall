@@ -39,8 +39,6 @@ public class BoardManager : MonoBehaviour {
 	{
 		GameObject[] stageCollider = GameObject.FindGameObjectsWithTag("stage_collider");
 	
-		print("LENGTH------" + length);
-
 		stageCollider[0].transform.localScale = new Vector3(length,length*2,1);		
 		stageCollider[0].transform.position = new Vector3(0,0,(length + 1)/2);	
 
