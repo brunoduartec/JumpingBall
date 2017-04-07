@@ -25,7 +25,7 @@ public class BoardManager : MonoBehaviour {
 	private void InstantiateBlock(string type,Vector3 position,float size)
 	{
 		GameObject prefab = Resources.Load ("Blocks/block_" + type) as GameObject;
-		prefab.transform.position = position * size;
+		prefab.transform.position = position;// * size;
 		Instantiate(prefab, this.transform);	
 	}
 
@@ -77,8 +77,6 @@ public class BoardManager : MonoBehaviour {
 			
 			TextAsset file = Resources.Load("Levels\\" + fileName) as TextAsset;
 
-		//	StreamReader theReader = new StreamReader(fileName, Encoding.Default);
-
 			string[] matrix = file.text.Split('\n');
 
 				int Cy = 0;
@@ -103,11 +101,7 @@ public class BoardManager : MonoBehaviour {
 						
 					if (line != null)
 					{
-						// Do whatever you need to do with the text line, it's a string now
-						// In this example, I split it into arguments based on comma
-						// deliniators, then send that array to DoStuff()
 						string[] entries = line.Split(',');
-						
 
 						if(entries.Length > 0)
 						{
@@ -130,15 +124,23 @@ public class BoardManager : MonoBehaviour {
 									
 									for (int i = 0; i < amount; i++)
 									{
+										float yPos = blockY*size*(1+i);
+										float xPos = Cx + deltaX;
+										float zPos = Cy + deltaZ;
+
+										string boxType = "grass";
+										 
 										if(block[0].Contains("S")){
-											InstantiateBlock("stone",new Vector3(Cx + deltaX, blockY + i + size/2 + delta, Cy + deltaZ), size);	
+											boxType = "stone";
 										}
 										if(block[0].Contains("G")){
-											InstantiateBlock("cristal",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
+											boxType = "cristal";
 										}
 										if(block[0].Contains("M")){
-											InstantiateBlock("grass_moveable",new Vector3(Cx + deltaX,blockY + i + size/2 + delta, Cy + deltaZ), size);	
+											boxType = "grass_moveable";
 										}
+
+										InstantiateBlock(boxType,new Vector3(xPos, yPos,zPos ), size);	
 									}
 									
 								}
