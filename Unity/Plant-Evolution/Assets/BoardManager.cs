@@ -6,15 +6,18 @@ using System;
 using System.Text;
 using System.IO;  
 
+
+
 public class BoardManager : MonoBehaviour {
 
-	public string stageName = "stage1";
+	public string stageName = "stage8";
 	protected string actualStage;
 
 	private  GameObject bottomCollider;
 	// Use this for initialization
 	void Start () {
-		Load(stageName);
+		// Load(stageName);
+		loadJSON(stageName);
 	}
 	
 	// Update is called once per frame
@@ -22,11 +25,21 @@ public class BoardManager : MonoBehaviour {
 		
 	}
 
-	private void InstantiateBlock(string type,Vector3 position,float size)
+	private GameObject InstantiateEntity(string type,Vector3 position,float size)
 	{
-		GameObject prefab = Resources.Load ("Blocks/block_" + type) as GameObject;
+		string prefabToInstantiateName = "Blocks/block_" + type;
+		if (type.Contains("extra"))
+		{
+			prefabToInstantiateName =  "Extras/" + type;
+		}
+		if (type.Contains("player"))
+		{
+			prefabToInstantiateName =  "Player/" + type;
+		}
+		
+		GameObject prefab = Resources.Load (prefabToInstantiateName) as GameObject;
 		prefab.transform.position = position;// * size;
-		Instantiate(prefab, this.transform);	
+		return Instantiate(prefab, this.transform);
 	}
 
 	public void loadNextLevel()
@@ -65,6 +78,37 @@ public class BoardManager : MonoBehaviour {
 		var children = new List<GameObject>();
 		foreach (Transform child in transform) children.Add(child.gameObject);
 		children.ForEach(child => Destroy(child));
+	}
+
+	public bool loadJSON(string fileName)
+	{
+		TextAsset file = Resources.Load("Levels\\" + fileName) as TextAsset;
+
+		Stage st = JsonUtility.FromJson<Stage>(file.text);
+
+		cleanBoard();
+
+		int length =   st.boardLength;
+		buildBoundries(length);
+
+		float boardSize = length;
+		float size = 1;
+		CameraHandler mainCamera = Camera.main.GetComponent<CameraHandler>();
+
+		mainCamera.setCameraDistance( boardSize * 1.5f);
+
+		for(int cellId=0; cellId<st.board.Length;cellId++)
+		{
+			StageCell cell = st.board[cellId];
+
+			// print("--------------------" + cell.ToString());
+			InstantiateEntity(cell.type,cell.position, size);
+		}
+
+		GameObject player = InstantiateEntity(st.playerType,st.playerPosition,size);
+		player.tag = "Player";
+
+		return true;
 	}
 
 	public bool Load(string fileName)
@@ -109,11 +153,11 @@ public class BoardManager : MonoBehaviour {
 							{
 								if (entries[Cx] == "1"){
 									
-									InstantiateBlock("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
+									InstantiateEntity("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
 								}
 								else if(entries[Cx] != "0"){
 									
-									InstantiateBlock("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
+									InstantiateEntity("grass",new Vector3(Cx + deltaX,0, Cy+ deltaZ), size);
 									
 									string entry = entries[Cx].Replace('(', ' ').Replace(')', ' ');
 									string[] block = entry.Split(';');
@@ -139,8 +183,18 @@ public class BoardManager : MonoBehaviour {
 										if(block[0].Contains("M")){
 											boxType = "grass_moveable";
 										}
+										if(block[0].Contains("E")){
 
-										InstantiateBlock(boxType,new Vector3(xPos, yPos,zPos ), size);	
+											
+											boxType = "extra";
+											string[] extraConfig = block[0].Split('-');
+											boxType = boxType + "_" +  extraConfig[1];
+
+											print("-------------------VLAUS-----------------------" + boxType);
+										}
+										
+
+										InstantiateEntity(boxType,new Vector3(xPos, yPos,zPos ), size);	
 									}
 									
 								}

@@ -58,10 +58,13 @@
      <Compile Include="Assets\GestureSceneHandler.cs" />
      <Compile Include="Assets\InputControl.cs" />
      <Compile Include="Assets\LoadNextStage.cs" />
+     <Compile Include="Assets\MagicaVoxelUnity\Assets\MagicaVoxel\SSAO\ScreenSpaceAmbientOcclusion.cs" />
      <Compile Include="Assets\MenuControl.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\PlayerMovement_Touch.cs" />
      <Compile Include="Assets\PlayerReload.cs" />
+     <Compile Include="Assets\Stage.cs" />
+     <Compile Include="Assets\StageCell.cs" />
      <Compile Include="Assets\StateMachine\IPlayerState.cs" />
      <Compile Include="Assets\TapHandler.cs" />
      <Compile Include="Assets\TouchScript\Examples\Camera\Scripts\CameraController.cs" />
@@ -157,8 +160,8 @@
      <Compile Include="Assets\TouchScript\Scripts\Utils\TouchUtils.cs" />
      <Compile Include="Assets\TouchScript\Scripts\Utils\TransformUtils.cs" />
      <None Include="Assets\TouchScript\Shaders\DebugDepthTest.shader" />
+     <None Include="Assets\Resources\Levels\stage9.txt" />
      <None Include="Assets\Resources\Levels\stage5.txt" />
-     <None Include="Assets\Resources\Levels\stage1.txt" />
      <None Include="Assets\Resources\Levels\stage7.txt" />
      <None Include="Assets\TouchScript\license.txt" />
      <None Include="Assets\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />

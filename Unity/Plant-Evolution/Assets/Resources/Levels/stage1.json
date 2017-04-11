@@ -1,0 +1,106 @@
+{
+    "levelName":"Level 1",
+    "quote":"Dr Charles Francis",
+    "playerPosition":{
+             "x":1,
+            "y":2,
+            "z":0
+        },
+    "playerType": "sapling_player",
+    "boardLength": 5,
+    "board":[
+        {
+            "type":"grass",
+            "position":{
+                 "x":0,
+                "y":0,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":1,
+                "y":0,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":2,
+                "y":0,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":3,
+                "y":0,
+                "z":0
+            }
+        },
+
+
+        {
+            "type":"grass",
+            "position":{
+                 "x":0,
+                "y":0,
+                "z":1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":1,
+                "y":0,
+                "z":1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":2,
+                "y":0,
+                "z":1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":3,
+                "y":0,
+                "z":1
+            }
+        },
+
+
+        {
+            "type":"grass_moveable",
+            "position":{
+                 "x":1,
+                "y":1,
+                "z":0
+            }
+        },
+         {
+            "type":"extra_1",
+            "position":{
+                 "x":-3,
+                "y":0,
+                "z":0
+            }
+        },
+        {
+            "type":"cristal",
+            "position":{
+                 "x":-1,
+                "y":3,
+                "z":0
+            }
+        }
+       
+    ]
+}

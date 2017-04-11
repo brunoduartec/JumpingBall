@@ -86,7 +86,6 @@ public class PlayerMovement_Touch : MonoBehaviour {
 
 		if (movementStarted)
 		{
-			print("-------------------------------VLAUS--------------------- " + movement.magnitude);
 			Debug.Log(movement + " " + Speed);
 			// body.AddForce(movement,ForceMode.Impulse);
 			body.transform.position += movement;
@@ -109,17 +108,26 @@ public class PlayerMovement_Touch : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		setPlayer();
+	}
+
+	public void setPlayer(){
 		player = GameObject.FindGameObjectsWithTag("Player")[0];
 		body = player.GetComponent<Rigidbody>();
 		movementStarted = false;
 		playerMoviment = MOVIMENT.IDLE;
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 	void FixedUpdate(){
+		if (!body)
+		{
+			setPlayer();
+		}
 		if (body.velocity.magnitude == 0)
 		{
 			playerMoviment = MOVIMENT.IDLE;
