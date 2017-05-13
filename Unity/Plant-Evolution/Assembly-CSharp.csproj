@@ -46,6 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LevelPinLoader.cs" />
+     <Compile Include="Assets\LevelPosition.cs" />
+     <Compile Include="Assets\Scripts\BlockMoveBehavior.cs" />
      <Compile Include="Assets\Scripts\BoardManager.cs" />
      <Compile Include="Assets\Scripts\Buttton_Start.cs" />
      <Compile Include="Assets\Scripts\CameraHandler.cs" />
@@ -58,28 +61,21 @@
      <Compile Include="Assets\Scripts\Gem_Behavior.cs" />
      <Compile Include="Assets\Scripts\GestureSceneHandler.cs" />
      <Compile Include="Assets\Scripts\InputControl.cs" />
-     <Compile Include="Assets\Scripts\LevelLoader.cs" />
      <Compile Include="Assets\Scripts\LoadNextStage.cs" />
      <Compile Include="Assets\Scripts\MenuControl.cs" />
-     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement_Touch.cs" />
      <Compile Include="Assets\Scripts\PlayerReload.cs" />
      <Compile Include="Assets\Scripts\QuoteManager.cs" />
      <Compile Include="Assets\Scripts\Stage.cs" />
      <Compile Include="Assets\Scripts\StageCell.cs" />
      <Compile Include="Assets\Scripts\TapHandler.cs" />
-     <Compile Include="Assets\WanderBehavior.cs" />
+     <Compile Include="Assets\Scripts\WanderBehavior.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage9.txt" />
      <None Include="Assets\Resources\Levels\stage5.txt" />
-     <None Include="Assets\Resources\Levels\stage7.txt" />
      <None Include="Assets\Plugins\TouchScript\license.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugNoDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage4.txt" />
-     <None Include="Assets\Resources\Levels\stage6.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyNoDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage3.txt" />
      <None Include="Assets\Plugins\TouchScript\Examples\_misc\Shaders\UnlitColor.shader" />
      <None Include="Assets\Plugins\TouchScript\Examples\_misc\Shaders\BorderDiffuse.shader" />
      <None Include="Assets\Materials\Gem\Shaders\Gem.shader" />

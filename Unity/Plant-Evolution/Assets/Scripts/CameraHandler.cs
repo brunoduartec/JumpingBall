@@ -32,7 +32,7 @@ public class CameraHandler : MonoBehaviour {
 		if (!wasSet)
 		{
 			wasSet = true;
-			Vector3 position = new Vector3(distance,distance + 3,-distance);
+			Vector3 position = new Vector3(distance, distance + 3, -distance);
 			transform.position = position;
 
 			Vector3 lookPosition = new Vector3(0,3,0);

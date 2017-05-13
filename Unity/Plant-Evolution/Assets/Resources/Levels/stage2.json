@@ -1,13 +1,13 @@
 {
     "levelName":"Level 2",
-    "quote":"....",
+    "quote":"Push it baby",
     "playerPosition":{
              "x":1,
             "y":2,
             "z":0
         },
     "playerType": "sapling_player",
-    "boardLength": 2,
+    "boardLength": 5,
     "board":[
         {
             "type":"grass",

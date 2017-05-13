@@ -1,0 +1,151 @@
+{
+    "levelName":"Level 4",
+    "quote":"Up, Up and Away!",
+    "playerPosition":{
+             "x":-2,
+            "y":2,
+            "z":-2
+        },
+    "playerType": "sapling_player",
+    "boardLength":5,
+    "board":[
+        {
+            "type":"grass",
+            "position":{
+                 "x":-2,
+                "y":0,
+                "z":-2
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":-1,
+                "y":0,
+                "z":-2
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":0,
+                "y":0,
+                "z":-2
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":1,
+                "y":0,
+                "z":-2
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":2,
+                "y":0,
+                "z":-2
+            }
+        },
+
+        
+
+        {
+            "type":"grass",
+            "position":{
+                 "x":-2,
+                "y":1,
+                "z":-1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":-1,
+                "y":1,
+                "z":-1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":0,
+                "y":1,
+                "z":-1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":1,
+                "y":1,
+                "z":-1
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":2,
+                "y":1,
+                "z":-1
+            }
+        },
+
+
+        {
+            "type":"grass",
+            "position":{
+                 "x":-2,
+                "y":2,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":-1,
+                "y":2,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":0,
+                "y":2,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":1,
+                "y":2,
+                "z":0
+            }
+        },
+        {
+            "type":"grass",
+            "position":{
+                 "x":2,
+                "y":2,
+                "z":0
+            }
+        },
+
+
+
+        {
+            "type":"cristal",
+            "position":{
+                 "x":2,
+                "y":5,
+                "z":1
+            }
+        }
+       
+       
+    ]
+}

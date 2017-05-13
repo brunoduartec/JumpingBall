@@ -139,16 +139,11 @@
      <Compile Include="Assets\Plugins\TouchScript\Scripts\Utils\TouchUtils.cs" />
      <Compile Include="Assets\Plugins\TouchScript\Scripts\Utils\TransformUtils.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage9.txt" />
      <None Include="Assets\Resources\Levels\stage5.txt" />
-     <None Include="Assets\Resources\Levels\stage7.txt" />
      <None Include="Assets\Plugins\TouchScript\license.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugNoDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage4.txt" />
-     <None Include="Assets\Resources\Levels\stage6.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyNoDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage3.txt" />
      <None Include="Assets\Plugins\TouchScript\Examples\_misc\Shaders\UnlitColor.shader" />
      <None Include="Assets\Plugins\TouchScript\Examples\_misc\Shaders\BorderDiffuse.shader" />
      <None Include="Assets\Materials\Gem\Shaders\Gem.shader" />
