@@ -17,7 +17,6 @@ public class LoadNextStage : MonoBehaviour {
 	}
 
 	
-
 	void OnCollisionEnter (Collision col)
     {
         if (col.gameObject.name.Contains("menu"))
@@ -39,7 +38,6 @@ public class LoadNextStage : MonoBehaviour {
 			GameObject boardObject = GameObject.FindGameObjectWithTag("board");
 			BoardManager board = boardObject.GetComponent<BoardManager>();
 			board.loadLevel("stage2");
-		}
-        	
+		}  	
     }
 }

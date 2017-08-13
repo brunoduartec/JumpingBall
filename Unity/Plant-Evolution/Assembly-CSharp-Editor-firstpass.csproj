@@ -72,7 +72,6 @@
      <Compile Include="Assets\Plugins\TouchScript\Editor\Utils\PropertyDrawers\ToggleLeftDrawer.cs" />
      <Compile Include="Assets\Plugins\TouchScript\Modules\TUIO\Editor\InputSources\TuioInputEditor.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage5.txt" />
      <None Include="Assets\Plugins\TouchScript\license.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugNoDepthTest.shader" />

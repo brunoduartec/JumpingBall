@@ -71,7 +71,6 @@
      <Compile Include="Assets\Scripts\TapHandler.cs" />
      <Compile Include="Assets\Scripts\WanderBehavior.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
-     <None Include="Assets\Resources\Levels\stage5.txt" />
      <None Include="Assets\Plugins\TouchScript\license.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugNoDepthTest.shader" />

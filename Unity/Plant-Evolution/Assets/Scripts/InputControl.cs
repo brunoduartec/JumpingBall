@@ -13,6 +13,7 @@ public class InputControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey(KeyCode.Escape)){
+			// MOCK - aqui melhor nao usar isso, mas a pilha de telas
 			SceneManager.LoadScene("worldScene");
   		}
 		

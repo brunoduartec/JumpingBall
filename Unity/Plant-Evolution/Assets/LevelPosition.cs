@@ -11,17 +11,13 @@ public class LevelPosition : MonoBehaviour {
 	void Start () {
 		
 		placeAddLevel(45,0 , "stage1");
-		placeAddLevel(90,0 , "stage2");
-		placeAddLevel(45,45, "stage3");
+		// placeAddLevel(90,0 , "stage2");
+		// placeAddLevel(45,45, "stage3");
 
-		placeAddLevel(45,0 , "stage4");
-		placeAddLevel(90,0 , "stage5");
+		// placeAddLevel(45,0 , "stage4");
+		// placeAddLevel(90,0 , "stage5");
 		
-		
-		// placeAddLevel(90,0, "stage1");
-
-
-		
+	
 	}
 	
 	// Update is called once per frame

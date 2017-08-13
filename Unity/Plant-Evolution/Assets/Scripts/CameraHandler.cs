@@ -23,7 +23,6 @@ public class CameraHandler : MonoBehaviour {
 	{
 		distance = d;
 		wasSet = false;
-		
 	}
 	
 	// Update is called once per frame
@@ -32,9 +31,12 @@ public class CameraHandler : MonoBehaviour {
 		if (!wasSet)
 		{
 			wasSet = true;
+
+			// MOCK - aqui tambem colocar a posicao inicial
 			Vector3 position = new Vector3(distance, distance + 3, -distance);
 			transform.position = position;
 
+			// MOCK - colocar o centro da fase aqui
 			Vector3 lookPosition = new Vector3(0,3,0);
 			transform.LookAt(lookPosition,Vector3.up);
 		}

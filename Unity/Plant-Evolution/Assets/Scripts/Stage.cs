@@ -22,6 +22,7 @@ public class Stage {
     public int boardLength;
 
     public StageCell[] board;
+    public StageCell[] boundaries;
    
     
 }

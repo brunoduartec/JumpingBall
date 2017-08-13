@@ -12,9 +12,7 @@ public class Gem_Behavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate(){
-	
-	
-	transform.Rotate( 0, 10* Time.deltaTime, 0);
+		transform.Rotate( 0, 10* Time.deltaTime, 0);
 	}
  
 }

@@ -47,7 +47,7 @@ public class GestureSceneHandler : MonoBehaviour {
 		transform.Rotate( 0, -xDelta, 0);
  
 
-		// cam.transform.localRotation *= rotation;
+		//cam.transform.localRotation *= rotation;
 		//cam.transform.localPosition += Vector3.forward*(ManipulationGesture.DeltaScale - 1f)*ZoomSpeed;
 
 	}

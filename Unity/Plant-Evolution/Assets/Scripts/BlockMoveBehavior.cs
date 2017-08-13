@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockMoveBehavior : MonoBehaviour {
 
     private Rigidbody body;
+    public float intensity = 0.5f;
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody>();
@@ -20,9 +21,9 @@ public class BlockMoveBehavior : MonoBehaviour {
         
          if (col.collider.tag.Equals("Player") && col.impactForceSum.y ==0 )
          {
-            int a =0;
             Vector3 direction = col.impulse.normalized;
-           body.transform.position -= direction * 0.5f;
+            body.transform.position -= direction * intensity;
+            
          }
 
      }

@@ -18,12 +18,11 @@ public class PlayerReload : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col)
     {
-        if(col.gameObject.name.Contains("player"))
+        if(col.gameObject.name.Contains("bottom"))
         {
-			GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-			player.transform.position = playerInitialPos;
-
-
+			//GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+			transform.position = this.playerInitialPos;
+			// player.transform.position = this.playerInitialPos;
         }
     }
 

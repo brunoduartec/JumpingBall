@@ -8,15 +8,13 @@ using TouchScript.Gestures;
 public class LevelPinLoader : MonoBehaviour {
 
 	// Use this for initialization
-	 public Collider coll;
+	 private Collider coll;
 	 public string levelToLoad;
 	 private bool clicked = false;
 
-	 private Camera activeCamera;
 	
 	void Start () {
 		coll = GetComponent<Collider>();
-		activeCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); // GameObject.Find("Scene Camera").GetComponent<Camera>();
 		SceneManager.sceneLoaded += openNewScene;
 	}
 
@@ -35,15 +33,14 @@ public class LevelPinLoader : MonoBehaviour {
 
     // Update is called once per frame
    void Update () {
-		 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (coll.Raycast(ray, out hit, 100.0F))
-			{
-				LevelPinLoader pinLoader = coll.gameObject.GetComponent<LevelPinLoader>();
-				pinLoader.levelToLoad = levelToLoad;
-				SceneManager.LoadScene("mainScene");
-				clicked = true;	
-				print("--------ENTROU-----");
-			}
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		if (coll.Raycast(ray, out hit, 10.0F))
+		{
+			LevelPinLoader pinLoader = coll.gameObject.GetComponent<LevelPinLoader>();
+			pinLoader.levelToLoad = levelToLoad;
+			SceneManager.LoadScene("mainScene");
+			clicked = true;	
+		}
 	}
 }
