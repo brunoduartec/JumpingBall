@@ -10,12 +10,12 @@ public class LevelPosition : MonoBehaviour {
 
 	void Start () {
 		
-		placeAddLevel(45,0 , "stage1");
-		placeAddLevel(90,0 , "stage2");
-		placeAddLevel(45,45, "stage3");
+		placePinLoader(45,0 , "stage1");
+		placePinLoader(90,0 , "stage2");
+		placePinLoader(90,0, "stage3");
 
-		placeAddLevel(45,0 , "stage4");
-		placeAddLevel(90,0 , "stage5");
+		placePinLoader(45,0 , "stage4");
+		placePinLoader(90,0 , "stage5");
 		
 	
 	}
@@ -34,7 +34,7 @@ public class LevelPosition : MonoBehaviour {
 		return pinLoader;
 	}
 
-	void placeAddLevel(float alpha, float teta, string levelToLoad){
+	void placePinLoader(float alpha, float teta, string levelToLoad){
 
 		float alphaRad = alpha * Mathf.Deg2Rad;
 		float tetaRad  = teta  * Mathf.Deg2Rad;

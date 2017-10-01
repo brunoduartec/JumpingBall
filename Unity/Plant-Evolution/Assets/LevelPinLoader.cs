@@ -10,8 +10,6 @@ public class LevelPinLoader : MonoBehaviour {
 	// Use this for initialization
 	 private Collider coll;
 	 public string levelToLoad;
-	 private bool clicked = false;
-
 	
 	void Start () {
 		coll = GetComponent<Collider>();
@@ -20,14 +18,10 @@ public class LevelPinLoader : MonoBehaviour {
 
     private void openNewScene(Scene arg0, LoadSceneMode arg1)
     {
-		if (clicked)
-		{
-			GameObject boardObject = GameObject.FindGameObjectWithTag("board");
-			BoardManager board = boardObject.GetComponent<BoardManager>();
-			board.loadLevel(levelToLoad);
-			clicked = false;
-		}
-        
+		GameObject boardObject = GameObject.FindGameObjectWithTag("board");
+		BoardManager board = boardObject.GetComponent<BoardManager>();
+		board.loadLevel(levelToLoad);
+
     }
 
 
@@ -36,11 +30,11 @@ public class LevelPinLoader : MonoBehaviour {
    void Update () {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
+
         if (Physics.Raycast(ray, out hit) && Input.GetMouseButton(0)){
-			LevelPinLoader pinLoader = coll.gameObject.GetComponent<LevelPinLoader>();
-			pinLoader.levelToLoad = levelToLoad;
+			LevelPinLoader pinLoader = hit.collider.gameObject.GetComponent<LevelPinLoader>();
+			levelToLoad = pinLoader.levelToLoad;
 			SceneManager.LoadScene("mainScene");
-			clicked = true;	
 		}
 	}
 }

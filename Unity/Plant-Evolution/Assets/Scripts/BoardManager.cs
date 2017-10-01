@@ -11,8 +11,6 @@ using System.IO;
 public class BoardManager : MonoBehaviour {
 
 	public string stageName = "stage1";
-	private string currentStageName;
-
 	private Stage currentStage;
 
 	public float quoteDelayTimeInSeconds = 2.0f;
@@ -23,7 +21,7 @@ public class BoardManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//loadLevel(stageName);
+		loadLevel(stageName);
 	}
 	
 	// Update is called once per frame
@@ -52,8 +50,6 @@ public class BoardManager : MonoBehaviour {
 
 	public void loadLevel(string levelName)
 	{
-		currentStageName = levelName;
-
 		currentStage = loadJSON(levelName);
 
 		GameObject quoteObject = GameObject.FindGameObjectWithTag("quote");
@@ -68,28 +64,42 @@ public class BoardManager : MonoBehaviour {
 	}
 	public void loadNextLevel()
 	{
-		int nextLevel = int.Parse(currentStageName.Replace("stage",string.Empty)) +1;
+		int nextLevel = int.Parse(currentStage.levelName.Replace("stage",string.Empty)) +1;
 		loadLevel("stage" + nextLevel);
 	}
 
 	// MOCK
 	private void buildBoundries(Stage level)
 	{
-		float length = level.boardLength;
-		float minx, maxX, minZ, maxZ;
-		minx = maxX = minZ = maxZ = 0;
+		float minX, maxX, minY, maxY, minZ, maxZ;
+		minX = maxX = minY = maxY = minZ = maxZ = 0;
 
 		//discovering the min and max boxes
 		foreach (var item in level.board)
 		{
-			if(item.position.x < minx)
+			if (item.type.Contains("extra"))
 			{
-				minx = item.position.x;
+				continue;
+			}
+
+			if(item.position.x < minX)
+			{
+				minX = item.position.x;
 			}
 			if(item.position.x > maxX)
 			{
 				maxX = item.position.x;
 			}
+
+			if(item.position.y < minY)
+			{
+				minY = item.position.y;
+			}
+			if(item.position.y > maxY)
+			{
+				maxY = item.position.y;
+			}
+
 			if(item.position.z < minZ)
 			{
 				minZ = item.position.z;
@@ -98,26 +108,36 @@ public class BoardManager : MonoBehaviour {
 			{
 				maxZ = item.position.z;
 			}
+
+
 		}
 
 		GameObject[] stageCollider = GameObject.FindGameObjectsWithTag("stage_collider");
 	
-		stageCollider[0].transform.localScale = new Vector3(length,length*2,1);		
-		stageCollider[0].transform.position = new Vector3(0,0,maxZ + 1);//new Vector3(0,0,(length + 1)/2);	
+		float maxHeight = maxY;
 
-		stageCollider[1].transform.localScale = new Vector3(length,length*2,1);		
-		stageCollider[1].transform.position = new Vector3(0,0,minZ - 1);//new Vector3(0,0,-(length + 1)/2);	
+		//Z Boundaries
 
-		stageCollider[2].transform.localScale = new Vector3(1,length*2,length);		
-		stageCollider[2].transform.position = new Vector3(maxX + 1,0,0);//new Vector3((length+1)/2,0,0);	
+		stageCollider[0].transform.localScale = new Vector3((maxX + 1) - (minX - 1), maxHeight * 2, 1);		
+		stageCollider[0].transform.position = new Vector3(0,0,minZ -1);
 
-		stageCollider[3].transform.localScale = new Vector3(1,length*2,length);		
-		stageCollider[3].transform.position = new Vector3(minx - 1,0,0);//new Vector3(-(length+1)/2,0,0);	
+		stageCollider[1].transform.localScale = stageCollider[0].transform.localScale;
+		stageCollider[1].transform.position = new Vector3(0,0,maxZ + 1);//new Vector3(0,0,-(length + 1)/2);	
 
-		stageCollider[4].transform.localScale = new Vector3(length,1,length);		
-		stageCollider[4].transform.position = new Vector3(0,length,0);	
+		// X Boundaries
 
-		stageCollider[5].transform.localScale = new Vector3(5*length, 1, 5*length);		
+		stageCollider[2].transform.localScale = new Vector3(1,maxHeight * 2,(maxZ + 1)- (minZ - 1));	
+		stageCollider[2].transform.position = new Vector3(maxX + 1, 0, 0);//new Vector3((length+1)/2,0,0);	
+
+		stageCollider[3].transform.localScale = stageCollider[2].transform.localScale;		
+		stageCollider[3].transform.position = new Vector3(minX - 1, 0, 0);//new Vector3(-(length+1)/2,0,0);	
+
+		// Y Boundaries
+
+		stageCollider[4].transform.localScale = new Vector3(maxHeight,1,maxHeight);		
+		stageCollider[4].transform.position = new Vector3(0, maxHeight * 2, 0);	
+
+		stageCollider[5].transform.localScale = stageCollider[4].transform.localScale;		
 		stageCollider[5].transform.position = new Vector3(0,-1,0);
 
 		stageCollider[5].name = "bottom";
@@ -158,7 +178,8 @@ public class BoardManager : MonoBehaviour {
 		player = InstantiateEntity(stage.playerType,stage.playerPosition,size);
 		player.tag = "Player";
 
-		buildBoundries(stage);
+		buildBoundries(stage);		
+
 		return true;
 	}
 	
