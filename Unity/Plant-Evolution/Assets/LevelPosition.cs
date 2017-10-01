@@ -11,11 +11,11 @@ public class LevelPosition : MonoBehaviour {
 	void Start () {
 		
 		placeAddLevel(45,0 , "stage1");
-		// placeAddLevel(90,0 , "stage2");
-		// placeAddLevel(45,45, "stage3");
+		placeAddLevel(90,0 , "stage2");
+		placeAddLevel(45,45, "stage3");
 
-		// placeAddLevel(45,0 , "stage4");
-		// placeAddLevel(90,0 , "stage5");
+		placeAddLevel(45,0 , "stage4");
+		placeAddLevel(90,0 , "stage5");
 		
 	
 	}
@@ -23,6 +23,15 @@ public class LevelPosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	LevelPinLoader createLevelPinLoader(string levelToLoad)
+	{
+		GameObject pin           = Resources.Load ("levelPin") as GameObject;
+		LevelPinLoader pinLoader = pin.GetComponent<LevelPinLoader>();
+		pinLoader.levelToLoad = levelToLoad;
+
+		return pinLoader;
 	}
 
 	void placeAddLevel(float alpha, float teta, string levelToLoad){
@@ -34,12 +43,9 @@ public class LevelPosition : MonoBehaviour {
 		float z = -radius * Mathf.Sin(alphaRad) * Mathf.Sin(tetaRad);
 		float y = radius * Mathf.Cos(alphaRad);
 
-		GameObject pin = Resources.Load ("levelPin") as GameObject;
-
-		LevelPinLoader pinLoader = pin.GetComponent<LevelPinLoader>();
-		pinLoader.levelToLoad = levelToLoad;
-
-		pin.transform.position = new Vector3(x,y,z);
-		Instantiate(pin, this.transform);
+		LevelPinLoader pinLoader = createLevelPinLoader(levelToLoad);
+		
+		pinLoader.transform.position = new Vector3(x,y,z);
+		Instantiate(pinLoader, this.transform);
 	}
 }

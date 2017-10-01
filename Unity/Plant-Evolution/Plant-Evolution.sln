@@ -1,11 +1,11 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{BE41DBB0-DD29-B773-6D86-F1E93EB1625C}") = "Plant-Evolution", "Assembly-CSharp-firstpass.csproj", "{8A14C696-010C-7D01-4A30-7ECF528DB66F}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution", "Assembly-CSharp-firstpass.csproj", "{8A14C696-010C-7D01-4A30-7ECF528DB66F}"
 EndProject
-Project("{BE41DBB0-DD29-B773-6D86-F1E93EB1625C}") = "Plant-Evolution", "Assembly-CSharp.csproj", "{695A6736-C856-8F82-0909-C5E372AC34B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution", "Assembly-CSharp.csproj", "{695A6736-C856-8F82-0909-C5E372AC34B9}"
 EndProject
-Project("{BE41DBB0-DD29-B773-6D86-F1E93EB1625C}") = "Plant-Evolution", "Assembly-CSharp-Editor-firstpass.csproj", "{5B158F2E-F5B5-292F-9E92-237C94757320}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution", "Assembly-CSharp-Editor-firstpass.csproj", "{5B158F2E-F5B5-292F-9E92-237C94757320}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

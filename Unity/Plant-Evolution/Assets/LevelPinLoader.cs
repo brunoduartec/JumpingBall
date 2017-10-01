@@ -31,12 +31,12 @@ public class LevelPinLoader : MonoBehaviour {
     }
 
 
+
     // Update is called once per frame
    void Update () {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
-		if (coll.Raycast(ray, out hit, 10.0F))
-		{
+        if (Physics.Raycast(ray, out hit) && Input.GetMouseButton(0)){
 			LevelPinLoader pinLoader = coll.gameObject.GetComponent<LevelPinLoader>();
 			pinLoader.levelToLoad = levelToLoad;
 			SceneManager.LoadScene("mainScene");

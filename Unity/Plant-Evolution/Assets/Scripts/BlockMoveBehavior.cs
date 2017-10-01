@@ -19,11 +19,10 @@ public class BlockMoveBehavior : MonoBehaviour {
 	 public float pushPower = 2.0F;
      void OnCollisionEnter (Collision col){
         
-         if (col.collider.tag.Equals("Player") && col.impactForceSum.y ==0 )
+         if (col.collider.tag.Equals("Player") && col.relativeVelocity.y ==0 )
          {
             Vector3 direction = col.impulse.normalized;
             body.transform.position -= direction * intensity;
-            
          }
 
      }

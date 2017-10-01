@@ -8,7 +8,7 @@ public class CameraHandler : MonoBehaviour {
 	// Use this for initialization
 	private float distance = 5;
 
-	private bool wasSet = false;
+	private bool wasInitialized = false;
 
 	void Start () {
 
@@ -22,15 +22,15 @@ public class CameraHandler : MonoBehaviour {
 	public void setCameraDistance(float d)
 	{
 		distance = d;
-		wasSet = false;
+		wasInitialized = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (!wasSet)
+		if (!wasInitialized)
 		{
-			wasSet = true;
+			wasInitialized = true;
 
 			// MOCK - aqui tambem colocar a posicao inicial
 			Vector3 position = new Vector3(distance, distance + 3, -distance);
