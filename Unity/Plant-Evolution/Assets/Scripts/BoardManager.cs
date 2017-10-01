@@ -117,23 +117,27 @@ public class BoardManager : MonoBehaviour {
 		float maxHeight = maxY;
 
 		//Z Boundaries
-
+		stageCollider[0].name = "left";
 		stageCollider[0].transform.localScale = new Vector3((maxX + 1) - (minX - 1), maxHeight * 2, 1);		
 		stageCollider[0].transform.position = new Vector3(0,0,minZ -1);
 
+		stageCollider[1].name = "right";
 		stageCollider[1].transform.localScale = stageCollider[0].transform.localScale;
 		stageCollider[1].transform.position = new Vector3(0,0,maxZ + 1);//new Vector3(0,0,-(length + 1)/2);	
 
 		// X Boundaries
 
+		stageCollider[2].name = "front";
 		stageCollider[2].transform.localScale = new Vector3(1,maxHeight * 2,(maxZ + 1)- (minZ - 1));	
 		stageCollider[2].transform.position = new Vector3(maxX + 1, 0, 0);//new Vector3((length+1)/2,0,0);	
 
+		stageCollider[3].name = "back";
 		stageCollider[3].transform.localScale = stageCollider[2].transform.localScale;		
 		stageCollider[3].transform.position = new Vector3(minX - 1, 0, 0);//new Vector3(-(length+1)/2,0,0);	
 
 		// Y Boundaries
 
+		stageCollider[4].name = "top";
 		stageCollider[4].transform.localScale = new Vector3(maxHeight,1,maxHeight);		
 		stageCollider[4].transform.position = new Vector3(0, maxHeight * 2, 0);	
 
