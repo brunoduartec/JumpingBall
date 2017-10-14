@@ -101,7 +101,10 @@ public class BoardManager : MonoBehaviour {
 	private void buildBoundries(Stage level)
 	{
 		float minX, maxX, minY, maxY, minZ, maxZ;
-		minX = maxX = minY = maxY = minZ = maxZ = 0;
+
+		minX = maxX = level.board[0].position.x; //initializing
+		minY = maxY = level.board[0].position.y; //initializing
+		minZ = maxZ = level.board[0].position.z; //initializing
 
 		//discovering the min and max boxes
 		foreach (var item in level.board)
@@ -143,49 +146,52 @@ public class BoardManager : MonoBehaviour {
 
 		float maxHeight = maxY;
 
-		float xyComparison = Math.Max(maxX, maxY);
-		boardBiggestDimension = Math.Max(xyComparison,maxZ);
+		float xyComparison    = Math.Max(maxX, maxY);
+		boardBiggestDimension = Math.Abs(Math.Max(xyComparison,maxZ));
 
 		//Z Boundaries
 		GameObject leftBoundary = createBoundaryBox();
 
 		leftBoundary.name = "left";
 
-		float levelXDimension = (maxX + 1) - (minX - 1);
+		float centerX = maxX - minX;
+		float centerY = maxY - minY;
+		float centerZ = maxZ - minZ;
 
-		leftBoundary.transform.localScale = new Vector3(levelXDimension, maxHeight * 2, 1);		
-		leftBoundary.transform.position = new Vector3(0, maxHeight, minZ -1);
+		float levelXDimension = Math.Abs( ( (maxX) + 1) - ( (minX) - 1) );
+		float levelYDimension = Math.Abs( ( (maxY) + 1) - ( (minY) - 1));
+		float levelZDimension = Math.Abs( ( (maxZ) + 1) - ( (minZ) - 1));
+
+		leftBoundary.transform.localScale = new Vector3(levelXDimension, levelYDimension *  2, 1);		
+		leftBoundary.transform.position   = new Vector3(minX + centerX, minY + centerY, minZ -1);
 
 		GameObject rightBoundary = createBoundaryBox();
 		rightBoundary.name = "right";
 		rightBoundary.transform.localScale = leftBoundary.transform.localScale;
-		rightBoundary.transform.position = new Vector3(0, maxHeight, maxZ + 1);
+		rightBoundary.transform.position   = new Vector3(minX + centerX, minY + centerY, maxZ + 1);
 
 		// X Boundaries
 
 		GameObject frontBoundary = createBoundaryBox();
 		frontBoundary.name = "front";
-
-		float levelZDimension = (maxZ + 1)- (minZ - 1);
-
-		frontBoundary.transform.localScale = new Vector3(1,maxHeight * 2,levelZDimension);	
-		frontBoundary.transform.position = new Vector3(maxX + 1, maxHeight, 0);
+		frontBoundary.transform.localScale = new Vector3(1,levelYDimension * 2,levelZDimension);	
+		frontBoundary.transform.position = new Vector3(maxX + 1,  minY + centerY, centerZ + minZ);
 
 		GameObject backBoundary = createBoundaryBox();
 		backBoundary.name = "back";
 		backBoundary.transform.localScale = frontBoundary.transform.localScale;		
-		backBoundary.transform.position = new Vector3(minX - 1, maxHeight, 0);
+		backBoundary.transform.position = new Vector3(minX - 1,  minY + centerY, centerZ + minZ);
 
 		// Y Boundaries
 		GameObject topBoundary = createBoundaryBox();
 		topBoundary.name = "top";
 		topBoundary.transform.localScale = new Vector3(levelXDimension, 1, levelZDimension);		
-		topBoundary.transform.position = new Vector3(0, maxHeight * 2, 0);	
+		topBoundary.transform.position = new Vector3(minX + centerX, (minY + centerY)*2, minZ + centerZ);	
 
 		GameObject bottomBoundary = createBoundaryBox();
 		bottomBoundary.name = "bottom";
 		bottomBoundary.transform.localScale = topBoundary.transform.localScale;		
-		bottomBoundary.transform.position = new Vector3(0,-1,0);
+		bottomBoundary.transform.position = new Vector3(minX + centerX, minY - 1, minZ + centerZ);
 
 		PlayerReload reload = player.GetComponent<PlayerReload>();
 		reload.setPlayerInitialPos(currentStage.playerPosition);
@@ -232,9 +238,14 @@ public class BoardManager : MonoBehaviour {
 		int size = sceneObjects.transform.GetChildCount();
 		
 		Stage stage = new Stage();
+
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		stage.playerPosition = player.transform.position;
+		stage.playerType     = player.name;
+
 		stage.board = new StageCell[size];
 
-		for (int i=1; i< sceneObjects.transform.GetChildCount(); i++)
+		for (int i=0; i< sceneObjects.transform.GetChildCount(); i++)
 		{
 			Transform item = sceneObjects.transform.GetChild(i);
 			
