@@ -6,6 +6,8 @@ public class PlayerReload : MonoBehaviour {
 
 
 	private Vector3 playerInitialPos = new Vector3(2,2,2);
+	private GameObject collider;
+
 	// Use this for initialization
 	void Start () {
 
@@ -18,13 +20,16 @@ public class PlayerReload : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col)
     {
-        if(col.gameObject.name.Contains("bottom"))
+        if(col.gameObject == this.collider)
         {
-			//GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
 			transform.position = this.playerInitialPos;
-			// player.transform.position = this.playerInitialPos;
         }
     }
+
+	public void setCollider(GameObject collider)
+	{
+		this.collider = collider;
+	}
 
 	public void setPlayerInitialPos(Vector3 pos)
 	{

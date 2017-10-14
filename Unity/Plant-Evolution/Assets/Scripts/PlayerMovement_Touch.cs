@@ -86,7 +86,6 @@ public class PlayerMovement_Touch : MonoBehaviour {
 
 		if (movementStarted && body)
 		{
-			Debug.Log(movement + " " + Speed);
 			// body.AddForce(movement,ForceMode.Impulse);
 			body.transform.position += movement;
 			Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);

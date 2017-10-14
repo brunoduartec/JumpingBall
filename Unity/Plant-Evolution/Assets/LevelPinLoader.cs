@@ -8,11 +8,9 @@ using TouchScript.Gestures;
 public class LevelPinLoader : MonoBehaviour {
 
 	// Use this for initialization
-	 private Collider coll;
 	 public string levelToLoad;
 	
 	void Start () {
-		coll = GetComponent<Collider>();
 		SceneManager.sceneLoaded += openNewScene;
 	}
 
