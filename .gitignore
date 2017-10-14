@@ -8,3 +8,4 @@ $PROJDIR/Temp/
  *.user
  *.userprefs
  *.DS_store
+ *.log
