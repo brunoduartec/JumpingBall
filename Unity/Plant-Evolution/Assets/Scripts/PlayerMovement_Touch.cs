@@ -138,7 +138,7 @@ public class PlayerMovement_Touch : MonoBehaviour {
 			{
 				playerMoviment = MOVIMENT.IDLE;
 			}
-			if (!isGrounded && body.velocity.y < 0 && directionJump){
+			if (isGrounded && body.velocity.y < 0 && directionJump){
 				Vector3 directionJumpForce = direction * 2;
 				body.AddForce(directionJumpForce,ForceMode.Impulse);
 				directionJump = false;

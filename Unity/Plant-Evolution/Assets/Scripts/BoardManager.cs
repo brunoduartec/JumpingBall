@@ -154,44 +154,44 @@ public class BoardManager : MonoBehaviour {
 
 		leftBoundary.name = "left";
 
-		float centerX = maxX - minX;
-		float centerY = maxY - minY;
-		float centerZ = maxZ - minZ;
+		float centerX = minX + (maxX - minX)/2;
+		float centerY = minY + (maxY - minY)/2;
+		float centerZ = minZ + (maxZ - minZ)/2;
 
 		float levelXDimension = Math.Abs( ( (maxX) + 1) - ( (minX) - 1) );
 		float levelYDimension = Math.Abs( ( (maxY) + 1) - ( (minY) - 1));
 		float levelZDimension = Math.Abs( ( (maxZ) + 1) - ( (minZ) - 1));
 
 		leftBoundary.transform.localScale = new Vector3(levelXDimension, levelYDimension *  2, 1);		
-		leftBoundary.transform.position   = new Vector3(minX + centerX, minY + centerY, minZ -1);
+		leftBoundary.transform.position   = new Vector3(centerX, centerY, minZ -1);
 
 		GameObject rightBoundary = createBoundaryBox();
 		rightBoundary.name = "right";
 		rightBoundary.transform.localScale = leftBoundary.transform.localScale;
-		rightBoundary.transform.position   = new Vector3(minX + centerX, minY + centerY, maxZ + 1);
+		rightBoundary.transform.position   = new Vector3(centerX, centerY, maxZ + 1);
 
 		// X Boundaries
 
 		GameObject frontBoundary = createBoundaryBox();
 		frontBoundary.name = "front";
 		frontBoundary.transform.localScale = new Vector3(1,levelYDimension * 2,levelZDimension);	
-		frontBoundary.transform.position = new Vector3(maxX + 1,  minY + centerY, centerZ + minZ);
+		frontBoundary.transform.position = new Vector3(maxX + 1,  centerY, centerZ);
 
 		GameObject backBoundary = createBoundaryBox();
 		backBoundary.name = "back";
 		backBoundary.transform.localScale = frontBoundary.transform.localScale;		
-		backBoundary.transform.position = new Vector3(minX - 1,  minY + centerY, centerZ + minZ);
+		backBoundary.transform.position = new Vector3(minX - 1,  centerY, centerZ);
 
 		// Y Boundaries
 		GameObject topBoundary = createBoundaryBox();
 		topBoundary.name = "top";
 		topBoundary.transform.localScale = new Vector3(levelXDimension, 1, levelZDimension);		
-		topBoundary.transform.position = new Vector3(minX + centerX, (minY + centerY)*2, minZ + centerZ);	
+		topBoundary.transform.position = new Vector3(centerX, centerY + levelYDimension, centerZ);	
 
 		GameObject bottomBoundary = createBoundaryBox();
 		bottomBoundary.name = "bottom";
 		bottomBoundary.transform.localScale = topBoundary.transform.localScale;		
-		bottomBoundary.transform.position = new Vector3(minX + centerX, minY - 1, minZ + centerZ);
+		bottomBoundary.transform.position = new Vector3(centerX, minY - 1, centerZ);
 
 		PlayerReload reload = player.GetComponent<PlayerReload>();
 		reload.setPlayerInitialPos(currentStage.playerPosition);
