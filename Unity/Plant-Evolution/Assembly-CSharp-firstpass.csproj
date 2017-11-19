@@ -139,6 +139,8 @@
      <Compile Include="Assets\Plugins\TouchScript\Scripts\Utils\TouchUtils.cs" />
      <Compile Include="Assets\Plugins\TouchScript\Scripts\Utils\TransformUtils.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
+     <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
+     <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />
      <None Include="Assets\Plugins\TouchScript\license.txt" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugMultiplyDepthTest.shader" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugNoDepthTest.shader" />

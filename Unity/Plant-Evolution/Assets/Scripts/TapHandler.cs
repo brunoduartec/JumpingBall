@@ -8,19 +8,27 @@ public class TapHandler : MonoBehaviour {
 
 	// Use this for initialization
 
-	void OnEnable()
+	private TapGesture gesture;
+
+	private Rigidbody body;
+
+	private void OnEnable()
 	{
-		 GetComponent<TapGesture>().Tapped += tappedHandler;
-	}
-	void OnDisable()
-	{
-		// don't forget to unsubscribe
-		GetComponent<TapGesture>().Tapped -= tappedHandler;
+		body    = GetComponent<Rigidbody>();
+		gesture = GetComponent<TapGesture>();
+		
+		gesture.Tapped += tappedHandler;
 	}
 
-    private void tappedHandler(object sender, EventArgs e)
-    {
-    }
+	private void OnDisable()
+	{
+		gesture.Tapped -= tappedHandler;
+	}
+
+ 	private void tappedHandler(object sender, System.EventArgs e)
+	{		
+		body.AddForce(new Vector3(0,10,0), ForceMode.Impulse);	
+	}
 
     void Start () {
 	}
