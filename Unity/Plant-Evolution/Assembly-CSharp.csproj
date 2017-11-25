@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Managers\BoardManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\LevelPinLoader.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\LevelPosition.cs" />
+     <Compile Include="Assets\Scripts\Managers\LevelManager\LevelsManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\LoadNextStage.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\Stage.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager\StageCell.cs" />
@@ -84,6 +85,7 @@
      <Compile Include="Assets\Scripts\UI\Buttton_Start.cs" />
      <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
      <Compile Include="Assets\Scripts\UI\MenuControl.cs" />
+     <Compile Include="Assets\Scripts\WorldMovimentHandler.cs" />
      <None Include="Assets\Plugins\TouchScript\Shaders\DebugDepthTest.shader" />
      <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
      <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />

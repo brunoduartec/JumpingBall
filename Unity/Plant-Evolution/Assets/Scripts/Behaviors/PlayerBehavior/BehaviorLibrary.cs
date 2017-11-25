@@ -11,7 +11,8 @@ namespace Scripts.Behaviours
 
         public BehaviourLibrary()
         {
-            behaviourLibrary.Add("Jump", new WalkPlayerBehaviour());
+            behaviourLibrary.Add("Jump", new JumpPlayerBehaviour());
+            behaviourLibrary.Add("Walk", new WalkPlayerBehaviour());
         }
 
         public IPlayerBehaviour getBehaviorByName(String behaviorName)

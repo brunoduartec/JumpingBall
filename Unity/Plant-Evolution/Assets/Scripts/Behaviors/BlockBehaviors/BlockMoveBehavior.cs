@@ -5,7 +5,8 @@ using UnityEngine;
 public class BlockMoveBehavior : MonoBehaviour {
 
     private Rigidbody body;
-    public float intensity = 0.5f;
+    public float intensity = 1;
+    public float pushPower = 2.0F;
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody>();
@@ -16,13 +17,17 @@ public class BlockMoveBehavior : MonoBehaviour {
 		
 	}
 
-	 public float pushPower = 2.0F;
+	 
      void OnCollisionEnter (Collision col){
-        
-         if (col.collider.tag.Equals("Player") && col.relativeVelocity.y ==0 )
+         var contact = col.contacts[0];
+
+
+
+         if (col.collider.tag.Equals("Player") && Mathf.Abs(contact.normal.y) < Mathf.Epsilon )
          {
-            Vector3 direction = col.impulse.normalized;
-            body.transform.position -= direction * intensity;
+            Vector3 direction = col.contacts[0].normal;//col.impulse.normalized;
+            body.transform.position += direction * intensity;
+            //body.AddForce(-direction * intensity);
          }
 
      }

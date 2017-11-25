@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution.CSharp", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution.CSharp.Editor.Plugins", "Plant-Evolution.CSharp.Editor.Plugins.csproj", "{F4E05B67-9F64-997C-683A-466FF2A3EBE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant-Evolution.CSharp.Editor", "Plant-Evolution.CSharp.Editor.csproj", "{C7A29EC0-DB00-953E-BE8B-AF0B435A0733}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{F4E05B67-9F64-997C-683A-466FF2A3EBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4E05B67-9F64-997C-683A-466FF2A3EBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4E05B67-9F64-997C-683A-466FF2A3EBE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A29EC0-DB00-953E-BE8B-AF0B435A0733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A29EC0-DB00-953E-BE8B-AF0B435A0733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A29EC0-DB00-953E-BE8B-AF0B435A0733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A29EC0-DB00-953E-BE8B-AF0B435A0733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

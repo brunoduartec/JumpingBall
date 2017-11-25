@@ -215,17 +215,15 @@ public class BoardManager : MonoBehaviour {
 	public void loadNextLevel()
 	{
 		var children = new List<GameObject>();
-        var boundariesList = new List<GameObject>();
 
 		GameObject blocks = GameObject.FindGameObjectWithTag("blocks");
 
-        foreach (Transform child in boundariesGroup.transform)
-            boundariesList.Add(child.gameObject);
+        foreach (GameObject child in boundariesGroup.transform)
+            Destroy(child);
         
         foreach (Transform child in blocks.transform) 
 			children.Add(child.gameObject);
 
-        StartCoroutine(destroyObjectList(boundariesList, 0));
 		StartCoroutine(destroyObjectList(children, 0));
 	}
 
