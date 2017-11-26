@@ -8,15 +8,13 @@ namespace Scripts.Behaviours
         public float jumpSpeed = 10;
         public override void handler(object sender, EventArgs e)
         {
-            
-   //         body.AddForce(new Vector3(0, jumpSpeed, 0), ForceMode.Impulse);
- //           isGrounded = false;
-//            directionJump = true;
+            Rigidbody body = Player.playerBody;
+            body.AddForce(new Vector3(0, playerInfo.jumpSpeed, 0), ForceMode.Impulse);
         }
 
         public JumpPlayerBehaviour() 
         {
-            this.behaviorGestureType = GESTURETYPE.TAP;
+            this.behaviorGestureType = GESTURETYPE.DOUBLETAP;
         }
 
     }
