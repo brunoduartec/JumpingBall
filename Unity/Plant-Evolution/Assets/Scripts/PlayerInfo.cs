@@ -6,27 +6,13 @@ using System.Collections.Generic;
 /// <summary>
 /// This will be used in the future to persistency
 /// </summary>
-public class PlayerInfo
+public class PlayerInfo : MonoBehaviour
 {
-    public int energy
-    {
-        get;
-        set;
-    }
+    public int energy;
+    public int speed;
+    public int jumpSpeed;
 
-    public int speed
-    {
-        get;
-        set;
-    }
-
-    public int jumpSpeed
-    {
-        get;
-        set;
-    }
-
-    private List<String> currentBehaviors = new List<String>();
+    public List<String> currentBehaviors = new List<String>();
 
     public List<String> getCurrentBehaviors()
     {

@@ -218,8 +218,8 @@ public class BoardManager : MonoBehaviour {
 
 		GameObject blocks = GameObject.FindGameObjectWithTag("blocks");
 
-        foreach (GameObject child in boundariesGroup.transform)
-            Destroy(child);
+        foreach (Transform child in boundariesGroup.transform)
+            Destroy(child.gameObject);
         
         foreach (Transform child in blocks.transform) 
 			children.Add(child.gameObject);

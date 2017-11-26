@@ -20,7 +20,7 @@ namespace Scripts.Behaviours
 
         public override void handler(object sender, System.EventArgs e)
         {
-            Rigidbody body = Player.playerBody;
+            Rigidbody body = Player.getPlayer();
             ScreenTransformGesture gesture = (ScreenTransformGesture)sender;
 
             Vector3 currentSwipe = gesture.DeltaPosition;
@@ -47,21 +47,9 @@ namespace Scripts.Behaviours
             direction = new Vector3(swipeDirection.x, 0, swipeDirection.y);
             Vector3 movement = direction * playerInfo.speed;
 
-
-           // if (playerMoviment == MOVIMENT.IDLE)
-           // {
-            //    movementStarted = true;
-             //   playerMoviment = MOVIMENT.MOVING;
-           // }
-
-           // if (movementStarted && body)
-            {
-                body.AddForce(movement, ForceMode.Impulse);
-                //body.transform.position += movement;
-                Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-                body.transform.rotation = rotation;
-           //     movementStarted = false;
-            }
+            body.AddForce(movement, ForceMode.Impulse);
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            body.transform.rotation = rotation;
         }
 
         public WalkPlayerBehaviour()

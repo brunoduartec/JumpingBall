@@ -6,17 +6,16 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 
-    private PlayerInfo playerInfo = new PlayerInfo();
+    public PlayerInfo playerInfo;
     private BehaviourLibrary behaviorLibrary = new BehaviourLibrary();
 
     public ScreenTransformGesture transformGesture;
     public TapGesture tapGesture;
     public TapGesture doubleTapGesture;
 
-    public static Rigidbody playerBody = null;
+    private static Rigidbody playerBody;
 
-    
-    private static void setPlayer()
+    public static Rigidbody getPlayer()
     {
         if (playerBody == null)
         {
@@ -28,12 +27,13 @@ public class Player : MonoBehaviour {
                 playerBody = player.GetComponent<Rigidbody>();
             }
         }
+
+        return playerBody;
     }
 
 
     void Start()
     {
-        setPlayer();
         initBehaviors();
     }
 
@@ -55,16 +55,24 @@ public class Player : MonoBehaviour {
 
             if (gestureType == IPlayerBehaviour.GESTURETYPE.DOUBLETAP)
             {
-                doubleTapGesture.Tapped += behavior.handler;
+                if (doubleTapGesture != null)
+                {
+                    doubleTapGesture.Tapped += behavior.handler;
+                }
             }
             else if (gestureType == IPlayerBehaviour.GESTURETYPE.TAP)
             {
-                tapGesture.Tapped += behavior.handler;
+                if (tapGesture != null)
+                {
+                    tapGesture.Tapped += behavior.handler;
+                }
             }
             else if (gestureType == IPlayerBehaviour.GESTURETYPE.TRANSFORM)
             {
-                //transformGesture.Transformed += behavior.handler;
-                transformGesture.TransformCompleted += behavior.handler;
+                if (transformGesture != null)
+                {
+                    transformGesture.TransformCompleted += behavior.handler;
+                }
             }
         }
     }

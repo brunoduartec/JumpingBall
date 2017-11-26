@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.5.4p4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -119,13 +117,11 @@
     <Compile Include="Assets\Scripts\Managers\LevelManager\Stage.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager\StageCell.cs" />
     <Compile Include="Assets\Scripts\Managers\QuoteManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement_Touch.cs" />
+    <Compile Include="Assets\Scripts\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\Services\CoinManager.cs" />
     <Compile Include="Assets\Scripts\Services\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Services\SoundManager.cs" />
-    <Compile Include="Assets\Scripts\TapHandler.cs" />
     <Compile Include="Assets\Scripts\UI\Buttton_Start.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
     <Compile Include="Assets\Scripts\UI\MenuControl.cs" />
