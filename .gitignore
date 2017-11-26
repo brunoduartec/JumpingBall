@@ -1,7 +1,8 @@
 $PROJDIR/Temp/
  $PROJDIR/Library/
  $PROJDIR/Obj/
- 
+ $PROJDIR/Temp/
+
  *.csproj
  *.unityproj
  *.sln
