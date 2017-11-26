@@ -6,6 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// This will be used in the future to persistency
 /// </summary>
+/// 
 public class PlayerInfo : MonoBehaviour
 {
     public int energy;
